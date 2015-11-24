@@ -1,0 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id="nav-wrap">
+    <c:if test="${!isLogged}">
+        <button class="login" onclick="popup()">Login</button>
+    </c:if>
+    <form action="${pageContext.servletContext.contextPath}/Controller">
+        <input type="text" name="command" value="login" hidden>
+        <input type="text" name="commandAux" value="steam" hidden>
+        <input type="text" name="loginSteam" placeholder="Usuario Steam">
+        <input type="submit" value="OK">
+    </form>
+</div> 
