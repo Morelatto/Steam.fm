@@ -16,11 +16,11 @@ public class LoginJSONParser {
     private static final String url = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/";
 
     public static String getSteamID(String username) {
-//        JsonObject mainObj = URLGetter.getContent(url + "?key=" + apikey + "&vanityurl=" + username);
-        JsonObject mainObj = FileTest.getContent("C:\\Temp\\SteamFM\\SteamFM-master\\SteamFM-master\\SteamFM\\user.html");
+        JsonObject mainObj = URLGetter.getContent(url + "?key=" + apikey + "&vanityurl=" + username);
+//        JsonObject mainObj = FileTest.getContent("C:\\Temp\\SteamFM\\SteamFM\\user.html");
         JsonObject response = mainObj.getJsonObject("response");
 
-        return response.getInt("success") == 1 ? response.getString("steamid") : "-1";
+        return response.getInt("success") != 1 || (response.containsKey("message") && "No match".equals(response.getString("message"))) ? null : response.getString("steamid");
     }
 
 }

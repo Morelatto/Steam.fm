@@ -111,7 +111,7 @@
         <div class="coverflow-list">
             <!-- Cover item -->
             <c:set var="j" value="0"></c:set>
-            <c:forEach items="${jogo.getRecomendacoes()}" var="recomendacao">
+            <c:forEach items="${jogo.getListaRecomendacao()}" var="recomendacao">
             <c:set var="j" value="${j+1}"></c:set>
             <input type="radio" name="cover-item" id="cover-${j}">
             <li class="coverflow-item">

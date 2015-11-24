@@ -1,6 +1,9 @@
 package com.br.lp3.entities;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -8,10 +11,15 @@ import java.util.List;
  * @author Lucas Gianfrancesco - 3147173-0
  * @author Pedro Morelatto - 3142463-5
  */
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Jogo")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class Jogo {
 
     private int steamID;
     private String nome;
+    @XmlElement(name = "Genero")
     private List<String> listaGeneroJogo;
     private List<Object> listaRecomendacao;
 

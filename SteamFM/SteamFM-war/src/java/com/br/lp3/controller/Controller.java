@@ -14,6 +14,7 @@ import com.br.lp3.entities.Relacao;
 import com.br.lp3.entities.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -63,7 +64,7 @@ public class Controller extends HttpServlet {
         session = request.getSession();
         steamID = (String) session.getAttribute("steamID");
         userSteam = (String) session.getAttribute("userSteam");
-        send = "-1".equals(steamID);
+        send = "-1".equals(steamID) || "".equals(steamID);
 
         if (command != null) {
             switch (command) {
@@ -73,48 +74,59 @@ public class Controller extends HttpServlet {
                             Usuario usuario = loginManager.authorize(request.getParameter("loginSistema"), request.getParameter("senhaSistema"));
                             if (usuario != null) {
                                 session.setAttribute("user", usuario);
+                                if(usuario.getUsuarioSteam()==null){
+                                    session.setAttribute("admin", true);
+                                }
                                 response.sendRedirect("home.jsp");
                             } else {
+                                session.setAttribute("usuarioInvalido", "sistema");
                                 response.sendRedirect("index.jsp");
                             }
                             break;
                         case "steam":
                             userSteam = request.getParameter("loginSteam");
-                            steamID = loginManager.getAnonSteamID(userSteam);
-                            session.setAttribute("userSteam", userSteam.toUpperCase());
-                            session.setAttribute("steamID", steamID);
-                            send = "-1".equals(steamID);
-                            response.sendRedirect(send ? "index.jsp" : "home.jsp");
-                            break;
-                        case "steamID":
-                            steamID = (String) request.getParameter("loginSteamID");
-                            session.setAttribute("steamID", steamID);
-                            response.sendRedirect(send ? "index.jsp" : "home.jsp");
+                            if (!"true".equals(request.getParameter("steamID"))) {
+                                steamID = loginManager.getAnonSteamID(userSteam);
+                                if (steamID == null) {
+                                    session.setAttribute("usuarioInvalido", "steam");
+                                    response.sendRedirect("index.jsp");
+                                } else {
+                                    session.setAttribute("userSteam", userSteam.toUpperCase());
+                                    session.setAttribute("steamID", steamID);
+                                    response.sendRedirect("home.jsp");
+                                }
+                            } else {
+                                session.setAttribute("steamID", userSteam);
+                                response.sendRedirect("home.jsp");
+                            }
                             break;
                     }
                     break;
-                case "generosJogos":
+                case "recomendacao":
                     List<GeneroJogo> listaGenerosJogos = generoJogoManager.getListaGenerosByUser(steamID);
                     List<Jogo> listaJogos = jogoManager.getJogosByUser(steamID);
                     List<Relacao> listaRelacao = relacaoManager.getListaRelacao(listaGenerosJogos);
-                    for (Jogo jogo : listaJogos) {
+                    for (Iterator<Jogo> it = listaJogos.iterator(); it.hasNext();) {
+                        Jogo jogo = it.next();
                         List<GeneroJogo> listaGeneroJogos_JogoObj = generoJogoManager.getListaGenerosByGeneroName(jogo.getListaGeneroJogo());
+                        if (listaGeneroJogos_JogoObj.isEmpty()) {
+                            it.remove();
+                            continue;
+                        }
                         List<Musica> listaRelacaoMusica = new ArrayList<>();
                         List<Artista> listaRelacaoArtista = new ArrayList<>();
                         List<Album> listaRelacaoAlbum = new ArrayList<>();
-                        for (GeneroJogo generoJogo : listaGeneroJogos_JogoObj) {
-                            for (Relacao relacao : listaRelacao) {
-                                if (Objects.equals(relacao.getIdGeneroJogo().getIdGeneroJogo(), generoJogo.getIdGeneroJogo())) {
-                                    if (relacao.getIdMusica() != null) {
-                                        listaRelacaoMusica.add(relacao.getIdMusica());
-                                    } else if (relacao.getIdArtista() != null) {
-                                        listaRelacaoArtista.add(relacao.getIdArtista());
-                                    } else {
-                                        listaRelacaoAlbum.add(relacao.getIdAlbum());
-                                    }
+                        listaGeneroJogos_JogoObj.stream().forEach((GeneroJogo generoJogo) -> {
+                            listaRelacao.stream().filter((Relacao relacao) -> Objects.equals(relacao.getIdGeneroJogo().getIdGeneroJogo(), generoJogo.getIdGeneroJogo())).forEach((relacao) -> {
+                                if (relacao.getIdMusica() != null) {
+                                    listaRelacaoMusica.add(relacao.getIdMusica());
+                                } else if (relacao.getIdArtista() != null) {
+                                    listaRelacaoArtista.add(relacao.getIdArtista());
+                                } else {
+                                    listaRelacaoAlbum.add(relacao.getIdAlbum());
                                 }
-                            }
-                        }
+                            });
+                        });
                         List<Object> recomendacoes = new ArrayList<>();
                         recomendacoes.addAll(recomendacaoManager.getMusicaRecomendacao(listaRelacaoMusica));
                         recomendacoes.addAll(recomendacaoManager.getArtistaRecomendacao(listaRelacaoArtista));
@@ -123,7 +135,11 @@ public class Controller extends HttpServlet {
                     }
                     session.setAttribute("listaJogos", listaJogos);
                     session.setAttribute("listaRelacao", listaRelacao);
-                    response.sendRedirect("Teste/index.jsp");
+                    response.sendRedirect("recomendacao.jsp");
+                    break;
+                case "logout":
+                    session.invalidate();
+                    response.sendRedirect("index.jsp");
                     break;
             }
         }

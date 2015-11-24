@@ -40,8 +40,8 @@ public class GeneroJogoJSONParser {
         List<String> listaGeneroJogos = new ArrayList<>();
         try {
             URL address = new URL("http://store.steampowered.com/app/" + game + "/?l=brazilian");
-            BufferedReader in = FileTest.getPageBR("C:\\Temp\\SteamFM\\SteamFM-master\\SteamFM-master\\SteamFM\\dmc.html");
-//            BufferedReader in = new BufferedReader(new InputStreamReader(address.openStream(), "UTF-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(address.openStream(), "UTF-8"));
+//            BufferedReader in = FileTest.getPageBR("C:\\Temp\\SteamFM\\SteamFM\\dmc.html");
             String inputLine;
             boolean find = false;
             while ((inputLine = in.readLine()) != null) {

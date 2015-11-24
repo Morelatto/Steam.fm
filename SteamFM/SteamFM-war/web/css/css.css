@@ -1,12 +1,14 @@
-.album-name{
+html,
+body {
+    background: #111111;
     font-family: Helvetica, sans-serif;
-    font-size: 10px;
-    max-width: 150px;
+    font-size: 12px;
 }
-.main-container-album {
-    margin: 30px auto 0 auto;
+.main-container {
+    margin: 4em auto 0 auto;
+    width: 650px;
 }
-.main-container-album .controls {
+.main-container .controls {
     margin: 0 auto;
     padding: 2em 0 0 0;
     text-align: center;
@@ -65,7 +67,7 @@ label:hover {
 }
 .coverflow-list .coverflow-item {
     -webkit-transition: all 0.4s ease;
-    background: #212121;
+    background: #222;
     -webkit-transform: rotateY(45deg);
 }
 input[type="radio"] {

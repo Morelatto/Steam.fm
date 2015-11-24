@@ -27,14 +27,16 @@ public class MusicaJSONParser {
             JsonObject similartracks = mainObj.getJsonObject("similartracks");
             JsonArray tracks = similartracks.getJsonArray("track");
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 JsonObject recTrack = (JsonObject) tracks.get(ThreadLocalRandom.current().nextInt(0, tracks.size()));
                 String mbid = recTrack.getString("mbid", "");
+                String url2 = recTrack.getString("url", "");
                 if ("".equals(mbid)) {
                     i--;
                 } else {
                     Musica recMusica = new Musica();
                     recMusica.setIdMusicaLastfm(mbid);
+                    recMusica.setUrl(url2);
                     recMusica.setTituloMusica(recTrack.getString("name", ""));
                     recMusica.setImagem(recTrack.containsKey("image") ? (recTrack.getJsonArray("image").size() == 6 ? recTrack.getJsonArray("image").getJsonObject(4).getString("#text", "") : recTrack.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
                     recMusica.setDescricao(recTrack.containsValue("wiki") ? recTrack.getJsonObject("wiki").getString("summary", "") : "");

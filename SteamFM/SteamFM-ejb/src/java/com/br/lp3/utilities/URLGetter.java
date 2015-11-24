@@ -26,9 +26,9 @@ public class URLGetter {
     public static JsonObject getContent(String uri) {
         try {
 
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("172.16.0.10", 3128));
-            HttpURLConnection httpcon = (HttpURLConnection) new URL(uri).openConnection(proxy);
-//            HttpURLConnection httpcon = (HttpURLConnection) new URL(uri).openConnection();
+//            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("172.16.0.10", 3128));
+//            HttpURLConnection httpcon = (HttpURLConnection) new URL(uri).openConnection(proxy);
+            HttpURLConnection httpcon = (HttpURLConnection) new URL(uri).openConnection();
 
             StringBuilder sb;
             try (BufferedReader br = new BufferedReader(new InputStreamReader(httpcon.getInputStream(), "UTF-8"))) {

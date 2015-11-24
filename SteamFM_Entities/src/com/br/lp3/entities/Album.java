@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.br.lp3.entities;
 
 import java.io.Serializable;
@@ -22,10 +17,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 31424635
+ * @author Leandro Meneguzzi - 3144893-3
+ * @author Lucas Gianfrancesco - 3147173-0
+ * @author Pedro Morelatto - 3142463-5
  */
 @Entity
-@Table(name = "ALBUM")
+@Table(name = "ALBUM", schema = "STEAMFM")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a"),
@@ -53,6 +50,15 @@ public class Album implements Serializable {
     private String descricao;
     @OneToMany(mappedBy = "idAlbum")
     private Collection<Relacao> relacaoCollection;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Album() {
     }
@@ -139,6 +145,10 @@ public class Album implements Serializable {
     @Override
     public String toString() {
         return "com.br.lp3.entities.Album[ idAlbum=" + idAlbum + " ]";
+    }
+    
+    public String getNome(){
+        return tituloAlbum;
     }
     
 }

@@ -28,14 +28,16 @@ public class ArtistaJSONParser {
             JsonObject similarartists = mainObj.getJsonObject("similarartists");
             JsonArray artists = similarartists.getJsonArray("artist");
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 5; i++) {
                 JsonObject recArtist = (JsonObject) artists.get(ThreadLocalRandom.current().nextInt(0, artists.size()));
                 String mbid = recArtist.getString("mbid", "");
+                String url = recArtist.getString("url", "");
                 if ("".equals(mbid)) {
                     i--;
                 } else {
                     Artista recArtista = new Artista();
                     recArtista.setIdArtistaLastfm(mbid);
+                    recArtista.setIdArtistaLastfm(url);
                     recArtista.setNomeArtista(recArtist.getString("name", ""));
                     recArtista.setImagem(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist.getJsonArray("image").getJsonObject(4).getString("#text", "") : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
                     recArtista.setDescricao(recArtist.containsValue("wiki") ? recArtist.getJsonObject("wiki").getString("summary", "") : "");

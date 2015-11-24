@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.br.lp3.entities;
 
 import java.io.Serializable;
@@ -22,10 +17,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 31424635
+ * @author Leandro Meneguzzi - 3144893-3
+ * @author Lucas Gianfrancesco - 3147173-0
+ * @author Pedro Morelatto - 3142463-5
  */
 @Entity
-@Table(name = "ARTISTA")
+@Table(name = "ARTISTA", schema = "STEAMFM")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artista.findAll", query = "SELECT a FROM Artista a"),
@@ -35,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artista.findByImagem", query = "SELECT a FROM Artista a WHERE a.imagem = :imagem"),
     @NamedQuery(name = "Artista.findByDescricao", query = "SELECT a FROM Artista a WHERE a.descricao = :descricao")})
 public class Artista implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +51,7 @@ public class Artista implements Serializable {
     private String descricao;
     @OneToMany(mappedBy = "idArtista")
     private Collection<Relacao> relacaoCollection;
+    private String url;
 
     public Artista() {
     }
@@ -65,6 +64,14 @@ public class Artista implements Serializable {
         this.idArtista = idArtista;
         this.nomeArtista = nomeArtista;
         this.idArtistaLastfm = idArtistaLastfm;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Integer getIdArtista() {
@@ -140,5 +147,8 @@ public class Artista implements Serializable {
     public String toString() {
         return "com.br.lp3.entities.Artista[ idArtista=" + idArtista + " ]";
     }
-    
+
+    public String getNome() {
+        return nomeArtista;
+    }
 }

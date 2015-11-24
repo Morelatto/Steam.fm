@@ -22,8 +22,8 @@ public class JogoJSONParser {
 
     public static List<Jogo> getJogosByUser(String username) {
         List<Jogo> listaJogos = new ArrayList<>();
-//        JsonObject mainObj = URLGetter.getContent(url + "IPlayerService/GetOwnedGames/v0001/?include_appinfo=1&include_played_free_games=1&key=" + apikey + "&steamid=" + username);
-        JsonObject mainObj = FileTest.getContent("C:\\Temp\\SteamFM\\SteamFM-master\\SteamFM-master\\SteamFM\\jogos.html");
+        JsonObject mainObj = URLGetter.getContent(url + "IPlayerService/GetOwnedGames/v0001/?include_appinfo=1&include_played_free_games=1&key=" + apikey + "&steamid=" + username);
+//        JsonObject mainObj = FileTest.getContent("C:\\Temp\\SteamFM\\SteamFM\\jogos.html");
         
         JsonObject response = mainObj.getJsonObject("response");
         JsonArray games = response.getJsonArray("games");

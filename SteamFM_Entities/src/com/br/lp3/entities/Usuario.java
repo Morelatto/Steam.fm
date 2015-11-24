@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.br.lp3.entities;
 
 import java.io.Serializable;
@@ -19,10 +14,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 31424635
+ * @author Leandro Meneguzzi - 3144893-3
+ * @author Lucas Gianfrancesco - 3147173-0
+ * @author Pedro Morelatto - 3142463-5
  */
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "USUARIO", schema = "STEAMFM")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),

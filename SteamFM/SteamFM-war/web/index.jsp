@@ -3,38 +3,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Login</title>
+        <link href='http://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/logo.css">
+        <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
-        <%-- <c:redirect url="indexTeste.jsp"></c:redirect> --%>
-        Login Sistema
-        <form action="Controller">
-            <input type="text" name="command" value="login" hidden>
-            <input type="text" name="commandAux" value="sistema" hidden>
-            <input type="text" name="loginSistema" placeholder="loginSistema">
-            <input type="password" name="senhaSistema" placeholder="senhaSistema">
-            <input type="submit" value="OK">
-        </form>
-
-        <br>
-
-        Login Steam
-        <form action="Controller">
-            <input type="text" name="command" value="login" hidden>
-            <input type="text" name="commandAux" value="steam" hidden>
-            <input type="text" name="loginSteam" placeholder="loginSteam" autofocus value="martvico">
-            <input type="submit" value="OK">
-        </form>
-
-        <br>
-
-        Login Steam ID
-        <form action="Controller">
-            <input type="text" name="command" value="login" hidden>
-            <input type="text" name="commandAux" value="steamID" hidden>
-            <input type="text" name="loginSteamID" placeholder="loginSteamID">
-            <input type="submit" value="OK">
-        </form>
+        <c:if test="${usuarioInvalido == 'sistema'}"><script>alert('Usuário Inválido.');</script></c:if>
+        <c:if test="${usuarioInvalido == 'steam'}"><script>alert('Usuário Não Encontrado.\nBusque Pelo STEAMID.');</script></c:if>
+        <div style="width:800px; height:350px; left:50%; top:50%; position:absolute; margin-left:-400px; margin-top:-290px;">
+            <div class="board"><p id="error">steam</p><p id="code">fm</p></div>
+            <div style="position:relative; float:left;">
+                <form action="Controller">
+                    <h2><span class="entypo-login"></span> Sistema</h2>
+                    <button class="submit"><span class="entypo-lock"></span></button>
+                    <span class="entypo-user inputUserIcon iconevelho"></span>
+                    <input type="text" class="user uservelho" placeholder="login" name="loginSistema" required/>
+                    <span class="entypo-key inputPassIcon"></span>
+                    <input type="password" class="pass"placeholder="senha" name="senhaSistema" required/>
+                    <input type="text" name="command" value="login" style="visibility: hidden;">
+                    <input type="text" name="commandAux" value="sistema" style="visibility: hidden;">
+                </form>
+            </div>
+            <div style="position:relative; float:right;">
+                <form action="Controller">
+                    <h2><span class="entypo-login"></span> Steam</h2>
+                    <button class="submit" style="height:56px;"><span class="entypo-lock"></span></button>
+                    <span class="entypo-user inputUserIcon iconenovo"></span>
+                    <input type="checkbox" class="check" name="steamID" value="true" title="STEAMID">
+                    <input type="text" class="user usernovo"  style="" placeholder="usuário" name="loginSteam" required/>
+                    <input type="text" name="command" value="login" style="visibility: hidden;">
+                    <input type="text" name="commandAux" value="steam" style="visibility: hidden;">
+                </form>
+            </div>
+        </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="js/logo.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>

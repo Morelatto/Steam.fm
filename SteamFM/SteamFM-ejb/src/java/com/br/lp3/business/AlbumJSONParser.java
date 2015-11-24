@@ -39,11 +39,12 @@ public class AlbumJSONParser {
 
         JsonObject albums = mainObj.getJsonObject("albums");
         JsonArray album = albums.getJsonArray("album");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             JsonObject albumObj = album.getJsonObject(ThreadLocalRandom.current().nextInt(0, album.size()));
             if (!"".equals(albumObj.getString("mbid", ""))) {
                 Album albumRec = new Album();
                 albumRec.setIdAlbumLastfm(albumObj.getString("mbid"));
+                albumRec.setUrl(albumObj.getString("url"));
                 albumRec.setTituloAlbum(albumObj.getString("name"));
                 albumRec.setImagem(albumObj.containsKey("image") ? (albumObj.getJsonArray("image").size() == 6 ? albumObj.getJsonArray("image").getJsonObject(4).getString("#text", "") : albumObj.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
                 albumRec.setDescricao(albumObj.containsValue("wiki") ? albumObj.getJsonObject("wiki").getString("summary", "") : "");
