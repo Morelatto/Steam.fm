@@ -1,0 +1,68 @@
+header {
+    font-family: sans-serif;
+    position: fixed;
+    width: 100%;
+    height: 150px;
+    top: 0;
+    left: 0;
+    background-color: rgba(22, 22, 22, 0.9);
+    -webkit-transition: height 0.3s;
+    z-index: 1;
+}
+
+header .container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header h1 {
+    margin-top: 0;
+}
+
+header h1, header nav {
+    display: inline-block;
+    position: relative;
+    line-height: 150px;
+    -webkit-transition: all 0.3s;
+}
+
+header a {
+    text-decoration: none;
+    color: #ccc;
+}
+
+header nav {
+    float: right;
+    line-height: 150px;
+    font-size: 1.4em;
+}
+
+header nav a {
+    margin-left: 10px;
+}
+
+header nav a:hover {
+    border-top: 2px dotted white;
+    border-bottom: 2px dotted white;
+}
+
+header.minimized {
+    height: 80px;
+}
+
+header.minimized h1, header.minimized nav {
+    line-height: 60px;
+}
+
+header.minimized nav {
+    font-size: 1.2em;
+}
+
+header.minimized h1 {
+    font-size: 1.7em;
+}
+
+/*body{
+    background: url(http://4.bp.blogspot.com/-LQV4NPu9kd4/UPItmruV0tI/AAAAAAAAUec/JyAylV7pnJ0/s1600/san+diego+-+sunset+-+sunset+sunday.JPG);
+    height: 1000px;
+}*/
