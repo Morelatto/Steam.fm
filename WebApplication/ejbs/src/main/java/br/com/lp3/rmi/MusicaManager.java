@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Musica;
+import br.com.lp3.entities.Music;
 
 import javax.ejb.Stateless;
 import java.rmi.NotBoundException;
@@ -27,18 +27,18 @@ public class MusicaManager extends UnicastRemoteObject implements MusicaManagerL
     }
 
     @Override
-    public void create(Musica musica) {
-        servico.create(musica);
+    public void create(Music music) {
+        servico.create(music);
     }
 
     @Override
-    public List<Musica> read() {
-        return (List<Musica>) servico.read();
+    public List<Music> read() {
+        return (List<Music>) servico.read();
     }
 
     @Override
-    public void update(Musica musica) {
-        servico.update(musica);
+    public void update(Music music) {
+        servico.update(music);
     }
 
     @Override

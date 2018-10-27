@@ -4,8 +4,8 @@ import br.com.lp3.business.AlbumJSONParser;
 import br.com.lp3.business.ArtistaJSONParser;
 import br.com.lp3.business.MusicaJSONParser;
 import br.com.lp3.entities.Album;
-import br.com.lp3.entities.Artista;
-import br.com.lp3.entities.Musica;
+import br.com.lp3.entities.Artist;
+import br.com.lp3.entities.Music;
 
 import javax.ejb.Stateless;
 import java.rmi.RemoteException;
@@ -24,8 +24,8 @@ public class RecomendacaoManager extends UnicastRemoteObject implements Recomend
     }
 
     @Override
-    public List<Musica> getMusicaRecomendacao(List<Musica> musicas) {
-        return MusicaJSONParser.getMusicaRecomendacao(musicas);
+    public List<Music> getMusicaRecomendacao(List<Music> music) {
+        return MusicaJSONParser.getMusicaRecomendacao(music);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class RecomendacaoManager extends UnicastRemoteObject implements Recomend
     }
 
     @Override
-    public List<Artista> getArtistaRecomendacao(List<Artista> artistas) {
-        return ArtistaJSONParser.getArtistaRecomendacao(artistas);
+    public List<Artist> getArtistaRecomendacao(List<Artist> artists) {
+        return ArtistaJSONParser.getArtistaRecomendacao(artists);
     }
 
 

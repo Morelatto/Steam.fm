@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Usuario;
+import br.com.lp3.entities.User;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -14,11 +14,11 @@ import java.util.List;
 @Local
 public interface UsuarioManagerLocal extends Remote {
 
-    void create(Usuario usuario);
+    void create(User user);
 
-    List<Usuario> read();
+    List<User> read();
 
-    void update(Usuario usuario);
+    void update(User user);
 
     void delete(int id);
 

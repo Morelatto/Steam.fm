@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Usuario;
+import br.com.lp3.entities.User;
 
 import javax.ejb.Stateless;
 import java.rmi.NotBoundException;
@@ -27,18 +27,18 @@ public class UsuarioManager extends UnicastRemoteObject implements UsuarioManage
     }
 
     @Override
-    public void create(Usuario usuario) {
-        servico.create(usuario);
+    public void create(User user) {
+        servico.create(user);
     }
 
     @Override
-    public List<Usuario> read() {
-        return (List<Usuario>) servico.read();
+    public List<User> read() {
+        return (List<User>) servico.read();
     }
 
     @Override
-    public void update(Usuario usuario) {
-        servico.update(usuario);
+    public void update(User user) {
+        servico.update(user);
     }
 
     @Override

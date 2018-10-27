@@ -27,11 +27,11 @@ public class ControllerTeste extends HttpServlet {
     private UsuarioManagerLocal usuarioManager;
 
     private Album album;
-    private Artista artista;
-    private GeneroJogo generoJogo;
-    private Musica musica;
-    private Relacao relacao;
-    private Usuario usuario;
+    private Artist artist;
+    private GameGenre gameGenre;
+    private Music music;
+    private MusicReleaseAndGameMap musicReleaseAndGameMap;
+    private User user;
 
     private String command;
     private HttpSession session;
@@ -64,9 +64,9 @@ public class ControllerTeste extends HttpServlet {
             switch (command) {
                 case "albumC":
                     album = new Album();
-                    album.setIdAlbum(100);
-                    album.setIdAlbumLastfm("teste");
-                    album.setTituloAlbum("teste");
+                    album.setId(100);
+                    album.setLastFmId("teste");
+                    album.setTitle("teste");
                     albumManager.create(album);
                     break;
                 case "albumR":
@@ -75,151 +75,151 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "albumU":
                     album = new Album();
-                    album.setIdAlbum(16);
-                    album.setIdAlbumLastfm("teste2");
-                    album.setTituloAlbum("teste2");
+                    album.setId(16);
+                    album.setLastFmId("teste2");
+                    album.setTitle("teste2");
                     albumManager.update(album);
                     break;
                 case "albumD":
                     album = new Album();
-                    album.setIdAlbum(16);
-                    album.setIdAlbumLastfm("teste2");
-                    album.setTituloAlbum("teste2");
-                    albumManager.delete(album.getIdAlbum());
+                    album.setId(16);
+                    album.setLastFmId("teste2");
+                    album.setTitle("teste2");
+                    albumManager.delete(album.getId());
                     break;
                 case "artistaC":
-                    artista = new Artista();
-                    artista.setIdArtista(100);
-                    artista.setIdArtistaLastfm("teste");
-                    artista.setNomeArtista("teste");
-                    artistaManager.create(artista);
+                    artist = new Artist();
+                    artist.setId(100);
+                    artist.setLastFmId("teste");
+                    artist.setName("teste");
+                    artistaManager.create(artist);
                     break;
                 case "artistaR":
-                    List<Artista> listaArtistas = artistaManager.read();
-                    session.setAttribute("listaArtistas", listaArtistas);
+                    List<Artist> listaArtists = artistaManager.read();
+                    session.setAttribute("listaArtistas", listaArtists);
                     break;
                 case "artistaU":
-                    artista = new Artista();
-                    artista.setIdArtista(36);
-                    artista.setIdArtistaLastfm("teste2");
-                    artista.setNomeArtista("teste2");
-                    artistaManager.update(artista);
+                    artist = new Artist();
+                    artist.setId(36);
+                    artist.setLastFmId("teste2");
+                    artist.setName("teste2");
+                    artistaManager.update(artist);
                     break;
                 case "artistaD":
-                    artista = new Artista();
-                    artista.setIdArtista(36);
-                    artista.setIdArtistaLastfm("teste2");
-                    artista.setNomeArtista("teste2");
-                    artistaManager.delete(artista.getIdArtista());
+                    artist = new Artist();
+                    artist.setId(36);
+                    artist.setLastFmId("teste2");
+                    artist.setName("teste2");
+                    artistaManager.delete(artist.getId());
                     break;
                 case "generoJogoC":
-                    generoJogo = new GeneroJogo();
-                    generoJogo.setIdGeneroJogo(100);
-                    generoJogo.setNomeGenero("teste");
-                    generoJogoManager.create(generoJogo);
+                    gameGenre = new GameGenre();
+                    gameGenre.setId(100);
+                    gameGenre.setName("teste");
+                    generoJogoManager.create(gameGenre);
                     break;
                 case "generoJogoR":
-                    List<GeneroJogo> listaGenerosJogos = generoJogoManager.read();
+                    List<GameGenre> listaGenerosJogos = generoJogoManager.read();
                     session.setAttribute("listaGenerosJogos", listaGenerosJogos);
                     break;
                 case "generoJogoU":
-                    generoJogo = new GeneroJogo();
-                    generoJogo.setIdGeneroJogo(85);
-                    generoJogo.setNomeGenero("teste2");
-                    generoJogoManager.update(generoJogo);
+                    gameGenre = new GameGenre();
+                    gameGenre.setId(85);
+                    gameGenre.setName("teste2");
+                    generoJogoManager.update(gameGenre);
                     break;
                 case "generoJogoD":
-                    generoJogo = new GeneroJogo();
-                    generoJogo.setIdGeneroJogo(85);
-                    generoJogo.setNomeGenero("teste2");
-                    generoJogoManager.delete(generoJogo.getIdGeneroJogo());
+                    gameGenre = new GameGenre();
+                    gameGenre.setId(85);
+                    gameGenre.setName("teste2");
+                    generoJogoManager.delete(gameGenre.getId());
                     break;
                 case "musicaC":
-                    musica = new Musica();
-                    musica.setIdMusica(100);
-                    musica.setIdMusicaLastfm("teste");
-                    musica.setTituloMusica("teste");
-                    musicaManager.create(musica);
+                    music = new Music();
+                    music.setId(100);
+                    music.setLastFmId("teste");
+                    music.setTitle("teste");
+                    musicaManager.create(music);
                     break;
                 case "musicaR":
-                    List<Musica> listaMusicas = musicaManager.read();
-                    session.setAttribute("listaMusicas", listaMusicas);
+                    List<Music> listaMusics = musicaManager.read();
+                    session.setAttribute("listaMusicas", listaMusics);
                     break;
                 case "musicaU":
-                    musica = new Musica();
-                    musica.setIdMusica(40);
-                    musica.setIdMusicaLastfm("teste2");
-                    musica.setTituloMusica("teste2");
-                    musicaManager.update(musica);
+                    music = new Music();
+                    music.setId(40);
+                    music.setLastFmId("teste2");
+                    music.setTitle("teste2");
+                    musicaManager.update(music);
                     break;
                 case "musicaD":
-                    musica = new Musica();
-                    musica.setIdMusica(40);
-                    musica.setIdMusicaLastfm("teste2");
-                    musica.setTituloMusica("teste2");
-                    musicaManager.delete(musica.getIdMusica());
+                    music = new Music();
+                    music.setId(40);
+                    music.setLastFmId("teste2");
+                    music.setTitle("teste2");
+                    musicaManager.delete(music.getId());
                     break;
                 case "relacaoC":
-                    relacao = new Relacao();
-                    relacao.setIdRelacao(100);
-                    relacao.setIdAlbum(null);
-                    relacao.setIdArtista(null);
-                    relacao.setIdGeneroJogo(null);
-                    relacao.setIdMusica(null);
-                    relacaoManager.create(relacao);
+                    musicReleaseAndGameMap = new MusicReleaseAndGameMap();
+                    musicReleaseAndGameMap.setId(100);
+                    musicReleaseAndGameMap.setAlbumId(null);
+                    musicReleaseAndGameMap.setArtistId(null);
+                    musicReleaseAndGameMap.setGameGenreId(null);
+                    musicReleaseAndGameMap.setMusicId(null);
+                    relacaoManager.create(musicReleaseAndGameMap);
                     break;
                 case "relacaoR":
-                    List<Relacao> listaRelacoes = relacaoManager.read();
+                    List<MusicReleaseAndGameMap> listaRelacoes = relacaoManager.read();
                     session.setAttribute("listaRelacoes", listaRelacoes);
                     break;
                 case "relacaoU":
-                    relacao = new Relacao();
-                    relacao.setIdRelacao(86);
-                    relacao.setIdAlbum(null);
-                    relacao.setIdArtista(null);
-                    GeneroJogo generoJogo2 = new GeneroJogo();
-                    generoJogo2.setIdGeneroJogo(4);
-                    relacao.setIdGeneroJogo(generoJogo);
-                    relacao.setIdMusica(null);
-                    relacaoManager.update(relacao);
+                    musicReleaseAndGameMap = new MusicReleaseAndGameMap();
+                    musicReleaseAndGameMap.setId(86);
+                    musicReleaseAndGameMap.setAlbumId(null);
+                    musicReleaseAndGameMap.setArtistId(null);
+                    GameGenre gameGenre2 = new GameGenre();
+                    gameGenre2.setId(4);
+                    musicReleaseAndGameMap.setGameGenreId(gameGenre);
+                    musicReleaseAndGameMap.setMusicId(null);
+                    relacaoManager.update(musicReleaseAndGameMap);
                     break;
                 case "relacaoD":
-                    relacao = new Relacao();
-                    relacao.setIdRelacao(86);
-                    relacao.setIdAlbum(null);
-                    relacao.setIdArtista(null);
-                    GeneroJogo generoJogo3 = new GeneroJogo();
-                    generoJogo3.setIdGeneroJogo(4);
-                    relacao.setIdGeneroJogo(generoJogo);
-                    relacao.setIdMusica(null);
-                    relacaoManager.delete(relacao.getIdRelacao());
+                    musicReleaseAndGameMap = new MusicReleaseAndGameMap();
+                    musicReleaseAndGameMap.setId(86);
+                    musicReleaseAndGameMap.setAlbumId(null);
+                    musicReleaseAndGameMap.setArtistId(null);
+                    GameGenre gameGenre3 = new GameGenre();
+                    gameGenre3.setId(4);
+                    musicReleaseAndGameMap.setGameGenreId(gameGenre);
+                    musicReleaseAndGameMap.setMusicId(null);
+                    relacaoManager.delete(musicReleaseAndGameMap.getId());
                     break;
                 case "usuarioC":
-                    usuario = new Usuario();
-                    usuario.setLogin("teste");
-                    usuario.setSenha("teste");
-                    usuario.setUsuarioSteam("teste");
-                    usuarioManager.create(usuario);
+                    user = new User();
+                    user.setLogin("teste");
+                    user.setPassword("teste");
+                    user.setSteanUser("teste");
+                    usuarioManager.create(user);
                     break;
                 case "usuarioR":
-                    List<Usuario> listaUsuarios = usuarioManager.read();
-                    session.setAttribute("listaUsuarios", listaUsuarios);
+                    List<User> listaUsers = usuarioManager.read();
+                    session.setAttribute("listaUsuarios", listaUsers);
                     break;
                 case "usuarioU":
-                    usuario = new Usuario();
-                    usuario.setIdUsuario(27);
-                    usuario.setLogin("teste2");
-                    usuario.setSenha("teste2");
-                    usuario.setUsuarioSteam("teste2");
-                    usuarioManager.update(usuario);
+                    user = new User();
+                    user.setId(27);
+                    user.setLogin("teste2");
+                    user.setPassword("teste2");
+                    user.setSteanUser("teste2");
+                    usuarioManager.update(user);
                     break;
                 case "usuarioD":
-                    usuario = new Usuario();
-                    usuario.setIdUsuario(27);
-                    usuario.setLogin("teste2");
-                    usuario.setSenha("teste2");
-                    usuario.setUsuarioSteam("teste2");
-                    usuarioManager.delete(usuario.getIdUsuario());
+                    user = new User();
+                    user.setId(27);
+                    user.setLogin("teste2");
+                    user.setPassword("teste2");
+                    user.setSteanUser("teste2");
+                    usuarioManager.delete(user.getId());
                     break;
             }
             response.sendRedirect("indexTeste.jsp");

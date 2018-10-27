@@ -1,7 +1,7 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.GeneroJogo;
-import br.com.lp3.entities.Relacao;
+import br.com.lp3.entities.GameGenre;
+import br.com.lp3.entities.MusicReleaseAndGameMap;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -15,14 +15,14 @@ import java.util.List;
 @Local
 public interface RelacaoManagerLocal extends Remote {
 
-    void create(Relacao relacao);
+    void create(MusicReleaseAndGameMap musicReleaseAndGameMap);
 
-    List<Relacao> read();
+    List<MusicReleaseAndGameMap> read();
 
-    void update(Relacao relacao);
+    void update(MusicReleaseAndGameMap musicReleaseAndGameMap);
 
     void delete(int id);
 
-    List<Relacao> getListaRelacao(List<GeneroJogo> listaGeneroJogo);
+    List<MusicReleaseAndGameMap> getListaRelacao(List<GameGenre> listaGameGenres);
 
 }

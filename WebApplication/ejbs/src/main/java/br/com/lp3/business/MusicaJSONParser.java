@@ -1,6 +1,6 @@
 package br.com.lp3.business;
 
-import br.com.lp3.entities.Musica;
+import br.com.lp3.entities.Music;
 import br.com.lp3.utilities.URLGetter;
 
 import javax.json.JsonArray;
@@ -19,11 +19,11 @@ public class MusicaJSONParser {
     private static final String url = "http://ws.audioscrobbler.com/2.0/";
     private static final String apikey = "57ee3318536b23ee81d6b27e36997cde";
 
-    public static List<Musica> getMusicaRecomendacao(List<Musica> musicas) {
-        List<Musica> listaMusicasRecomendadas = new ArrayList<>();
+    public static List<Music> getMusicaRecomendacao(List<Music> music) {
+        List<Music> listaMusicasRecomendadas = new ArrayList<>();
 
-        for (Musica musica : musicas) {
-            JsonObject mainObj = URLGetter.getContent(url + "?method=track.getSimilar&mbid=" + musica.getIdMusicaLastfm().trim() + "&api_key=" + apikey + "&format=json");
+        for (Music music : music) {
+            JsonObject mainObj = URLGetter.getContent(url + "?method=track.getSimilar&mbid=" + music.getLastFmId().trim() + "&api_key=" + apikey + "&format=json");
             JsonObject similartracks = mainObj.getJsonObject("similartracks");
             JsonArray tracks = similartracks.getJsonArray("track");
 
@@ -34,13 +34,13 @@ public class MusicaJSONParser {
                 if ("".equals(mbid)) {
                     i--;
                 } else {
-                    Musica recMusica = new Musica();
-                    recMusica.setIdMusicaLastfm(mbid);
-                    recMusica.setUrl(url2);
-                    recMusica.setTituloMusica(recTrack.getString("name", ""));
-                    recMusica.setImagem(recTrack.containsKey("image") ? (recTrack.getJsonArray("image").size() == 6 ? recTrack.getJsonArray("image").getJsonObject(4).getString("#text", "") : recTrack.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
-                    recMusica.setDescricao(recTrack.containsValue("wiki") ? recTrack.getJsonObject("wiki").getString("summary", "") : "");
-                    listaMusicasRecomendadas.add(recMusica);
+                    Music recMusic = new Music();
+                    recMusic.setLastFmId(mbid);
+                    recMusic.setUrl(url2);
+                    recMusic.setTitle(recTrack.getString("name", ""));
+                    recMusic.setImage(recTrack.containsKey("image") ? (recTrack.getJsonArray("image").size() == 6 ? recTrack.getJsonArray("image").getJsonObject(4).getString("#text", "") : recTrack.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
+                    recMusic.setDescription(recTrack.containsValue("wiki") ? recTrack.getJsonObject("wiki").getString("summary", "") : "");
+                    listaMusicasRecomendadas.add(recMusic);
                 }
             }
         }

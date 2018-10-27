@@ -60,53 +60,53 @@
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaArtistas}" var="artista">
+    <c:forEach items="${listaArtists}" var="artist">
         <tr>
-            <td>${artista.getIdArtista()}</td>
-            <td>${artista.getNomeArtista()}</td>
-            <td>${artista.getIdArtistaLastfm()}</td>
+            <td>${artist.getIdArtista()}</td>
+            <td>${artist.getNomeArtista()}</td>
+            <td>${artist.getIdArtistaLastfm()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaGenerosJogos}" var="generoJogo">
+    <c:forEach items="${listaGenerosJogos}" var="gameGenre">
         <tr>
-            <td>${generoJogo.getIdGeneroJogo()}</td>
-            <td>${generoJogo.getNomeGenero()}</td>
+            <td>${gameGenre.getIdGeneroJogo()}</td>
+            <td>${gameGenre.getNomeGenero()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaMusicas}" var="musica">
+    <c:forEach items="${listaMusics}" var="music">
         <tr>
-            <td>${musica.getIdMusica()}</td>
-            <td>${musica.getTituloMusica()}</td>
-            <td>${musica.getIdMusicaLastfm()}</td>
+            <td>${music.getIdMusica()}</td>
+            <td>${music.getTituloMusica()}</td>
+            <td>${music.getIdMusicaLastfm()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaRelacoes}" var="relacao">
+    <c:forEach items="${listaRelacoes}" var="musicReleaseAndGameMap">
         <tr>
-            <td>${relacao.getIdRelacao()}</td>
-            <td>${relacao.getIdGeneroJogo()}</td>
-            <td>${relacao.getIdMusica()}</td>
-            <td>${relacao.getIdAlbum()}</td>
-            <td>${relacao.getIdArtista()}</td>
+            <td>${musicReleaseAndGameMap.getIdRelacao()}</td>
+            <td>${musicReleaseAndGameMap.getIdGeneroJogo()}</td>
+            <td>${musicReleaseAndGameMap.getIdMusica()}</td>
+            <td>${musicReleaseAndGameMap.getIdAlbum()}</td>
+            <td>${musicReleaseAndGameMap.getIdArtista()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaUsuarios}" var="usuario">
+    <c:forEach items="${listaUsers}" var="user">
         <tr>
-            <td>${usuario.getIdUsuario()}</td>
-            <td>${usuario.getLogin()}</td>
-            <td>${usuario.getSenha()}</td>
-            <td>${usuario.getUsuarioSteam()}</td>
+            <td>${user.getIdUsuario()}</td>
+            <td>${user.getLogin()}</td>
+            <td>${user.getSenha()}</td>
+            <td>${user.getUsuarioSteam()}</td>
         </tr>
     </c:forEach>
 </table>

@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Usuario;
+import br.com.lp3.entities.User;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -13,7 +13,7 @@ import java.rmi.Remote;
 @Local
 public interface LoginManagerLocal extends Remote {
 
-    Usuario authorize(String login, String senha);
+    User authorize(String login, String senha);
 
     String getAnonSteamID(String userSteam);
 }

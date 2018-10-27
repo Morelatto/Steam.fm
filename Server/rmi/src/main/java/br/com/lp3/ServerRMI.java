@@ -12,11 +12,11 @@ public class ServerRMI {
         try {
             Registry registry = LocateRegistry.createRegistry(1099);
             registry.rebind("AlbumDAO", new RemoteAlbumDAO());
-            registry.rebind("ArtistaDAO", new RemoteArtistaDAO());
-            registry.rebind("GeneroJogoDAO", new RemoteGeneroJogoDAO());
-            registry.rebind("MusicaDAO", new RemoteMusicaDAO());
-            registry.rebind("RelacaoDAO", new RemoteRelacaoDAO());
-            registry.rebind("UsuarioDAO", new RemoteUsuarioDAO());
+            registry.rebind("ArtistDAO", new RemoteArtistDAO());
+            registry.rebind("GameGenreDAO", new RemoteGameGenreDAO());
+            registry.rebind("MusicDAO", new RemoteMusicDAO());
+            registry.rebind("MusicReleaseAndGameMapDAO", new RemoteMusicReleaseAndGameMapDAO());
+            registry.rebind("UserDAO", new RemoteUserDAO());
             System.out.println("RMI server started");
         } catch (RemoteException ex) {
             System.out.println(ex);

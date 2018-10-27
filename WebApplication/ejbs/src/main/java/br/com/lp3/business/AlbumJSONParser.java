@@ -22,7 +22,7 @@ public class AlbumJSONParser {
     public static List<Album> getAlbumRecomendacao(List<Album> albuns) {
         List<Album> listaAlbunsRecomendacao = new ArrayList<>();
         for (Album album : albuns) {
-            JsonObject mainObj = URLGetter.getContent(url + "?method=album.getInfo&mbid=" + album.getIdAlbumLastfm().trim() + "&api_key=" + apikey + "&format=json");
+            JsonObject mainObj = URLGetter.getContent(url + "?method=album.getInfo&mbid=" + album.getLastFmId().trim() + "&api_key=" + apikey + "&format=json");
             JsonObject albumObj = mainObj.getJsonObject("album");
             JsonObject tags = albumObj.getJsonObject("tags");
             JsonArray tag = tags.getJsonArray("tag");
@@ -43,11 +43,11 @@ public class AlbumJSONParser {
             JsonObject albumObj = album.getJsonObject(ThreadLocalRandom.current().nextInt(0, album.size()));
             if (!"".equals(albumObj.getString("mbid", ""))) {
                 Album albumRec = new Album();
-                albumRec.setIdAlbumLastfm(albumObj.getString("mbid"));
+                albumRec.setLastFmId(albumObj.getString("mbid"));
                 albumRec.setUrl(albumObj.getString("url"));
-                albumRec.setTituloAlbum(albumObj.getString("name"));
-                albumRec.setImagem(albumObj.containsKey("image") ? (albumObj.getJsonArray("image").size() == 6 ? albumObj.getJsonArray("image").getJsonObject(4).getString("#text", "") : albumObj.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
-                albumRec.setDescricao(albumObj.containsValue("wiki") ? albumObj.getJsonObject("wiki").getString("summary", "") : "");
+                albumRec.setTitle(albumObj.getString("name"));
+                albumRec.setImage(albumObj.containsKey("image") ? (albumObj.getJsonArray("image").size() == 6 ? albumObj.getJsonArray("image").getJsonObject(4).getString("#text", "") : albumObj.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
+                albumRec.setDescription(albumObj.containsValue("wiki") ? albumObj.getJsonObject("wiki").getString("summary", "") : "");
                 listaAlbunsRecomendados.add(albumRec);
             } else {
                 i--;

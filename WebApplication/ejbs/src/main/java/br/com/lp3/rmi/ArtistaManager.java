@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Artista;
+import br.com.lp3.entities.Artist;
 
 import javax.ejb.Stateless;
 import java.rmi.NotBoundException;
@@ -27,18 +27,18 @@ public class ArtistaManager extends UnicastRemoteObject implements ArtistaManage
     }
 
     @Override
-    public void create(Artista artista) {
-        servico.create(artista);
+    public void create(Artist artist) {
+        servico.create(artist);
     }
 
     @Override
-    public List<Artista> read() {
-        return (List<Artista>) servico.read();
+    public List<Artist> read() {
+        return (List<Artist>) servico.read();
     }
 
     @Override
-    public void update(Artista artista) {
-        servico.update(artista);
+    public void update(Artist artist) {
+        servico.update(artist);
     }
 
     @Override

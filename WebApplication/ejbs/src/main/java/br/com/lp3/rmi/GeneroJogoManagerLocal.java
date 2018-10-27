@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.GeneroJogo;
+import br.com.lp3.entities.GameGenre;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -14,15 +14,15 @@ import java.util.List;
 @Local
 public interface GeneroJogoManagerLocal extends Remote {
 
-    void create(GeneroJogo generoJogo);
+    void create(GameGenre gameGenre);
 
-    List<GeneroJogo> read();
+    List<GameGenre> read();
 
-    void update(GeneroJogo generoJogo);
+    void update(GameGenre gameGenre);
 
     void delete(int id);
 
-    List<GeneroJogo> getListaGenerosByUser(String username);
+    List<GameGenre> getListaGenerosByUser(String username);
 
-    List<GeneroJogo> getListaGenerosByGeneroName(List<String> generosNome);
+    List<GameGenre> getListaGenerosByGeneroName(List<String> generosNome);
 }

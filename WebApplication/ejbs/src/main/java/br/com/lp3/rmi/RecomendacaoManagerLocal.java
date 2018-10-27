@@ -1,8 +1,8 @@
 package br.com.lp3.rmi;
 
 import br.com.lp3.entities.Album;
-import br.com.lp3.entities.Artista;
-import br.com.lp3.entities.Musica;
+import br.com.lp3.entities.Artist;
+import br.com.lp3.entities.Music;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -16,9 +16,9 @@ import java.util.List;
 @Local
 public interface RecomendacaoManagerLocal extends Remote {
 
-    List<Musica> getMusicaRecomendacao(List<Musica> musica);
+    List<Music> getMusicaRecomendacao(List<Music> music);
 
     List<Album> getAlbumRecomendacao(List<Album> albuns);
 
-    List<Artista> getArtistaRecomendacao(List<Artista> artista);
+    List<Artist> getArtistaRecomendacao(List<Artist> artist);
 }

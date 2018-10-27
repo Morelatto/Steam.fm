@@ -1,6 +1,6 @@
 package br.com.lp3.business;
 
-import br.com.lp3.entities.Artista;
+import br.com.lp3.entities.Artist;
 import br.com.lp3.utilities.URLGetter;
 
 import javax.json.JsonArray;
@@ -19,11 +19,11 @@ public class ArtistaJSONParser {
     private static final String apikey = "57ee3318536b23ee81d6b27e36997cde";
     private static final String url = "http://ws.audioscrobbler.com/2.0/";
 
-    public static List<Artista> getArtistaRecomendacao(List<Artista> artistas) {
-        List<Artista> listaArtistasRecomendados = new ArrayList<>();
+    public static List<Artist> getArtistaRecomendacao(List<Artist> artistas) {
+        List<Artist> listaArtistasRecomendados = new ArrayList<>();
 
-        for (Artista artista : artistas) {
-            JsonObject mainObj = URLGetter.getContent(url + "?method=artist.getSimilar&mbid=" + artista.getIdArtistaLastfm().trim() + "&api_key=" + apikey + "&format=json");
+        for (Artist artist : artistas) {
+            JsonObject mainObj = URLGetter.getContent(url + "?method=artist.getSimilar&mbid=" + artist.getLastFmId().trim() + "&api_key=" + apikey + "&format=json");
 
             JsonObject similarartists = mainObj.getJsonObject("similarartists");
             JsonArray artists = similarartists.getJsonArray("artist");
@@ -35,12 +35,12 @@ public class ArtistaJSONParser {
                 if ("".equals(mbid)) {
                     i--;
                 } else {
-                    Artista recArtista = new Artista();
-                    recArtista.setIdArtistaLastfm(mbid);
-                    recArtista.setIdArtistaLastfm(url);
-                    recArtista.setNomeArtista(recArtist.getString("name", ""));
-                    recArtista.setImagem(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist.getJsonArray("image").getJsonObject(4).getString("#text", "") : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
-                    recArtista.setDescricao(recArtist.containsValue("wiki") ? recArtist.getJsonObject("wiki").getString("summary", "") : "");
+                    Artist recArtista = new Artist();
+                    recArtista.setLastFmId(mbid);
+                    recArtista.setLastFmId(url);
+                    recArtista.setName(recArtist.getString("name", ""));
+                    recArtista.setImage(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist.getJsonArray("image").getJsonObject(4).getString("#text", "") : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
+                    recArtista.setDescription(recArtist.containsValue("wiki") ? recArtist.getJsonObject("wiki").getString("summary", "") : "");
                     listaArtistasRecomendados.add(recArtista);
                 }
             }

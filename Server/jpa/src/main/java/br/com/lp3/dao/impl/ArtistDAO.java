@@ -1,8 +1,8 @@
 package br.com.lp3.dao.impl;
 
 import br.com.lp3.PersistenceUtils;
+import br.com.lp3.entities.Artist;
 import br.com.lp3.dao.DAO;
-import br.com.lp3.entities.Album;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,39 +11,39 @@ import java.util.function.Consumer;
 
 import static br.com.lp3.PersistenceUtils.PERSISTENCE_UNIT_NAME;
 
-public class AlbumDAO implements DAO<Album> {
+public class ArtistDAO implements DAO<Artist> {
 
     private EntityManager entityManager;
 
-    AlbumDAO() {
+    ArtistDAO() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Album> get(long id) {
-        return Optional.ofNullable(entityManager.find(Album.class, id));
+    public Optional<Artist> get(long id) {
+        return Optional.ofNullable(entityManager.find(Artist.class, id));
     }
 
     @Override
-    public List<Album> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Album e");
+    public List<Artist> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM Artist e");
         return query.getResultList();
     }
 
     @Override
-    public void save(Album album) {
-        execute(entityManager -> entityManager.persist(album));
+    public void save(Artist artist) {
+        execute(entityManager -> entityManager.persist(artist));
     }
 
     @Override
-    public void update(Album album) {
-        execute(entityManager -> entityManager.merge(album));
+    public void update(Artist artist) {
+        execute(entityManager -> entityManager.merge(artist));
     }
 
     @Override
-    public void delete(Album album) {
-        execute(entityManager -> entityManager.remove(album));
+    public void delete(Artist artist) {
+        execute(entityManager -> entityManager.remove(artist));
     }
 
     private void execute(Consumer<EntityManager> action) {

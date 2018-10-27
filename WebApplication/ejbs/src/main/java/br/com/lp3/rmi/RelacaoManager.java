@@ -1,7 +1,7 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.GeneroJogo;
-import br.com.lp3.entities.Relacao;
+import br.com.lp3.entities.GameGenre;
+import br.com.lp3.entities.MusicReleaseAndGameMap;
 
 import javax.ejb.Stateless;
 import java.rmi.NotBoundException;
@@ -30,18 +30,18 @@ public class RelacaoManager extends UnicastRemoteObject implements RelacaoManage
     }
 
     @Override
-    public void create(Relacao relacao) {
-        servico.create(relacao);
+    public void create(MusicReleaseAndGameMap musicReleaseAndGameMap) {
+        servico.create(musicReleaseAndGameMap);
     }
 
     @Override
-    public List<Relacao> read() {
-        return (List<Relacao>) servico.read();
+    public List<MusicReleaseAndGameMap> read() {
+        return (List<MusicReleaseAndGameMap>) servico.read();
     }
 
     @Override
-    public void update(Relacao relacao) {
-        servico.update(relacao);
+    public void update(MusicReleaseAndGameMap musicReleaseAndGameMap) {
+        servico.update(musicReleaseAndGameMap);
     }
 
     @Override
@@ -50,16 +50,16 @@ public class RelacaoManager extends UnicastRemoteObject implements RelacaoManage
     }
 
     @Override
-    public List<Relacao> getListaRelacao(List<GeneroJogo> listaGeneroJogo) {
-        List<Relacao> listaRelacao = new ArrayList<>();
-        for (Relacao relacao : read()) {
-            for (GeneroJogo generoJogo : listaGeneroJogo) {
-                if (Objects.equals(generoJogo.getIdGeneroJogo(), relacao.getIdGeneroJogo().getIdGeneroJogo())) {
-                    listaRelacao.add(relacao);
+    public List<MusicReleaseAndGameMap> getListaRelacao(List<GameGenre> listaGameGenres) {
+        List<MusicReleaseAndGameMap> listaMusicReleaseAndGameMap = new ArrayList<>();
+        for (MusicReleaseAndGameMap musicReleaseAndGameMap : read()) {
+            for (GameGenre gameGenre : listaGameGenres) {
+                if (Objects.equals(gameGenre.getId(), musicReleaseAndGameMap.getGameGenreId().getId())) {
+                    listaMusicReleaseAndGameMap.add(musicReleaseAndGameMap);
                     break;
                 }
             }
         }
-        return listaRelacao;
+        return listaMusicReleaseAndGameMap;
     }
 }

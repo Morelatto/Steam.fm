@@ -2,7 +2,6 @@ package br.com.lp3.dao.impl;
 
 import br.com.lp3.dao.RemoteDAO;
 import br.com.lp3.entities.Album;
-import br.com.lp3.dao.impl.AlbumDAO;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

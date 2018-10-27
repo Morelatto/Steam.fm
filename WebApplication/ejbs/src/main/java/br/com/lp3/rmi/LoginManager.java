@@ -1,7 +1,7 @@
 package br.com.lp3.rmi;
 
 import br.com.lp3.business.LoginJSONParser;
-import br.com.lp3.entities.Usuario;
+import br.com.lp3.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -23,10 +23,10 @@ public class LoginManager extends UnicastRemoteObject implements LoginManagerLoc
     }
 
     @Override
-    public Usuario authorize(String login, String senha) {
-        for (Usuario usuario : usuarioManager.read()) {
-            if (login.equals(usuario.getLogin()) && senha.equals(usuario.getSenha())) {
-                return usuario;
+    public User authorize(String login, String senha) {
+        for (User user : usuarioManager.read()) {
+            if (login.equals(user.getLogin()) && senha.equals(user.getPassword())) {
+                return user;
             }
         }
         return null;

@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Album implements Serializable {
+public class Artist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String title;
+    String name;
 
     String lastFmId;
 
@@ -33,9 +33,7 @@ public class Album implements Serializable {
 
     String url;
 
-    @OneToMany(mappedBy = "albumId")
+    @OneToMany(mappedBy = "artistId")
     Collection<MusicReleaseAndGameMap> musicReleaseAndGameMap;
-
-    // @XmlTransient public Collection<MusicReleaseAndGameMap> getMusicReleaseAndGameMap() { return musicReleaseAndGameMap; }
 
 }

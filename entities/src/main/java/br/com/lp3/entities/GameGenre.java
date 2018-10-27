@@ -17,25 +17,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Album implements Serializable {
+public class GameGenre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String title;
+    private String name;
 
-    String lastFmId;
-
-    String image;
-
-    String description;
-
-    String url;
-
-    @OneToMany(mappedBy = "albumId")
-    Collection<MusicReleaseAndGameMap> musicReleaseAndGameMap;
-
-    // @XmlTransient public Collection<MusicReleaseAndGameMap> getMusicReleaseAndGameMap() { return musicReleaseAndGameMap; }
+    @OneToMany(mappedBy = "gameGenreId")
+    private Collection<MusicReleaseAndGameMap> musicReleaseAndGameMap;
 
 }

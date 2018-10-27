@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Musica;
+import br.com.lp3.entities.Music;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -14,11 +14,11 @@ import java.util.List;
 @Local
 public interface MusicaManagerLocal extends Remote {
 
-    void create(Musica musica);
+    void create(Music music);
 
-    List<Musica> read();
+    List<Music> read();
 
-    void update(Musica musica);
+    void update(Music music);
 
     void delete(int id);
 

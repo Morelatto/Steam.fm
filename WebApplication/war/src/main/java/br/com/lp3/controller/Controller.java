@@ -55,7 +55,7 @@ public class Controller extends HttpServlet {
             throws IOException {
         command = request.getParameter("command");
         session = request.getSession();
-        steamID = (String) session.getAttribute("steamID");
+        steamID = (String) session.getAttribute("steamId");
         userSteam = (String) session.getAttribute("userSteam");
         send = "-1".equals(steamID) || "".equals(steamID);
 
@@ -64,10 +64,10 @@ public class Controller extends HttpServlet {
                 case "login":
                     switch (request.getParameter("commandAux")) {
                         case "sistema":
-                            Usuario usuario = loginManager.authorize(request.getParameter("loginSistema"), request.getParameter("senhaSistema"));
-                            if (usuario != null) {
-                                session.setAttribute("user", usuario);
-                                if (usuario.getUsuarioSteam() == null) {
+                            User user = loginManager.authorize(request.getParameter("loginSistema"), request.getParameter("senhaSistema"));
+                            if (user != null) {
+                                session.setAttribute("user", user);
+                                if (user.getSteanUser() == null) {
                                     session.setAttribute("admin", true);
                                 }
                                 response.sendRedirect("home.jsp");
@@ -78,7 +78,7 @@ public class Controller extends HttpServlet {
                             break;
                         case "steam":
                             userSteam = request.getParameter("loginSteam");
-                            if (!"true".equals(request.getParameter("steamID"))) {
+                            if (!"true".equals(request.getParameter("steamId"))) {
                                 steamID = loginManager.getAnonSteamID(userSteam);
                                 if (steamID == null) {
                                     session.setAttribute("usuarioInvalido", "steam");
@@ -96,38 +96,40 @@ public class Controller extends HttpServlet {
                     }
                     break;
                 case "recomendacao":
-                    List<GeneroJogo> listaGenerosJogos = generoJogoManager.getListaGenerosByUser(steamID);
-                    List<Jogo> listaJogos = jogoManager.getJogosByUser(steamID);
-                    List<Relacao> listaRelacao = relacaoManager.getListaRelacao(listaGenerosJogos);
-                    for (Iterator<Jogo> it = listaJogos.iterator(); it.hasNext(); ) {
-                        Jogo jogo = it.next();
-                        List<GeneroJogo> listaGeneroJogos_JogoObj = generoJogoManager.getListaGenerosByGeneroName(jogo.getListaGeneroJogo());
-                        if (listaGeneroJogos_JogoObj.isEmpty()) {
+                    List<GameGenre> listaGenerosJogos = generoJogoManager.getListaGenerosByUser(steamID);
+                    List<Game> listaGames = jogoManager.getJogosByUser(steamID);
+                    List<MusicReleaseAndGameMap> listaMusicReleaseAndGameMap = relacaoManager.getListaRelacao(listaGenerosJogos);
+                    for (Iterator<Game> it = listaGames.iterator(); it.hasNext(); ) {
+                        Game game = it.next();
+                        List<GameGenre> listaGameGenreObj = generoJogoManager.getListaGenerosByGeneroName(game.getGameGenresNameList());
+                        if (listaGameGenreObj.isEmpty()) {
                             it.remove();
                             continue;
                         }
-                        List<Musica> listaRelacaoMusica = new ArrayList<>();
-                        List<Artista> listaRelacaoArtista = new ArrayList<>();
+                        List<Music> listaRelacaoMusic = new ArrayList<>();
+                        List<Artist> listaRelacaoArtist = new ArrayList<>();
                         List<Album> listaRelacaoAlbum = new ArrayList<>();
-                        listaGeneroJogos_JogoObj.stream().forEach((GeneroJogo generoJogo) -> {
-                            listaRelacao.stream().filter((Relacao relacao) -> Objects.equals(relacao.getIdGeneroJogo().getIdGeneroJogo(), generoJogo.getIdGeneroJogo())).forEach((relacao) -> {
-                                if (relacao.getIdMusica() != null) {
-                                    listaRelacaoMusica.add(relacao.getIdMusica());
-                                } else if (relacao.getIdArtista() != null) {
-                                    listaRelacaoArtista.add(relacao.getIdArtista());
+                        listaGameGenreObj.stream().forEach((GameGenre gameGenre) -> {
+                            listaMusicReleaseAndGameMap.stream().filter((MusicReleaseAndGameMap musicReleaseAndGameMap) -> Objects.equals(
+                                    musicReleaseAndGameMap.getGameGenreId().getId(), gameGenre
+                                    .getId())).forEach((relacao) -> {
+                                if (relacao.getMusicId() != null) {
+                                    listaRelacaoMusic.add(relacao.getMusicId());
+                                } else if (relacao.getArtistId() != null) {
+                                    listaRelacaoArtist.add(relacao.getArtistId());
                                 } else {
-                                    listaRelacaoAlbum.add(relacao.getIdAlbum());
+                                    listaRelacaoAlbum.add(relacao.getAlbumId());
                                 }
                             });
                         });
                         List<Object> recomendacoes = new ArrayList<>();
-                        recomendacoes.addAll(recomendacaoManager.getMusicaRecomendacao(listaRelacaoMusica));
-                        recomendacoes.addAll(recomendacaoManager.getArtistaRecomendacao(listaRelacaoArtista));
+                        recomendacoes.addAll(recomendacaoManager.getMusicaRecomendacao(listaRelacaoMusic));
+                        recomendacoes.addAll(recomendacaoManager.getArtistaRecomendacao(listaRelacaoArtist));
                         recomendacoes.addAll(recomendacaoManager.getAlbumRecomendacao(listaRelacaoAlbum));
-                        jogo.setListaRecomendacao(recomendacoes);
+                        game.setRecommendationList(recomendacoes);
                     }
-                    session.setAttribute("listaJogos", listaJogos);
-                    session.setAttribute("listaRelacao", listaRelacao);
+                    session.setAttribute("listaJogos", listaGames);
+                    session.setAttribute("listaRelacao", listaMusicReleaseAndGameMap);
                     response.sendRedirect("recomendacao.jsp");
                     break;
                 case "logout":

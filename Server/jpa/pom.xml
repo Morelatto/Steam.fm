@@ -27,8 +27,9 @@
         <dependency>
             <groupId>br.com.lp3</groupId>
             <artifactId>entities</artifactId>
-            <type>ejb</type>
+            <type>ejb</type> <!-- TODO entity EJB? -->
         </dependency>
+
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>

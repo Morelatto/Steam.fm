@@ -1,7 +1,7 @@
 package br.com.lp3.rmi;
 
 import br.com.lp3.business.JogoJSONParser;
-import br.com.lp3.entities.Jogo;
+import br.com.lp3.entities.Game;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class JogoManager implements JogoManagerLocal {
 
     @Override
-    public List<Jogo> getJogosByUser(String username) {
+    public List<Game> getJogosByUser(String username) {
         return JogoJSONParser.getJogosByUser(username);
     }
 

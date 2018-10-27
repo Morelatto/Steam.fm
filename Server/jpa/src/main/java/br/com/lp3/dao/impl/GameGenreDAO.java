@@ -2,7 +2,7 @@ package br.com.lp3.dao.impl;
 
 import br.com.lp3.PersistenceUtils;
 import br.com.lp3.dao.DAO;
-import br.com.lp3.entities.Album;
+import br.com.lp3.entities.GameGenre;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,39 +11,39 @@ import java.util.function.Consumer;
 
 import static br.com.lp3.PersistenceUtils.PERSISTENCE_UNIT_NAME;
 
-public class AlbumDAO implements DAO<Album> {
+public class GameGenreDAO implements DAO<GameGenre> {
 
     private EntityManager entityManager;
 
-    AlbumDAO() {
+    GameGenreDAO() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<Album> get(long id) {
-        return Optional.ofNullable(entityManager.find(Album.class, id));
+    public Optional<GameGenre> get(long id) {
+        return Optional.ofNullable(entityManager.find(GameGenre.class, id));
     }
 
     @Override
-    public List<Album> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Album e");
+    public List<GameGenre> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM GeneroJogo e");
         return query.getResultList();
     }
 
     @Override
-    public void save(Album album) {
-        execute(entityManager -> entityManager.persist(album));
+    public void save(GameGenre gameGenre) {
+        execute(entityManager -> entityManager.persist(gameGenre));
     }
 
     @Override
-    public void update(Album album) {
-        execute(entityManager -> entityManager.merge(album));
+    public void update(GameGenre gameGenre) {
+        execute(entityManager -> entityManager.merge(gameGenre));
     }
 
     @Override
-    public void delete(Album album) {
-        execute(entityManager -> entityManager.remove(album));
+    public void delete(GameGenre gameGenre) {
+        execute(entityManager -> entityManager.remove(gameGenre));
     }
 
     private void execute(Consumer<EntityManager> action) {

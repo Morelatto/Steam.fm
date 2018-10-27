@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Artista;
+import br.com.lp3.entities.Artist;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -14,11 +14,11 @@ import java.util.List;
 @Local
 public interface ArtistaManagerLocal extends Remote {
 
-    void create(Artista artista);
+    void create(Artist artist);
 
-    List<Artista> read();
+    List<Artist> read();
 
-    void update(Artista artista);
+    void update(Artist artist);
 
     void delete(int id);
 

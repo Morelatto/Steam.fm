@@ -1,7 +1,7 @@
 package br.com.lp3.rmi;
 
 import br.com.lp3.business.GeneroJogoJSONParser;
-import br.com.lp3.entities.GeneroJogo;
+import br.com.lp3.entities.GameGenre;
 
 import javax.ejb.Stateless;
 import java.rmi.NotBoundException;
@@ -29,18 +29,18 @@ public class GeneroJogoManager extends UnicastRemoteObject implements GeneroJogo
     }
 
     @Override
-    public void create(GeneroJogo generoJogo) {
-        servico.create(generoJogo);
+    public void create(GameGenre gameGenre) {
+        servico.create(gameGenre);
     }
 
     @Override
-    public List<GeneroJogo> read() {
-        return (List<GeneroJogo>) servico.read();
+    public List<GameGenre> read() {
+        return (List<GameGenre>) servico.read();
     }
 
     @Override
-    public void update(GeneroJogo generoJogo) {
-        servico.update(generoJogo);
+    public void update(GameGenre gameGenre) {
+        servico.update(gameGenre);
     }
 
     @Override
@@ -49,16 +49,16 @@ public class GeneroJogoManager extends UnicastRemoteObject implements GeneroJogo
     }
 
     @Override
-    public List<GeneroJogo> getListaGenerosByUser(String username) {
+    public List<GameGenre> getListaGenerosByUser(String username) {
         return getListaGenerosByGeneroName(GeneroJogoJSONParser.getListaGenerosByUser(username));
     }
 
     @Override
-    public List<GeneroJogo> getListaGenerosByGeneroName(List<String> generosNome) {
-        List<GeneroJogo> listaGenerosObjeto = new ArrayList<>();
-        for (GeneroJogo generoJogo : read()) {
-            if (generosNome.indexOf(generoJogo.getNomeGenero()) != -1) {
-                listaGenerosObjeto.add(generoJogo);
+    public List<GameGenre> getListaGenerosByGeneroName(List<String> generosNome) {
+        List<GameGenre> listaGenerosObjeto = new ArrayList<>();
+        for (GameGenre gameGenre : read()) {
+            if (generosNome.indexOf(gameGenre.getName()) != -1) {
+                listaGenerosObjeto.add(gameGenre);
             }
         }
         return listaGenerosObjeto;

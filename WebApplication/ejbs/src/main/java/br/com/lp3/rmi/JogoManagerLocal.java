@@ -1,6 +1,6 @@
 package br.com.lp3.rmi;
 
-import br.com.lp3.entities.Jogo;
+import br.com.lp3.entities.Game;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -13,6 +13,6 @@ import java.util.List;
 @Local
 public interface JogoManagerLocal {
 
-    List<Jogo> getJogosByUser(String username);
+    List<Game> getJogosByUser(String username);
 
 }

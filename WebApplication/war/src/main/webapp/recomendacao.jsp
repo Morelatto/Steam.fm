@@ -17,12 +17,12 @@
     <h1>${userSteam}</h1>
     <h2><span>${steamID}</span></h2>
     <c:set var="i" value="0"></c:set>
-    <c:forEach items="${listaJogos}" var="jogo">
+    <c:forEach items="${listaGames}" var="game">
         <c:set var="i" value="${i+1}"></c:set>
-        <c:set var="l" value="${jogo.getListaRecomendacao().size()}"></c:set>
+        <c:set var="l" value="${game.getListaRecomendacao().size()}"></c:set>
         <div class="row row-nav" id="row${i}" onmouseover="this.className += ' active';"
              onmouseout="this.className = 'row row-nav';">
-                ${jogo.getNome()}
+                ${game.getNome()}
             <%@include file="WEB-INF/jspf/albuns.jspf" %>
         </div>
     </c:forEach>
