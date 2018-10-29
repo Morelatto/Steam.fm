@@ -1,8 +1,12 @@
 package br.com.lp3.controller;
 
-import br.com.lp3.ServiceLocator;
+import br.com.lp3.rmi.manager.GameGenreManager;
+import br.com.lp3.rmi.manager.GameManager;
+import br.com.lp3.rmi.manager.LoginManager;
+import br.com.lp3.rmi.manager.RecommendationManager;
+import br.com.lp3.rmi.manager.MusicReleaseAndGameMapManager;
+import br.com.lp3.utilities.ServiceLocator;
 import br.com.lp3.entities.*;
-import br.com.lp3.rmi.*;
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +26,11 @@ import java.util.Objects;
  */
 public class Controller extends HttpServlet {
 
-    private LoginManagerLocal loginManager;
-    private GeneroJogoManagerLocal generoJogoManager;
-    private JogoManagerLocal jogoManager;
-    private RelacaoManagerLocal relacaoManager;
-    private RecomendacaoManagerLocal recomendacaoManager;
+    private LoginManager loginManager;
+    private GameGenreManager generoJogoManager;
+    private GameManager jogoManager;
+    private MusicReleaseAndGameMapManager relacaoManager;
+    private RecommendationManager recomendacaoManager;
 
     private String command;
     private HttpSession session;
@@ -96,12 +100,12 @@ public class Controller extends HttpServlet {
                     }
                     break;
                 case "recomendacao":
-                    List<GameGenre> listaGenerosJogos = generoJogoManager.getListaGenerosByUser(steamID);
-                    List<Game> listaGames = jogoManager.getJogosByUser(steamID);
+                    List<GameGenre> listaGenerosJogos = generoJogoManager.getGameGenresByUser(steamID);
+                    List<Game> listaGames = jogoManager.getGamesByUser(steamID);
                     List<MusicReleaseAndGameMap> listaMusicReleaseAndGameMap = relacaoManager.getListaRelacao(listaGenerosJogos);
                     for (Iterator<Game> it = listaGames.iterator(); it.hasNext(); ) {
                         Game game = it.next();
-                        List<GameGenre> listaGameGenreObj = generoJogoManager.getListaGenerosByGeneroName(game.getGameGenresNameList());
+                        List<GameGenre> listaGameGenreObj = generoJogoManager.getGameGenreListByGameGenreNames(game.getGameGenresNameList());
                         if (listaGameGenreObj.isEmpty()) {
                             it.remove();
                             continue;

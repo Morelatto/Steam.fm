@@ -1,11 +1,12 @@
-package br.com.lp3.rmi;
+package br.com.lp3.rmi.manager.impl;
 
 import br.com.lp3.business.AlbumJSONParser;
-import br.com.lp3.business.ArtistaJSONParser;
-import br.com.lp3.business.MusicaJSONParser;
+import br.com.lp3.business.ArtistJSONParser;
+import br.com.lp3.business.MusicJSONParser;
 import br.com.lp3.entities.Album;
 import br.com.lp3.entities.Artist;
 import br.com.lp3.entities.Music;
+import br.com.lp3.rmi.manager.RecommendationManager;
 
 import javax.ejb.Stateless;
 import java.rmi.RemoteException;
@@ -18,14 +19,14 @@ import java.util.List;
  * @author Pedro Morelatto - 3142463-5
  */
 @Stateless
-public class RecomendacaoManager extends UnicastRemoteObject implements RecomendacaoManagerLocal {
+public class RecommendationManagerImpl extends UnicastRemoteObject implements RecommendationManager {
 
-    public RecomendacaoManager() throws RemoteException {
+    public RecommendationManagerImpl() throws RemoteException {
     }
 
     @Override
     public List<Music> getMusicaRecomendacao(List<Music> music) {
-        return MusicaJSONParser.getMusicaRecomendacao(music);
+        return MusicJSONParser.getMusicaRecomendacao(music);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class RecomendacaoManager extends UnicastRemoteObject implements Recomend
 
     @Override
     public List<Artist> getArtistaRecomendacao(List<Artist> artists) {
-        return ArtistaJSONParser.getArtistaRecomendacao(artists);
+        return ArtistJSONParser.getArtistaRecomendacao(artists);
     }
 
 

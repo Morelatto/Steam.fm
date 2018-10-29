@@ -9,21 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * @author Leandro Meneguzzi - 3144893-3
- * @author Lucas Gianfrancesco - 3147173-0
- * @author Pedro Morelatto - 3142463-5
- */
-public class ArtistaJSONParser {
+import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_KEY;
+import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_URL;
 
-    private static final String apikey = "57ee3318536b23ee81d6b27e36997cde";
-    private static final String url = "http://ws.audioscrobbler.com/2.0/";
+public class ArtistJSONParser {
 
     public static List<Artist> getArtistaRecomendacao(List<Artist> artistas) {
         List<Artist> listaArtistasRecomendados = new ArrayList<>();
 
         for (Artist artist : artistas) {
-            JsonObject mainObj = URLGetter.getContent(url + "?method=artist.getSimilar&mbid=" + artist.getLastFmId().trim() + "&api_key=" + apikey + "&format=json");
+            JsonObject mainObj = URLGetter.getContent(LAST_FM_API_URL + "?method=artist.getSimilar&mbid="
+                    + artist.getLastFmId().trim() + "&api_key=" + LAST_FM_API_KEY + "&format=json");
 
             JsonObject similarartists = mainObj.getJsonObject("similarartists");
             JsonArray artists = similarartists.getJsonArray("artist");
@@ -39,8 +35,16 @@ public class ArtistaJSONParser {
                     recArtista.setLastFmId(mbid);
                     recArtista.setLastFmId(url);
                     recArtista.setName(recArtist.getString("name", ""));
-                    recArtista.setImage(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist.getJsonArray("image").getJsonObject(4).getString("#text", "") : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", "")) : "");
-                    recArtista.setDescription(recArtist.containsValue("wiki") ? recArtist.getJsonObject("wiki").getString("summary", "") : "");
+                    recArtista
+                            .setImage(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist
+                                    .getJsonArray("image")
+                                    .getJsonObject(4)
+                                    .getString("#text", "")
+                                    : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", ""))
+                                    : "");
+                    recArtista.setDescription(recArtist.containsValue("wiki") ? recArtist
+                            .getJsonObject("wiki")
+                            .getString("summary", "") : "");
                     listaArtistasRecomendados.add(recArtista);
                 }
             }

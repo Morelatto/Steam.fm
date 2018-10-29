@@ -3,18 +3,13 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>br.com.lp3</groupId>
         <artifactId>WebApplication</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>ejbs</artifactId>
     <packaging>ejb</packaging>
-
-    <name>enterprise java beans</name>
-
     <dependencies>
         <dependency>
             <groupId>br.com.lp3</groupId>
@@ -29,8 +24,14 @@
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -43,14 +44,11 @@
                     </archive>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>7</source>
-                    <target>7</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+    <!-- TODO 1.7? -->
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
 </project>

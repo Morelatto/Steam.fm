@@ -8,14 +8,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>WebApplication</artifactId>
     <packaging>pom</packaging>
-
     <modules>
         <module>war</module>
         <module>ejbs</module>
         <module>ear</module>
     </modules>
-
 </project>

@@ -15,16 +15,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Leandro Meneguzzi - 3144893-3
- * @author Lucas Gianfrancesco - 3147173-0
- * @author Pedro Morelatto - 3142463-5
- */
-public class GeneroJogoJSONParser {
+public class GameGenreJSONParser {
 
     public static List<String> getListaGenerosByUser(String username) {
         List<String> listaGeneroJogos = new ArrayList<>();
-        for (Game id : JogoJSONParser.getJogosByUser(username)) {
+        for (Game id : GameJSONParser.getJogosByUser(username)) {
             for (String generoJogo : getListaGeneros(id.getSteamId())) {
                 listaGeneroJogos.add(generoJogo);
             }
@@ -41,7 +36,7 @@ public class GeneroJogoJSONParser {
         try {
             URL address = new URL("http://store.steampowered.com/app/" + game + "/?l=brazilian");
             BufferedReader in = new BufferedReader(new InputStreamReader(address.openStream(), StandardCharsets.UTF_8));
-//            BufferedReader in = FileTest.getPageBR("C:\\Temp\\SteamFM\\SteamFM\\dmc.html");
+            // BufferedReader in = FileTest.getPageBR("C:\\Temp\\SteamFM\\SteamFM\\dmc.html");
             String inputLine;
             boolean find = false;
             while ((inputLine = in.readLine()) != null) {
@@ -54,11 +49,11 @@ public class GeneroJogoJSONParser {
                 }
             }
         } catch (MalformedURLException ex) {
-            Logger.getLogger(GeneroJogoJSONParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameGenreJSONParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(GeneroJogoJSONParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameGenreJSONParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(GeneroJogoJSONParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameGenreJSONParser.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaGeneroJogos;
     }
