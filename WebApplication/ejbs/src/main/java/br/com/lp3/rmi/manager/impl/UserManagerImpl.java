@@ -1,6 +1,6 @@
 package br.com.lp3.rmi.manager.impl;
 
-import br.com.lp3.entities.User;
+import br.com.lp3.entities.SystemUser;
 import br.com.lp3.rmi.RemoteDAO;
 import br.com.lp3.rmi.manager.UserManager;
 
@@ -27,28 +27,28 @@ public class UserManagerImpl extends UnicastRemoteObject implements UserManager 
     }
 
     @Override
-    public Optional<User> get(long id) {
+    public Optional<SystemUser> get(long id) {
         return remoteDAO.get(id);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<SystemUser> getAll() {
         return remoteDAO.getAll();
     }
 
     @Override
-    public void save(User user) {
-        remoteDAO.save(user);
+    public void save(SystemUser systemUser) {
+        remoteDAO.save(systemUser);
     }
 
     @Override
-    public void update(User user) {
-        remoteDAO.update(user);
+    public void update(SystemUser systemUser) {
+        remoteDAO.update(systemUser);
     }
 
     @Override
-    public void delete(User user) {
-        remoteDAO.delete(user);
+    public void delete(SystemUser systemUser) {
+        remoteDAO.delete(systemUser);
     }
 
 }

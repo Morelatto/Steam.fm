@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Game {
 
-    Integer steamId;
+    Long steamId;
 
     String name;
 

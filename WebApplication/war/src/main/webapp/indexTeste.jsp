@@ -101,12 +101,12 @@
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaUsers}" var="user">
+    <c:forEach items="${listaSystemUsers}" var="systemUser">
         <tr>
-            <td>${user.getIdUsuario()}</td>
-            <td>${user.getLogin()}</td>
-            <td>${user.getSenha()}</td>
-            <td>${user.getUsuarioSteam()}</td>
+            <td>${systemUser.getIdUsuario()}</td>
+            <td>${systemUser.getLogin()}</td>
+            <td>${systemUser.getSenha()}</td>
+            <td>${systemUser.getUsuarioSteam()}</td>
         </tr>
     </c:forEach>
 </table>

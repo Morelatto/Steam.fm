@@ -36,7 +36,7 @@ public class ControllerTeste extends HttpServlet {
     private GameGenre gameGenre;
     private Music music;
     private MusicReleaseAndGameMap musicReleaseAndGameMap;
-    private User user;
+    private SystemUser systemUser;
 
     private String command;
     private HttpSession session;
@@ -69,7 +69,7 @@ public class ControllerTeste extends HttpServlet {
             switch (command) {
                 case "albumC":
                     album = new Album();
-                    album.setId(100);
+                    album.setId(100L);
                     album.setLastFmId("teste");
                     album.setTitle("teste");
                     albumManager.save(album);
@@ -80,21 +80,21 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "albumU":
                     album = new Album();
-                    album.setId(16);
+                    album.setId(16L);
                     album.setLastFmId("teste2");
                     album.setTitle("teste2");
                     albumManager.update(album);
                     break;
                 case "albumD":
                     album = new Album();
-                    album.setId(16);
+                    album.setId(16L);
                     album.setLastFmId("teste2");
                     album.setTitle("teste2");
                     albumManager.delete(album);
                     break;
                 case "artistaC":
                     artist = new Artist();
-                    artist.setId(100);
+                    artist.setId(100L);
                     artist.setLastFmId("teste");
                     artist.setName("teste");
                     artistaManager.save(artist);
@@ -105,21 +105,21 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "artistaU":
                     artist = new Artist();
-                    artist.setId(36);
+                    artist.setId(36L);
                     artist.setLastFmId("teste2");
                     artist.setName("teste2");
                     artistaManager.update(artist);
                     break;
                 case "artistaD":
                     artist = new Artist();
-                    artist.setId(36);
+                    artist.setId(36L);
                     artist.setLastFmId("teste2");
                     artist.setName("teste2");
                     artistaManager.delete(artist);
                     break;
                 case "generoJogoC":
                     gameGenre = new GameGenre();
-                    gameGenre.setId(100);
+                    gameGenre.setId(100L);
                     gameGenre.setName("teste");
                     generoJogoManager.save(gameGenre);
                     break;
@@ -129,19 +129,19 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "generoJogoU":
                     gameGenre = new GameGenre();
-                    gameGenre.setId(85);
+                    gameGenre.setId(85L);
                     gameGenre.setName("teste2");
                     generoJogoManager.update(gameGenre);
                     break;
                 case "generoJogoD":
                     gameGenre = new GameGenre();
-                    gameGenre.setId(85);
+                    gameGenre.setId(85L);
                     gameGenre.setName("teste2");
                     generoJogoManager.delete(gameGenre);
                     break;
                 case "musicaC":
                     music = new Music();
-                    music.setId(100);
+                    music.setId(100L);
                     music.setLastFmId("teste");
                     music.setTitle("teste");
                     musicaManager.save(music);
@@ -152,21 +152,21 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "musicaU":
                     music = new Music();
-                    music.setId(40);
+                    music.setId(40L);
                     music.setLastFmId("teste2");
                     music.setTitle("teste2");
                     musicaManager.update(music);
                     break;
                 case "musicaD":
                     music = new Music();
-                    music.setId(40);
+                    music.setId(40L);
                     music.setLastFmId("teste2");
                     music.setTitle("teste2");
                     musicaManager.delete(music);
                     break;
                 case "relacaoC":
                     musicReleaseAndGameMap = new MusicReleaseAndGameMap();
-                    musicReleaseAndGameMap.setId(100);
+                    musicReleaseAndGameMap.setId(100L);
                     musicReleaseAndGameMap.setAlbumId(null);
                     musicReleaseAndGameMap.setArtistId(null);
                     musicReleaseAndGameMap.setGameGenreId(null);
@@ -179,52 +179,52 @@ public class ControllerTeste extends HttpServlet {
                     break;
                 case "relacaoU":
                     musicReleaseAndGameMap = new MusicReleaseAndGameMap();
-                    musicReleaseAndGameMap.setId(86);
+                    musicReleaseAndGameMap.setId(86L);
                     musicReleaseAndGameMap.setAlbumId(null);
                     musicReleaseAndGameMap.setArtistId(null);
                     GameGenre gameGenre2 = new GameGenre();
-                    gameGenre2.setId(4);
+                    gameGenre2.setId(4L);
                     musicReleaseAndGameMap.setGameGenreId(gameGenre);
                     musicReleaseAndGameMap.setMusicId(null);
                     relacaoManager.update(musicReleaseAndGameMap);
                     break;
                 case "relacaoD":
                     musicReleaseAndGameMap = new MusicReleaseAndGameMap();
-                    musicReleaseAndGameMap.setId(86);
+                    musicReleaseAndGameMap.setId(86L);
                     musicReleaseAndGameMap.setAlbumId(null);
                     musicReleaseAndGameMap.setArtistId(null);
                     GameGenre gameGenre3 = new GameGenre();
-                    gameGenre3.setId(4);
+                    gameGenre3.setId(4L);
                     musicReleaseAndGameMap.setGameGenreId(gameGenre);
                     musicReleaseAndGameMap.setMusicId(null);
                     relacaoManager.delete(musicReleaseAndGameMap);
                     break;
                 case "usuarioC":
-                    user = new User();
-                    user.setLogin("teste");
-                    user.setPassword("teste");
-                    user.setSteanUser("teste");
-                    usuarioManager.save(user);
+                    systemUser = new SystemUser();
+                    systemUser.setLogin("teste");
+                    systemUser.setPassword("teste");
+                    systemUser.setSteamUser("teste");
+                    usuarioManager.save(systemUser);
                     break;
                 case "usuarioR":
-                    List<User> listaUsers = usuarioManager.getAll();
-                    session.setAttribute("listaUsuarios", listaUsers);
+                    List<SystemUser> listaSystemUsers = usuarioManager.getAll();
+                    session.setAttribute("listaUsuarios", listaSystemUsers);
                     break;
                 case "usuarioU":
-                    user = new User();
-                    user.setId(27);
-                    user.setLogin("teste2");
-                    user.setPassword("teste2");
-                    user.setSteanUser("teste2");
-                    usuarioManager.update(user);
+                    systemUser = new SystemUser();
+                    systemUser.setId(27L);
+                    systemUser.setLogin("teste2");
+                    systemUser.setPassword("teste2");
+                    systemUser.setSteamUser("teste2");
+                    usuarioManager.update(systemUser);
                     break;
                 case "usuarioD":
-                    user = new User();
-                    user.setId(27);
-                    user.setLogin("teste2");
-                    user.setPassword("teste2");
-                    user.setSteanUser("teste2");
-                    usuarioManager.delete(user);
+                    systemUser = new SystemUser();
+                    systemUser.setId(27L);
+                    systemUser.setLogin("teste2");
+                    systemUser.setPassword("teste2");
+                    systemUser.setSteamUser("teste2");
+                    usuarioManager.delete(systemUser);
                     break;
             }
             response.sendRedirect("indexTeste.jsp");

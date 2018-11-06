@@ -1,7 +1,7 @@
 package br.com.lp3.rmi.manager.impl;
 
 import br.com.lp3.business.LoginJSONParser;
-import br.com.lp3.entities.User;
+import br.com.lp3.entities.SystemUser;
 import br.com.lp3.rmi.manager.LoginManager;
 import br.com.lp3.rmi.manager.UserManager;
 
@@ -20,11 +20,11 @@ public class LoginManagerImpl extends UnicastRemoteObject implements LoginManage
     }
 
     @Override
-    public User authorize(String login, String password) {
+    public SystemUser authorize(String login, String password) {
         // todo wtf
-        for (User user : userManager.getAll()) {
-            if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
-                return user;
+        for (SystemUser systemUser : userManager.getAll()) {
+            if (login.equals(systemUser.getLogin()) && password.equals(systemUser.getPassword())) {
+                return systemUser;
             }
         }
         return null;

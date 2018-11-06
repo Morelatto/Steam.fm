@@ -21,7 +21,7 @@ public class Artist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
     String name;
 

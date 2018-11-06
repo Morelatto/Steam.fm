@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>br.com.lp3</groupId>
         <artifactId>WebApplication</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>ejbs</artifactId>
+    <name>WebApplication EJBs</name>
     <packaging>ejb</packaging>
+
     <dependencies>
-        <dependency>
-            <groupId>br.com.lp3</groupId>
-            <artifactId>entities</artifactId>
-            <type>ejb</type>
-        </dependency>
         <dependency>
             <groupId>javax.ejb</groupId>
             <artifactId>ejb-api</artifactId>
+            <version>3.0</version>
+            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -32,23 +35,14 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ejb-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <version>3.0.1</version>
             </plugin>
         </plugins>
     </build>
-    <!-- TODO 1.7? -->
-    <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
 </project>

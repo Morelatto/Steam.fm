@@ -27,11 +27,11 @@ public class GameGenreJSONParser {
         return new ArrayList<>(new LinkedHashSet<>(listaGeneroJogos));
     }
 
-    public static List<String> getListaGenerosByJogo(int ID) {
+    public static List<String> getListaGenerosByJogo(Long ID) {
         return getListaGeneros(ID);
     }
 
-    private static List<String> getListaGeneros(int game) {
+    private static List<String> getListaGeneros(Long game) {
         List<String> listaGeneroJogos = new ArrayList<>();
         try {
             URL address = new URL("http://store.steampowered.com/app/" + game + "/?l=brazilian");

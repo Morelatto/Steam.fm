@@ -21,11 +21,11 @@ public class GameGenre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Long id;
 
-    private String name;
+    String name;
 
     @OneToMany(mappedBy = "gameGenreId")
-    private Collection<MusicReleaseAndGameMap> musicReleaseAndGameMap;
+    Collection<MusicReleaseAndGameMap> musicReleaseAndGameMap;
 
 }

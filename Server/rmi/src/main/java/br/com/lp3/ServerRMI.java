@@ -16,7 +16,7 @@ public class ServerRMI {
             registry.rebind("GameGenreDAO", new RemoteGameGenreDAO());
             registry.rebind("MusicDAO", new RemoteMusicDAO());
             registry.rebind("MusicReleaseAndGameMapDAO", new RemoteMusicReleaseAndGameMapDAO());
-            registry.rebind("UserDAO", new RemoteUserDAO());
+            registry.rebind("SystemUserDAO", new RemoteSystemUserDAO());
             System.out.println("RMI server started");
         } catch (RemoteException ex) {
             System.out.println(ex);

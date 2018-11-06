@@ -68,10 +68,10 @@ public class Controller extends HttpServlet {
                 case "login":
                     switch (request.getParameter("commandAux")) {
                         case "sistema":
-                            User user = loginManager.authorize(request.getParameter("loginSistema"), request.getParameter("senhaSistema"));
-                            if (user != null) {
-                                session.setAttribute("user", user);
-                                if (user.getSteanUser() == null) {
+                            SystemUser systemUser = loginManager.authorize(request.getParameter("loginSistema"), request.getParameter("senhaSistema"));
+                            if (systemUser != null) {
+                                session.setAttribute("user", systemUser);
+                                if (systemUser.getSteamUser() == null) {
                                     session.setAttribute("admin", true);
                                 }
                                 response.sendRedirect("home.jsp");

@@ -22,7 +22,7 @@ public class AlbumTest {
 
         em.getTransaction().begin();
         for (int i = 1; i <= 1000; i++) {
-            em.persist(new Album(i, //
+            em.persist(new Album((long) i, //
                 String.format("Title%d", i), //
                 String.format("IdLastfm%d", i), //
                 String.format("Image%d", i), //
@@ -33,7 +33,7 @@ public class AlbumTest {
         em.getTransaction().commit();
 
         Query q1 = em.createQuery("SELECT COUNT(a) FROM Album a");
-        Assert.assertEquals(1000, q1.getSingleResult());
+        Assert.assertEquals(1000L, q1.getSingleResult());
     }
 
 }

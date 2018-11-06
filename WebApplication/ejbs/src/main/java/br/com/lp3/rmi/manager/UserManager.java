@@ -1,6 +1,6 @@
 package br.com.lp3.rmi.manager;
 
-import br.com.lp3.entities.User;
+import br.com.lp3.entities.SystemUser;
 
 import javax.ejb.Local;
 import java.rmi.Remote;
@@ -10,14 +10,14 @@ import java.util.Optional;
 @Local
 public interface UserManager extends Remote {
 
-    Optional<User> get(long id);
+    Optional<SystemUser> get(long id);
 
-    List<User> getAll();
+    List<SystemUser> getAll();
 
-    void save(User user);
+    void save(SystemUser systemUser);
 
-    void update(User user);
+    void update(SystemUser systemUser);
 
-    void delete(User user);
+    void delete(SystemUser systemUser);
 
 }

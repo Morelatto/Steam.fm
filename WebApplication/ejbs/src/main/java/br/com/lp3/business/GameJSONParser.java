@@ -25,10 +25,10 @@ public class GameJSONParser {
 
         for (JsonValue game : games) {
             JsonObject gameAux = (JsonObject) game;
-            Game jogo = new Game(gameAux.getInt("appid"),
-                gameAux.getString("name"),
-                GameGenreJSONParser.getListaGenerosByJogo(gameAux.getInt("appid")),
-                null);
+            Game jogo = new Game((long) gameAux.getInt("appid"),
+                    gameAux.getString("name"),
+                    GameGenreJSONParser.getListaGenerosByJogo((long) gameAux.getInt("appid")),
+                    null);
             listaGames.add(jogo);
         }
 

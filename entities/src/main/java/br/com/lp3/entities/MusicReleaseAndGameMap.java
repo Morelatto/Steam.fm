@@ -21,22 +21,22 @@ public class MusicReleaseAndGameMap implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
-    private Album albumId;
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    Album albumId;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
-    private Artist artistId;
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    Artist artistId;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
-    private GameGenre gameGenreId;
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    GameGenre gameGenreId;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
-    private Music musicId;
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    Music musicId;
 
 }
