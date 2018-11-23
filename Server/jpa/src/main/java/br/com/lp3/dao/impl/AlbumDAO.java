@@ -21,13 +21,13 @@ public class AlbumDAO implements DAO<Album> {
     }
 
     @Override
-    public Optional<Album> get(long id) {
+    public Optional<Album> get(Long id) {
         return Optional.ofNullable(entityManager.find(Album.class, id));
     }
 
     @Override
     public List<Album> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Album e");
+        Query query = entityManager.createQuery("SELECT a FROM Album a");
         return query.getResultList();
     }
 

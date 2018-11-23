@@ -21,13 +21,13 @@ public class GameGenreDAO implements DAO<GameGenre> {
     }
 
     @Override
-    public Optional<GameGenre> get(long id) {
+    public Optional<GameGenre> get(Long id) {
         return Optional.ofNullable(entityManager.find(GameGenre.class, id));
     }
 
     @Override
     public List<GameGenre> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM GeneroJogo e");
+        Query query = entityManager.createQuery("SELECT gg FROM GameGenre gg");
         return query.getResultList();
     }
 

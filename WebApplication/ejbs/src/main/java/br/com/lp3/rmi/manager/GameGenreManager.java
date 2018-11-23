@@ -1,26 +1,20 @@
 package br.com.lp3.rmi.manager;
 
 import br.com.lp3.entities.GameGenre;
+import br.com.lp3.entities.dto.Game;
+import br.com.lp3.rmi.dao.RemoteDAOOperations;
 
-import javax.ejb.Local;
 import java.rmi.Remote;
 import java.util.List;
-import java.util.Optional;
+
+import javax.ejb.Local;
 
 @Local
 public interface GameGenreManager extends Remote {
 
-    Optional<GameGenre> get(long id);
+    RemoteDAOOperations<GameGenre> getOperations();
 
-    List<GameGenre> getAll();
-
-    void save(GameGenre gameGenre);
-
-    void update(GameGenre gameGenre);
-
-    void delete(GameGenre gameGenre);
-
-    List<GameGenre> getGameGenresByUser(String username);
+    List<GameGenre> getGameGenres(List<Game> gameList);
 
     List<GameGenre> getGameGenreListByGameGenreNames(List<String> gameGenreNames);
 

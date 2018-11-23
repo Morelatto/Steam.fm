@@ -5,10 +5,10 @@ import br.com.lp3.rmi.manager.ArtistManager;
 import br.com.lp3.rmi.manager.GameGenreManager;
 import br.com.lp3.rmi.manager.GameManager;
 import br.com.lp3.rmi.manager.LoginManager;
-import br.com.lp3.rmi.manager.MusicManager;
+import br.com.lp3.rmi.manager.SongManager;
 import br.com.lp3.rmi.manager.RecommendationManager;
-import br.com.lp3.rmi.manager.MusicReleaseAndGameMapManager;
-import br.com.lp3.rmi.manager.UserManager;
+import br.com.lp3.rmi.manager.GameGenreToMusicReleaseManager;
+import br.com.lp3.rmi.manager.SteamFmUserManager;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -16,7 +16,7 @@ import javax.naming.NamingException;
 public class ServiceLocator {
 
     private static ServiceLocator instance;
-    private final String PREFIX = "ejblocal:";
+    private static final String PREFIX = "java:global/myapp/";
 
     private ServiceLocator() {
     }
@@ -28,48 +28,51 @@ public class ServiceLocator {
         return instance;
     }
 
-    public AlbumManager getAlbumLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (AlbumManager) context.lookup(PREFIX + AlbumManager.class.getName());
+    public AlbumManager getAlbumManager() {
+        return jndiLookup(AlbumManager.class);
     }
 
-    public MusicManager getMusicaLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (MusicManager) context.lookup(PREFIX + MusicManager.class.getName());
+    public SongManager getSongManager() {
+        return jndiLookup(SongManager.class);
     }
 
-    public UserManager getUsuarioLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (UserManager) context.lookup(PREFIX + UserManager.class.getName());
+    public SteamFmUserManager getSteamFmUser() {
+        return jndiLookup(SteamFmUserManager.class);
     }
 
-    public RecommendationManager getRecomendacaoLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (RecommendationManager) context.lookup(PREFIX + RecommendationManager.class.getName());
+    public RecommendationManager getRecommendationManager() {
+        return jndiLookup(RecommendationManager.class);
     }
 
-    public MusicReleaseAndGameMapManager getRelacaoLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (MusicReleaseAndGameMapManager) context.lookup(PREFIX + MusicReleaseAndGameMapManager.class.getName());
+    public GameGenreToMusicReleaseManager getMusicReleaseAndGameMapManager() {
+        return jndiLookup(GameGenreToMusicReleaseManager.class);
     }
 
-    public LoginManager getLoginLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (LoginManager) context.lookup(PREFIX + LoginManager.class.getName());
+    public LoginManager getLoginManager() {
+        return jndiLookup(LoginManager.class);
     }
 
-    public GameManager getJogoLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (GameManager) context.lookup(PREFIX + GameManager.class.getName());
+    public GameManager getGameManager() {
+        return jndiLookup(GameManager.class);
     }
 
-    public GameGenreManager getGeneroJogoLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (GameGenreManager) context.lookup(PREFIX + GameGenreManager.class.getName());
+    public GameGenreManager getGameGenreManager() {
+        return jndiLookup(GameGenreManager.class);
     }
 
-    public ArtistManager getArtistaLocal() throws NamingException {
-        InitialContext context = new InitialContext();
-        return (ArtistManager) context.lookup(PREFIX + ArtistManager.class.getName());
+    public ArtistManager getArtistManagerLocal() {
+        return jndiLookup(ArtistManager.class);
     }
+
+    private <T> T jndiLookup(Class<T> clazz) {
+        try {
+            InitialContext context = new InitialContext();
+            return clazz.cast(context.lookup(PREFIX + clazz.getSimpleName() + "Impl"));
+        } catch (NamingException e) {
+            // TODO log
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -42,7 +42,7 @@ public class AlbumJSONParser {
                 Album albumRec = new Album();
                 albumRec.setLastFmId(albumObj.getString("mbid"));
                 albumRec.setUrl(albumObj.getString("url"));
-                albumRec.setTitle(albumObj.getString("name"));
+                albumRec.setName(albumObj.getString("name"));
                 albumRec
                         .setImage(albumObj.containsKey("image") ? (albumObj.getJsonArray("image").size() == 6 ? albumObj
                                 .getJsonArray("image")

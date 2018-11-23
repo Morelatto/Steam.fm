@@ -1,4 +1,4 @@
-package br.com.lp3.rmi;
+package br.com.lp3.rmi.dao;
 
 import java.rmi.Remote;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface RemoteDAO<T> extends Remote {
 
-    Optional<T> get(long id);
+    Optional<T> get(Long id);
 
     List<T> getAll();
 

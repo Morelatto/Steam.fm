@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RemoteDAO<T> extends Remote {
 
-    Optional<T> get(long id) throws RemoteException;
+    Optional<T> get(Long id) throws RemoteException;
 
     List<T> getAll() throws RemoteException;
 

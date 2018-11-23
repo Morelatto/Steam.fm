@@ -17,7 +17,7 @@ public class RemoteGameGenreDAO extends UnicastRemoteObject implements RemoteDAO
     }
 
     @Override
-    public Optional<GameGenre> get(long id) {
+    public Optional<GameGenre> get(Long id) {
         return gameGenreDAO.get(id);
     }
 

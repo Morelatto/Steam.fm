@@ -17,7 +17,7 @@ public class RemoteAlbumDAO extends UnicastRemoteObject implements RemoteDAO<Alb
     }
 
     @Override
-    public Optional<Album> get(long id) {
+    public Optional<Album> get(Long id) {
         return albumDAO.get(id);
     }
 

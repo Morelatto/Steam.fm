@@ -2,7 +2,7 @@ package br.com.lp3.dao.impl;
 
 import br.com.lp3.PersistenceUtils;
 import br.com.lp3.dao.DAO;
-import br.com.lp3.entities.SystemUser;
+import br.com.lp3.entities.SteamFmUser;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,39 +11,39 @@ import java.util.function.Consumer;
 
 import static br.com.lp3.PersistenceUtils.PERSISTENCE_UNIT_NAME;
 
-public class SystemUserDAO implements DAO<SystemUser> {
+public class SteamFmUserDAO implements DAO<SteamFmUser> {
 
     private EntityManager entityManager;
 
-    SystemUserDAO() {
+    SteamFmUserDAO() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
-    public Optional<SystemUser> get(long id) {
-        return Optional.ofNullable(entityManager.find(SystemUser.class, id));
+    public Optional<SteamFmUser> get(Long id) {
+        return Optional.ofNullable(entityManager.find(SteamFmUser.class, id));
     }
 
     @Override
-    public List<SystemUser> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Usuario e");
+    public List<SteamFmUser> getAll() {
+        Query query = entityManager.createQuery("SELECT sfu FROM SteamFmUser sfu");
         return query.getResultList();
     }
 
     @Override
-    public void save(SystemUser systemUser) {
-        execute(entityManager -> entityManager.persist(systemUser));
+    public void save(SteamFmUser steamFmUser) {
+        execute(entityManager -> entityManager.persist(steamFmUser));
     }
 
     @Override
-    public void update(SystemUser systemUser) {
-        execute(entityManager -> entityManager.merge(systemUser));
+    public void update(SteamFmUser steamFmUser) {
+        execute(entityManager -> entityManager.merge(steamFmUser));
     }
 
     @Override
-    public void delete(SystemUser systemUser) {
-        execute(entityManager -> entityManager.remove(systemUser));
+    public void delete(SteamFmUser steamFmUser) {
+        execute(entityManager -> entityManager.remove(steamFmUser));
     }
 
     private void execute(Consumer<EntityManager> action) {

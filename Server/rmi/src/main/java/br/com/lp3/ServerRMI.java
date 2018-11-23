@@ -8,17 +8,21 @@ import java.rmi.registry.Registry;
 
 public class ServerRMI {
 
+    private static final int RMI_SERVER_PORT = 1099;
+
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.createRegistry(1099);
-            registry.rebind("AlbumDAO", new RemoteAlbumDAO());
+            Registry registry = LocateRegistry.createRegistry(RMI_SERVER_PORT);
             registry.rebind("ArtistDAO", new RemoteArtistDAO());
+            registry.rebind("AlbumDAO", new RemoteAlbumDAO());
+            registry.rebind("SongDAO", new RemoteSongDAO());
             registry.rebind("GameGenreDAO", new RemoteGameGenreDAO());
-            registry.rebind("MusicDAO", new RemoteMusicDAO());
-            registry.rebind("MusicReleaseAndGameMapDAO", new RemoteMusicReleaseAndGameMapDAO());
-            registry.rebind("SystemUserDAO", new RemoteSystemUserDAO());
+            registry.rebind("GameGenreToMusicReleaseDAO", new RemoteGameGenreToMusicReleaseDAO());
+            registry.rebind("SteamFmUserDAO", new RemoteSteamFmUserDAO());
+            // TODO log
             System.out.println("RMI server started");
         } catch (RemoteException ex) {
+            // TODO log
             System.out.println(ex);
         }
     }

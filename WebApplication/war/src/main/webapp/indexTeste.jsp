@@ -79,34 +79,34 @@
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaMusics}" var="music">
+    <c:forEach items="${listaSongs}" var="song">
         <tr>
-            <td>${music.getIdMusica()}</td>
-            <td>${music.getTituloMusica()}</td>
-            <td>${music.getIdMusicaLastfm()}</td>
+            <td>${song.getIdMusica()}</td>
+            <td>${song.getTituloMusica()}</td>
+            <td>${song.getIdMusicaLastfm()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaRelacoes}" var="musicReleaseAndGameMap">
+    <c:forEach items="${listaRelacoes}" var="gameGenreToMusicRelease">
         <tr>
-            <td>${musicReleaseAndGameMap.getIdRelacao()}</td>
-            <td>${musicReleaseAndGameMap.getIdGeneroJogo()}</td>
-            <td>${musicReleaseAndGameMap.getIdMusica()}</td>
-            <td>${musicReleaseAndGameMap.getIdAlbum()}</td>
-            <td>${musicReleaseAndGameMap.getIdArtista()}</td>
+            <td>${gameGenreToMusicRelease.getIdRelacao()}</td>
+            <td>${gameGenreToMusicRelease.getIdGeneroJogo()}</td>
+            <td>${gameGenreToMusicRelease.getIdMusica()}</td>
+            <td>${gameGenreToMusicRelease.getIdAlbum()}</td>
+            <td>${gameGenreToMusicRelease.getIdArtista()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaSystemUsers}" var="systemUser">
+    <c:forEach items="${listaSteamFmUsers}" var="steamFmUser">
         <tr>
-            <td>${systemUser.getIdUsuario()}</td>
-            <td>${systemUser.getLogin()}</td>
-            <td>${systemUser.getSenha()}</td>
-            <td>${systemUser.getUsuarioSteam()}</td>
+            <td>${steamFmUser.getIdUsuario()}</td>
+            <td>${steamFmUser.getLogin()}</td>
+            <td>${steamFmUser.getSenha()}</td>
+            <td>${steamFmUser.getUsuarioSteam()}</td>
         </tr>
     </c:forEach>
 </table>

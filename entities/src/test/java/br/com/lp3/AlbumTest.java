@@ -1,9 +1,6 @@
 package br.com.lp3;
 
 import br.com.lp3.entities.Album;
-import br.com.lp3.entities.MusicReleaseAndGameMap;
-
-import java.util.Collections;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,18 +14,19 @@ public class AlbumTest {
 
     @Test
     public void albumSaveTest() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("steamfm");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("steam_fm_test");
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
         for (int i = 1; i <= 1000; i++) {
-            em.persist(new Album((long) i, //
-                String.format("Title%d", i), //
-                String.format("IdLastfm%d", i), //
-                String.format("Image%d", i), //
-                String.format("Desc%d", i), //
-                String.format("Url%d", i), //
-                Collections.<MusicReleaseAndGameMap> emptyList()));
+            em.persist(Album
+                    .builder()
+                    .description(String.format("Desc%d", i))
+                    .image(String.format("Image%d", i))
+                    .lastFmId(String.format("IdLastfm%d", i))
+                    .name(String.format("Title%d", i))
+                    .url(String.format("Url%d", i))
+                    .build());
         }
         em.getTransaction().commit();
 

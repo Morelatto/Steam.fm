@@ -10,7 +10,7 @@ public class PersistenceUtils {
         throw new IllegalAccessException("Utility class");
     }
 
-    public static final String PERSISTENCE_UNIT_NAME = "steamfm";
+    public static final String PERSISTENCE_UNIT_NAME = "steam_fm";
 
     public static void executeInsideTransaction(Consumer<EntityManager> action, EntityTransaction tx, EntityManager entityManager) {
         try {

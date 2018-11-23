@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-public class SystemUser implements Serializable {
+@AllArgsConstructor
+@Table(name = "STEAM_FM_USER")
+public class SteamFmUser implements Serializable {
 
     @Id
+    @Column(name = "steam_fm_user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
@@ -22,6 +24,7 @@ public class SystemUser implements Serializable {
 
     String password;
 
+    @Column(name = "steam_user")
     String steamUser;
 
 }

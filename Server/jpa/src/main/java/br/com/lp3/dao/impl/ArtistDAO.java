@@ -21,13 +21,13 @@ public class ArtistDAO implements DAO<Artist> {
     }
 
     @Override
-    public Optional<Artist> get(long id) {
+    public Optional<Artist> get(Long id) {
         return Optional.ofNullable(entityManager.find(Artist.class, id));
     }
 
     @Override
     public List<Artist> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Artist e");
+        Query query = entityManager.createQuery("SELECT a FROM Artist a");
         return query.getResultList();
     }
 

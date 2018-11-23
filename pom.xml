@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>br.com.lp3</groupId>
     <artifactId>SteamFM</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>SteamFM</name>
     <packaging>pom</packaging>
 
-    <name>SteamFM</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <modules>
         <module>entities</module>
         <module>WebApplication</module>
         <module>Server</module>
     </modules>
-
-    <distributionManagement>
-        <site>
-            <id>site</id>
-            <name>project website</name>
-            <url>scp://local.company.com/websites/project.company.com/</url>
-        </site>
-    </distributionManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

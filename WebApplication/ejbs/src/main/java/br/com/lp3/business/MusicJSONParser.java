@@ -1,6 +1,6 @@
 package br.com.lp3.business;
 
-import br.com.lp3.entities.Music;
+import br.com.lp3.entities.Song;
 import br.com.lp3.utilities.URLGetter;
 
 import javax.json.JsonArray;
@@ -14,12 +14,12 @@ import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_URL;
 
 public class MusicJSONParser {
 
-    public static List<Music> getMusicaRecomendacao(List<Music> musicList) {
-        List<Music> recommendationList = new ArrayList<>();
+    public static List<Song> getMusicaRecomendacao(List<Song> songList) {
+        List<Song> recommendationList = new ArrayList<>();
 
-        for (Music music : musicList) {
+        for (Song song : songList) {
             JsonObject mainObj = URLGetter.getContent(LAST_FM_API_URL + "?method=track.getSimilar&mbid="
-                    + music.getLastFmId().trim() + "&api_key=" + LAST_FM_API_KEY + "&format=json");
+                    + song.getLastFmId().trim() + "&api_key=" + LAST_FM_API_KEY + "&format=json");
             JsonObject similarTracks = mainObj.getJsonObject("similartracks");
             JsonArray tracks = similarTracks.getJsonArray("track");
 
@@ -30,21 +30,21 @@ public class MusicJSONParser {
                 if ("".equals(mbid)) {
                     i--;
                 } else {
-                    Music recMusic = new Music();
-                    recMusic.setLastFmId(mbid);
-                    recMusic.setUrl(url2);
-                    recMusic.setTitle(recTrack.getString("name", ""));
-                    recMusic
+                    Song recSong = new Song();
+                    recSong.setLastFmId(mbid);
+                    recSong.setUrl(url2);
+                    recSong.setName(recTrack.getString("name", ""));
+                    recSong
                             .setImage(recTrack.containsKey("image") ? (recTrack.getJsonArray("image").size() == 6 ? recTrack
                                     .getJsonArray("image")
                                     .getJsonObject(4)
                                     .getString("#text", "")
                                     : recTrack.getJsonArray("image").getJsonObject(3).getString("#text", ""))
                                     : "");
-                    recMusic.setDescription(recTrack.containsValue("wiki") ? recTrack
+                    recSong.setDescription(recTrack.containsValue("wiki") ? recTrack
                             .getJsonObject("wiki")
                             .getString("summary", "") : "");
-                    recommendationList.add(recMusic);
+                    recommendationList.add(recSong);
                 }
             }
         }

@@ -14,7 +14,7 @@
 <%@include file="WEB-INF/jspf/header.jspf" %>
 <%@include file="WEB-INF/jspf/menu.jspf" %>
 <div id="content-wrap" style="margin-top: 150px;">
-    <h1>${userSteam}</h1>
+    <h1>${steamUser.toUpperCase()}</h1>
     <h2><span>${steamID}</span></h2>
     <c:set var="i" value="0"></c:set>
     <c:forEach items="${listaGames}" var="game">

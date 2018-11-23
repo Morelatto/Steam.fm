@@ -1,6 +1,6 @@
 package br.com.lp3.business;
 
-import br.com.lp3.entities.Game;
+import br.com.lp3.entities.dto.Game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +17,14 @@ import java.util.logging.Logger;
 
 public class GameGenreJSONParser {
 
-    public static List<String> getListaGenerosByUser(String username) {
-        List<String> listaGeneroJogos = new ArrayList<>();
-        for (Game id : GameJSONParser.getJogosByUser(username)) {
-            for (String generoJogo : getListaGeneros(id.getSteamId())) {
-                listaGeneroJogos.add(generoJogo);
+    public static List<String> getListaGenerosBySteamId(List<Game> gameList) {
+        List<String> gameGenreList = new ArrayList<>();
+        for (Game game : gameList) {
+            for (String gameGenre : getListaGeneros(game.getId())) {
+                gameGenreList.add(gameGenre);
             }
         }
-        return new ArrayList<>(new LinkedHashSet<>(listaGeneroJogos));
+        return new ArrayList<>(new LinkedHashSet<>(gameGenreList));
     }
 
     public static List<String> getListaGenerosByJogo(Long ID) {

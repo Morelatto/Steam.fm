@@ -1,6 +1,6 @@
 package br.com.lp3.rmi.manager;
 
-import br.com.lp3.entities.Game;
+import br.com.lp3.entities.dto.Game;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -8,6 +8,6 @@ import java.util.List;
 @Local
 public interface GameManager {
 
-    List<Game> getGamesByUser(String username);
+    List<Game> getGamesBySteamId(String username);
 
 }
