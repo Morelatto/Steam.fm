@@ -1,2 +1,4 @@
 .idea/
 *.iml
+steam_fm_db/
+derby.log

@@ -11,9 +11,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import javax.ejb.Stateless;
 
@@ -37,17 +34,13 @@ public class GameGenreToMusicReleaseManagerImpl extends UnicastRemoteObject impl
     }
 
     @Override
-    public List<GameGenreToMusicRelease> getListaRelacao(List<GameGenre> listaGameGenres) {
-        List<GameGenreToMusicRelease> listaGameGenreToMusicRelease = new ArrayList<>();
-        for (GameGenreToMusicRelease gameGenreToMusicRelease : operations.getAll()) {
-            for (GameGenre gameGenre : listaGameGenres) {
-                if (Objects.equals(gameGenre.getId(), gameGenreToMusicRelease.getGameGenreId().getId())) {
-                    listaGameGenreToMusicRelease.add(gameGenreToMusicRelease);
-                    break;
-                }
-            }
-        }
-        return listaGameGenreToMusicRelease;
+    public GameGenreToMusicRelease getByGameGenre(GameGenre gameGenre) {
+        return operations
+                .getAll()
+                .stream()
+                .filter(gameGenreToMusicRelease -> gameGenreToMusicRelease.getGameGenre() == gameGenre)
+                .findFirst()
+                .orElse(null);
     }
 
 }

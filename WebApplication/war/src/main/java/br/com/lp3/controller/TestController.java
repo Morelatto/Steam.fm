@@ -151,10 +151,10 @@ public class TestController extends HttpServlet {
             case "relacaoC":
                 GameGenreToMusicRelease gameGenreToMusicRelease = new GameGenreToMusicRelease();
                 gameGenreToMusicRelease.setId(100L);
-                gameGenreToMusicRelease.setAlbumId(null);
-                gameGenreToMusicRelease.setArtistId(null);
-                gameGenreToMusicRelease.setGameGenreId(null);
-                gameGenreToMusicRelease.setSongId(null);
+                gameGenreToMusicRelease.setAlbum(null);
+                gameGenreToMusicRelease.setArtist(null);
+                gameGenreToMusicRelease.setGameGenre(null);
+                gameGenreToMusicRelease.setSong(null);
                 gameGenreToMusicReleaseManager.getOperations().save(gameGenreToMusicRelease);
                 break;
             case "relacaoR":
@@ -164,23 +164,23 @@ public class TestController extends HttpServlet {
             case "relacaoU":
                 gameGenreToMusicRelease = new GameGenreToMusicRelease();
                 gameGenreToMusicRelease.setId(86L);
-                gameGenreToMusicRelease.setAlbumId(null);
-                gameGenreToMusicRelease.setArtistId(null);
+                gameGenreToMusicRelease.setAlbum(null);
+                gameGenreToMusicRelease.setArtist(null);
                 GameGenre gameGenre2 = new GameGenre();
                 gameGenre2.setId(4L);
-                gameGenreToMusicRelease.setGameGenreId(gameGenre2);
-                gameGenreToMusicRelease.setSongId(null);
+                gameGenreToMusicRelease.setGameGenre(gameGenre2);
+                gameGenreToMusicRelease.setSong(null);
                 gameGenreToMusicReleaseManager.getOperations().update(gameGenreToMusicRelease);
                 break;
             case "relacaoD":
                 gameGenreToMusicRelease = new GameGenreToMusicRelease();
                 gameGenreToMusicRelease.setId(86L);
-                gameGenreToMusicRelease.setAlbumId(null);
-                gameGenreToMusicRelease.setArtistId(null);
+                gameGenreToMusicRelease.setAlbum(null);
+                gameGenreToMusicRelease.setArtist(null);
                 GameGenre gameGenre3 = new GameGenre();
                 gameGenre3.setId(4L);
-                gameGenreToMusicRelease.setGameGenreId(gameGenre3);
-                gameGenreToMusicRelease.setSongId(null);
+                gameGenreToMusicRelease.setGameGenre(gameGenre3);
+                gameGenreToMusicRelease.setSong(null);
                 gameGenreToMusicReleaseManager.getOperations().delete(gameGenreToMusicRelease);
                 break;
             case "usuarioC":

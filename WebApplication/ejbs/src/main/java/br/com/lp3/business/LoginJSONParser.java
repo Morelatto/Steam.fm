@@ -1,21 +1,33 @@
 package br.com.lp3.business;
 
-import br.com.lp3.utilities.URLGetter;
+import br.com.lp3.utilities.JsonUtils;
+import br.com.lp3.utilities.UrlBuilder;
 
-import javax.json.JsonObject;
+import java.io.IOException;
 
-import static br.com.lp3.utilities.SteamFMConstants.STEAM_API_KEY;
-import static br.com.lp3.utilities.SteamFMConstants.STEAM_API_URL;
+import org.json.JSONObject;
+
+import static br.com.lp3.utilities.JsonUtils.STEAM_ID_KEY;
+import static br.com.lp3.utilities.JsonUtils.STEAM_RESPONSE_KEY;
 
 public class LoginJSONParser {
 
-    public static String getSteamID(String username) {
-        JsonObject mainObj = URLGetter.getContent(STEAM_API_URL + "?key=" + STEAM_API_KEY + "&vanityurl=" + username);
-        JsonObject response = mainObj.getJsonObject("response");
+    private LoginJSONParser() {
+    }
 
-        return response.getInt("success") != 1
-                || (response.containsKey("message") && "No match".equals(response.getString("message"))) ? null
-                : response.getString("steamid");
+    public static String getSteamIdFromUsername(String steamUsername) {
+        try {
+            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.steamUserValidation(steamUsername));
+            JSONObject response = mainObject.getJSONObject(STEAM_RESPONSE_KEY);
+            String steamId = response.optString(STEAM_ID_KEY);
+            if (steamId != null) {
+                return steamId;
+            }
+        } catch (IOException e) {
+            // TODO log
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

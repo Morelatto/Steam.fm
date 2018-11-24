@@ -1,55 +1,54 @@
 package br.com.lp3.business;
 
 import br.com.lp3.entities.Artist;
-import br.com.lp3.utilities.URLGetter;
+import br.com.lp3.utilities.JsonUtils;
+import br.com.lp3.utilities.UrlBuilder;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
-import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_KEY;
-import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_URL;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_MBID_KEY;
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_NAME_KEY;
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_IMAGE_KEY;
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_URL_KEY;
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_SIMILAR_ARTISTS_JSON_KEY;
+import static br.com.lp3.utilities.JsonUtils.LAST_FM_ARTIST_KEY;
 
 public class ArtistJSONParser {
 
-    public static List<Artist> getArtistaRecomendacao(List<Artist> artistas) {
-        List<Artist> listaArtistasRecomendados = new ArrayList<>();
+    private static final int MAX_RECOMMENDATIONS = 5;
 
-        for (Artist artist : artistas) {
-            JsonObject mainObj = URLGetter.getContent(LAST_FM_API_URL + "?method=artist.getSimilar&mbid="
-                    + artist.getLastFmId().trim() + "&api_key=" + LAST_FM_API_KEY + "&format=json");
+    private ArtistJSONParser() {
+    }
 
-            JsonObject similarartists = mainObj.getJsonObject("similarartists");
-            JsonArray artists = similarartists.getJsonArray("artist");
+    public static List<Artist> getRecommendation(Artist artist) {
+        List<Artist> recommendations = new ArrayList<>();
 
-            for (int i = 0; i < 5; i++) {
-                JsonObject recArtist = (JsonObject) artists.get(ThreadLocalRandom.current().nextInt(0, artists.size()));
-                String mbid = recArtist.getString("mbid", "");
-                String url = recArtist.getString("url", "");
-                if ("".equals(mbid)) {
-                    i--;
-                } else {
-                    Artist recArtista = new Artist();
-                    recArtista.setLastFmId(mbid);
-                    recArtista.setLastFmId(url);
-                    recArtista.setName(recArtist.getString("name", ""));
-                    recArtista
-                            .setImage(recArtist.containsKey("image") ? (recArtist.getJsonArray("image").size() == 6 ? recArtist
-                                    .getJsonArray("image")
-                                    .getJsonObject(4)
-                                    .getString("#text", "")
-                                    : recArtist.getJsonArray("image").getJsonObject(3).getString("#text", ""))
-                                    : "");
-                    recArtista.setDescription(recArtist.containsValue("wiki") ? recArtist
-                            .getJsonObject("wiki")
-                            .getString("summary", "") : "");
-                    listaArtistasRecomendados.add(recArtista);
-                }
+        try {
+            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmSimilarArtists(artist.getLastFmId()));
+            JSONArray similarArtists = mainObject
+                    .getJSONObject(LAST_FM_SIMILAR_ARTISTS_JSON_KEY)
+                    .getJSONArray(LAST_FM_ARTIST_KEY);
+
+            for (int i = 0; i < similarArtists.length() && i < MAX_RECOMMENDATIONS; i++) {
+                JSONObject artistJSONObject = similarArtists.getJSONObject(i);
+                recommendations.add(Artist
+                        .builder()
+                        .lastFmId(artistJSONObject.getString(LAST_FM_MBID_KEY))
+                        .name(artistJSONObject.getString(LAST_FM_NAME_KEY))
+                        .image(JsonUtils.getLastFmImage(artistJSONObject.getJSONArray(LAST_FM_IMAGE_KEY)))
+                        .url(artistJSONObject.getString(LAST_FM_URL_KEY))
+                        .build());
             }
+        } catch (IOException e) {
+            // TODO log
+            e.printStackTrace();
         }
-        return listaArtistasRecomendados;
+        return recommendations;
     }
 
 }

@@ -1,6 +1,11 @@
 package br.com.lp3;
 
-import br.com.lp3.dao.impl.*;
+import br.com.lp3.dao.impl.RemoteAlbumDAO;
+import br.com.lp3.dao.impl.RemoteArtistDAO;
+import br.com.lp3.dao.impl.RemoteGameGenreDAO;
+import br.com.lp3.dao.impl.RemoteGameGenreToMusicReleaseDAO;
+import br.com.lp3.dao.impl.RemoteSongDAO;
+import br.com.lp3.dao.impl.RemoteSteamFmUserDAO;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -23,7 +28,7 @@ public class ServerRMI {
             System.out.println("RMI server started");
         } catch (RemoteException ex) {
             // TODO log
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
 

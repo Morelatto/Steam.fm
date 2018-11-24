@@ -1,7 +1,5 @@
 package br.com.lp3.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 
 import lombok.Builder;
@@ -13,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Song extends MusicRelease implements Serializable {
+public class Song extends MusicRelease {
 
     @Builder
     public Song(String lastFmId, String name, String image, String description, String url) {

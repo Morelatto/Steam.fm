@@ -1,31 +1,41 @@
 package br.com.lp3.business;
 
 import br.com.lp3.entities.Album;
-import br.com.lp3.utilities.URLGetter;
+import br.com.lp3.utilities.JsonUtils;
+import br.com.lp3.utilities.UrlBuilder;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_KEY;
 import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_URL;
 
 public class AlbumJSONParser {
 
-    public static List<Album> getAlbumRecomendacao(List<Album> albuns) {
-        List<Album> listaAlbunsRecomendacao = new ArrayList<>();
-        for (Album album : albuns) {
-            JsonObject mainObj = URLGetter.getContent(LAST_FM_API_URL + "?method=album.getInfo&mbid="
-                    + album.getLastFmId().trim() + "&api_key=" + LAST_FM_API_KEY + "&format=json");
-            JsonObject albumObj = mainObj.getJsonObject("album");
-            JsonObject tags = albumObj.getJsonObject("tags");
-            JsonArray tag = tags.getJsonArray("tag");
-            JsonObject tagObj = tag.getJsonObject(ThreadLocalRandom.current().nextInt(0, tag.size()));
-            listaAlbunsRecomendacao.addAll(getRandomAlbunsByTag(tagObj.getString("name")));
+    public static List<Album> getRecommendation(Album album) {
+        List<Album> recommendations = new ArrayList<>();
+        try {
+            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmSimilarAlbums(album.getLastFmId()));
+            JSONObject albumObject = mainObject.getJSONObject("album");
+            JSONObject tagsObject = mainObject.getJSONObject("tags");
+            JSONArray tagArray = mainObject.getJSONArray("tag");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return listaAlbunsRecomendacao;
+        JsonObject albumObj = mainObj.getJsonObject("album");
+        JsonObject tags = albumObj.getJsonObject("tags");
+        JsonArray tag = tags.getJsonArray("tag");
+        JsonObject tagObj = tag.getJsonObject(ThreadLocalRandom.current().nextInt(0, tag.size()));
+        recommendations.addAll(getRandomAlbunsByTag(tagObj.getString("name")));
+        return recommendations;
     }
 
     private static List<Album> getRandomAlbunsByTag(String tag) {

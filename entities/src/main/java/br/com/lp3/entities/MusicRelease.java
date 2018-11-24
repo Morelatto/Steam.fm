@@ -1,5 +1,7 @@
 package br.com.lp3.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class MusicRelease {
+public abstract class MusicRelease implements Serializable {
 
     @Id
     @Column(name = "last_fm_id")

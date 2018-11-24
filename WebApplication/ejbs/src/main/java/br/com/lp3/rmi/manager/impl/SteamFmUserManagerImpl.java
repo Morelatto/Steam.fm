@@ -17,11 +17,11 @@ import static br.com.lp3.utilities.SteamFMConstants.RMI_SERVER_HOST;
 import static br.com.lp3.utilities.SteamFMConstants.RMI_SERVER_PORT;
 
 @Stateless
-public class SteamFmSteamFmUserManagerImpl extends UnicastRemoteObject implements SteamFmUserManager {
+public class SteamFmUserManagerImpl extends UnicastRemoteObject implements SteamFmUserManager {
 
     private RemoteDAOOperations<SteamFmUser> operations;
 
-    public SteamFmSteamFmUserManagerImpl() throws RemoteException, NotBoundException {
+    public SteamFmUserManagerImpl() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry(RMI_SERVER_HOST, RMI_SERVER_PORT);
         RemoteDAO remoteDAO = (RemoteDAO) registry.lookup("SteamFmUserDAO");
         operations = new RemoteDAOOperations<SteamFmUser>(remoteDAO);

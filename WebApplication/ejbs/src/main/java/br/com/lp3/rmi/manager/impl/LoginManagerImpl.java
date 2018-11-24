@@ -13,7 +13,6 @@ import java.rmi.server.UnicastRemoteObject;
 @Stateless
 public class LoginManagerImpl extends UnicastRemoteObject implements LoginManager {
 
-    // TODO remove this
     @EJB
     private SteamFmUserManager steamFmUserManager;
 
@@ -22,18 +21,19 @@ public class LoginManagerImpl extends UnicastRemoteObject implements LoginManage
 
     @Override
     public SteamFmUser authorize(String login, String password) {
-        // todo wtf
-        for (SteamFmUser steamFmUser : steamFmUserManager.getOperations().getAll()) {
-            if (login.equals(steamFmUser.getLogin()) && password.equals(steamFmUser.getPassword())) {
-                return steamFmUser;
-            }
-        }
-        return null;
+        return steamFmUserManager
+                .getOperations()
+                .getAll()
+                .stream()
+                .filter(steamFmUser -> login.equals(steamFmUser.getLogin())
+                        && password.equals(steamFmUser.getPassword()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
-    public String getAnonSteamID(String userSteam) {
-        return LoginJSONParser.getSteamID(userSteam);
+    public String getSteamIdFromUsername(String userSteam) {
+        return LoginJSONParser.getSteamIdFromUsername(userSteam);
     }
 
 }

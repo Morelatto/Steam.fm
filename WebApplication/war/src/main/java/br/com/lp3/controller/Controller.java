@@ -9,7 +9,6 @@ import br.com.lp3.rmi.manager.GameGenreToMusicReleaseManager;
 import br.com.lp3.utilities.ServiceLocator;
 import br.com.lp3.entities.*;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,23 +16,22 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Controller extends HttpServlet {
 
     private LoginManager loginManager;
-    private GameGenreManager generoJogoManager;
-    private GameManager jogoManager;
-    private GameGenreToMusicReleaseManager relacaoManager;
-    private RecommendationManager recomendacaoManager;
+    private GameGenreManager gameGenreManager;
+    private GameManager gameManager;
+    private GameGenreToMusicReleaseManager gameGenreToMusicReleaseManager;
+    private RecommendationManager recommendationManager;
 
-    public Controller() throws NamingException {
+    public Controller() {
         ServiceLocator serviceLocator = ServiceLocator.getInstance();
         loginManager = serviceLocator.getLoginManager();
-        generoJogoManager = serviceLocator.getGameGenreManager();
-        jogoManager = serviceLocator.getGameManager();
-        relacaoManager = serviceLocator.getMusicReleaseAndGameMapManager();
-        recomendacaoManager = serviceLocator.getRecommendationManager();
+        gameGenreManager = serviceLocator.getGameGenreManager();
+        gameManager = serviceLocator.getGameManager();
+        gameGenreToMusicReleaseManager = serviceLocator.getMusicReleaseAndGameMapManager();
+        recommendationManager = serviceLocator.getRecommendationManager();
     }
 
     /**
@@ -76,43 +74,24 @@ public class Controller extends HttpServlet {
     }
 
     private void recommendation(HttpServletResponse response, HttpSession session, String steamID) throws IOException {
-        List<Game> gameList = jogoManager.getGamesBySteamId(steamID);
-        List<GameGenre> gameGenreList = generoJogoManager.getGameGenres(gameList);
-        List<GameGenreToMusicRelease> listaGameGenreToMusicRelease = relacaoManager.getListaRelacao(gameGenreList);
+        List<MusicRelease> recommendations = new ArrayList<>();
+        List<Game> gameList = gameManager.getGamesBySteamId(steamID);
         for (Game game : gameList) {
-            List<GameGenre> listaGameGenreObj = game.getGameGenreList();
-            List<Song> listaRelacaoSong = new ArrayList<>();
-            List<Artist> listaRelacaoArtist = new ArrayList<>();
-            List<Album> listaRelacaoAlbum = new ArrayList<>();
-            listaGameGenreObj
-                    .forEach((GameGenre gameGenre) -> listaGameGenreToMusicRelease
-                            .stream()
-                            .filter((GameGenreToMusicRelease gameGenreToMusicRelease) -> Objects.equals(
-                                    gameGenreToMusicRelease
-                                    .getGameGenreId()
-                                    .getId(),
-                                    gameGenre.getId()))
-                            .forEach(releaseAndGameMap -> processMap(listaRelacaoSong, listaRelacaoArtist, listaRelacaoAlbum, releaseAndGameMap)));
-            List<MusicRelease> recomendacoes = new ArrayList<>();
-            recomendacoes.addAll(recomendacaoManager.getMusicaRecomendacao(listaRelacaoSong));
-            recomendacoes.addAll(recomendacaoManager.getArtistaRecomendacao(listaRelacaoArtist));
-            recomendacoes.addAll(recomendacaoManager.getAlbumRecomendacao(listaRelacaoAlbum));
-            game.setMusicReleaseRecommendationList(recomendacoes);
+            for (GameGenre gameGenre : game.getGameGenreList()) {
+                gameGenre = gameGenreManager.getByName(gameGenre.getName());
+                if (gameGenre != null) {
+                    GameGenreToMusicRelease gameGenreToMusicRelease = gameGenreToMusicReleaseManager
+                            .getByGameGenre(gameGenre);
+                    if (gameGenreToMusicRelease != null) {
+                        recommendations.addAll(recommendationManager.getRecommendation(gameGenreToMusicRelease
+                                .getMusicRelease()));
+                    }
+                }
+            }
+            game.setRecommendationList(recommendations);
         }
-        session.setAttribute("listaJogos", gameList);
-        session.setAttribute("listaRelacao", listaGameGenreToMusicRelease);
+        session.setAttribute("gameList", gameList);
         response.sendRedirect("recomendacao.jsp");
-    }
-
-    private void processMap(List<Song> listaRelacaoSong, List<Artist> listaRelacaoArtist,
-            List<Album> listaRelacaoAlbum, GameGenreToMusicRelease releaseAndGameMap) {
-        if (releaseAndGameMap.getSongId() != null) {
-            listaRelacaoSong.add(releaseAndGameMap.getSongId());
-        } else if (releaseAndGameMap.getArtistId() != null) {
-            listaRelacaoArtist.add(releaseAndGameMap.getArtistId());
-        } else {
-            listaRelacaoAlbum.add(releaseAndGameMap.getAlbumId());
-        }
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response, HttpSession session)
@@ -137,7 +116,7 @@ public class Controller extends HttpServlet {
         case "steam":
             steamUser = request.getParameter("loginSteam");
             if (!"true".equals(request.getParameter("id"))) {
-                steamID = loginManager.getAnonSteamID(steamUser);
+                steamID = loginManager.getSteamIdFromUsername(steamUser);
                 if (steamID == null) {
                     session.setAttribute("usuarioInvalido", "steam");
                     response.sendRedirect("index.jsp");
@@ -191,7 +170,7 @@ public class Controller extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Controller class";
+    }
 
 }

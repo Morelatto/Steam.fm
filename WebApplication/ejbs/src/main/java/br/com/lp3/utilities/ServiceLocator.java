@@ -15,8 +15,8 @@ import javax.naming.NamingException;
 
 public class ServiceLocator {
 
-    private static ServiceLocator instance;
     private static final String PREFIX = "java:global/myapp/";
+    private static ServiceLocator instance;
 
     private ServiceLocator() {
     }
@@ -28,28 +28,16 @@ public class ServiceLocator {
         return instance;
     }
 
+    public ArtistManager getArtistManagerLocal() {
+        return jndiLookup(ArtistManager.class);
+    }
+
     public AlbumManager getAlbumManager() {
         return jndiLookup(AlbumManager.class);
     }
 
     public SongManager getSongManager() {
         return jndiLookup(SongManager.class);
-    }
-
-    public SteamFmUserManager getSteamFmUser() {
-        return jndiLookup(SteamFmUserManager.class);
-    }
-
-    public RecommendationManager getRecommendationManager() {
-        return jndiLookup(RecommendationManager.class);
-    }
-
-    public GameGenreToMusicReleaseManager getMusicReleaseAndGameMapManager() {
-        return jndiLookup(GameGenreToMusicReleaseManager.class);
-    }
-
-    public LoginManager getLoginManager() {
-        return jndiLookup(LoginManager.class);
     }
 
     public GameManager getGameManager() {
@@ -60,14 +48,26 @@ public class ServiceLocator {
         return jndiLookup(GameGenreManager.class);
     }
 
-    public ArtistManager getArtistManagerLocal() {
-        return jndiLookup(ArtistManager.class);
+    public RecommendationManager getRecommendationManager() {
+        return jndiLookup(RecommendationManager.class);
+    }
+
+    public GameGenreToMusicReleaseManager getMusicReleaseAndGameMapManager() {
+        return jndiLookup(GameGenreToMusicReleaseManager.class);
+    }
+
+    public SteamFmUserManager getSteamFmUser() {
+        return jndiLookup(SteamFmUserManager.class);
+    }
+
+    public LoginManager getLoginManager() {
+        return jndiLookup(LoginManager.class);
     }
 
     private <T> T jndiLookup(Class<T> clazz) {
         try {
             InitialContext context = new InitialContext();
-            return clazz.cast(context.lookup(PREFIX + clazz.getSimpleName() + "Impl"));
+            return clazz.cast(context.lookup(PREFIX + clazz.getSimpleName()));
         } catch (NamingException e) {
             // TODO log
             e.printStackTrace();

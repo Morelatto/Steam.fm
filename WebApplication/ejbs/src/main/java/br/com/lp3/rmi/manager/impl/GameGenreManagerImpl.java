@@ -1,8 +1,6 @@
 package br.com.lp3.rmi.manager.impl;
 
-import br.com.lp3.business.GameGenreJSONParser;
 import br.com.lp3.entities.GameGenre;
-import br.com.lp3.entities.dto.Game;
 import br.com.lp3.rmi.dao.RemoteDAO;
 import br.com.lp3.rmi.dao.RemoteDAOOperations;
 import br.com.lp3.rmi.manager.GameGenreManager;
@@ -12,8 +10,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.Stateless;
 
@@ -37,19 +33,13 @@ public class GameGenreManagerImpl extends UnicastRemoteObject implements GameGen
     }
 
     @Override
-    public List<GameGenre> getGameGenres(List<Game> gameList) {
-        return getGameGenreListByGameGenreNames(GameGenreJSONParser.getListaGenerosBySteamId(gameList));
-    }
-
-    @Override
-    public List<GameGenre> getGameGenreListByGameGenreNames(List<String> gameGenreNames) {
-        List<GameGenre> listaGenerosObjeto = new ArrayList<>();
-        for (GameGenre gameGenre : operations.getAll()) {
-            if (gameGenreNames.indexOf(gameGenre.getName()) != -1) {
-                listaGenerosObjeto.add(gameGenre);
-            }
-        }
-        return listaGenerosObjeto;
+    public GameGenre getByName(String name) {
+        return operations
+                .getAll()
+                .stream()
+                .filter(gameGenre -> name.equals(gameGenre.getName()))
+                .findFirst()
+                .orElse(null);
     }
 
 }

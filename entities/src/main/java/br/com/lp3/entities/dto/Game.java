@@ -3,26 +3,24 @@ package br.com.lp3.entities.dto;
 import br.com.lp3.entities.GameGenre;
 import br.com.lp3.entities.MusicRelease;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.OneToMany;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class Game {
+public class Game implements Serializable {
 
     Long id;
 
     String name;
 
-    @OneToMany(mappedBy = "id")
     List<GameGenre> gameGenreList;
 
-    List<MusicRelease> musicReleaseRecommendationList;
+    List<MusicRelease> recommendationList;
 
 }

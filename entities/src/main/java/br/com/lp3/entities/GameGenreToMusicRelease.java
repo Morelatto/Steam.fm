@@ -10,13 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "GAME_GENRE_TO_MUSIC_RELEASE")
 public class GameGenreToMusicRelease implements Serializable {
@@ -27,18 +25,30 @@ public class GameGenreToMusicRelease implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "game_genre_id")
-    GameGenre gameGenreId;
+    GameGenre gameGenre;
 
     @OneToOne
     @JoinColumn(name = "song_id")
-    Song songId;
+    Song song;
 
     @OneToOne
     @JoinColumn(name = "album_id")
-    Album albumId;
+    Album album;
 
     @OneToOne
     @JoinColumn(name = "artist_id")
-    Artist artistId;
+    Artist artist;
+
+    public MusicRelease getMusicRelease() {
+        if (song != null) {
+            return song;
+        } else if (album != null) {
+            return album;
+        } else if (artist != null) {
+            return artist;
+        } else {
+            return null;
+        }
+    }
 
 }

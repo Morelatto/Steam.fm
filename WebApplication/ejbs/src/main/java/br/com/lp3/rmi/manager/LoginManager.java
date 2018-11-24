@@ -10,6 +10,6 @@ public interface LoginManager extends Remote {
 
     SteamFmUser authorize(String login, String senha);
 
-    String getAnonSteamID(String userSteam);
+    String getSteamIdFromUsername(String userSteam);
 
 }

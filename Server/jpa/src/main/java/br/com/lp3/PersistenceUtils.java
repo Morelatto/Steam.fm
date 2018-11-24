@@ -6,13 +6,13 @@ import java.util.function.Consumer;
 
 public class PersistenceUtils {
 
-    private PersistenceUtils() throws IllegalAccessException {
-        throw new IllegalAccessException("Utility class");
-    }
-
     public static final String PERSISTENCE_UNIT_NAME = "steam_fm";
 
-    public static void executeInsideTransaction(Consumer<EntityManager> action, EntityTransaction tx, EntityManager entityManager) {
+    private PersistenceUtils() {
+    }
+
+    public static void executeInsideTransaction(Consumer<EntityManager> action, EntityTransaction tx,
+            EntityManager entityManager) {
         try {
             tx.begin();
             action.accept(entityManager);
