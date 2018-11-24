@@ -20,4 +20,15 @@ public class Album extends MusicRelease implements Serializable {
         super(lastFmId, name, image, description, url);
     }
 
+    @Override
+    public String toString() {
+        return "Album{" +
+                "lastFmId='" + lastFmId + '\'' +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
 }
