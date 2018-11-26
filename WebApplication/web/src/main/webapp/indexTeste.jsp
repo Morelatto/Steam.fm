@@ -1,112 +1,96 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Index - Teste</title>
+    <title>Database tests page</title>
 </head>
 <body>
-<form action="ControllerTeste">
-    <table border="1" style="width:30%">
+<form action="TestController">
+    <table>
         <tr>
-            <td><input type="submit" name="command" value="albumC"></td>
-            <td><input type="submit" name="command" value="albumR"></td>
-            <td><input type="submit" name="command" value="albumU"></td>
-            <td><input type="submit" name="command" value="albumD"></td>
+            <td><input title="Song" type="radio" name="type" value="song"> Song</td>
+            <td><input title="Album" type="radio" name="type" value="album"> Album</td>
+            <td><input title="Artist" type="radio" name="type" value="artist"> Artist</td>
+            <td><input title="GameGenre" type="radio" name="type" value="gameGenre"> GameGenre</td>
+            <td><input title="GameGenreToMusicRelease" type="radio" name="type" value="gameGenreToMusicRelease"> GameGenreToMusicRelease</td>
+            <td><input title="SteamFmUser" type="radio" name="type" value="steamFmUser"> SteamFmUser</td>
         </tr>
+    </table>
+    <table>
         <tr>
-            <td><input type="submit" name="command" value="artistaC"></td>
-            <td><input type="submit" name="command" value="artistaR"></td>
-            <td><input type="submit" name="command" value="artistaU"></td>
-            <td><input type="submit" name="command" value="artistaD"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="command" value="generoJogoC"></td>
-            <td><input type="submit" name="command" value="generoJogoR"></td>
-            <td><input type="submit" name="command" value="generoJogoU"></td>
-            <td><input type="submit" name="command" value="generoJogoD"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="command" value="musicaC"></td>
-            <td><input type="submit" name="command" value="musicaR"></td>
-            <td><input type="submit" name="command" value="musicaU"></td>
-            <td><input type="submit" name="command" value="musicaD"></td>
-        <tr>
-            <td><input type="submit" name="command" value="relacaoC"></td>
-            <td><input type="submit" name="command" value="relacaoR"></td>
-            <td><input type="submit" name="command" value="relacaoU"></td>
-            <td><input type="submit" name="command" value="relacaoD"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="command" value="usuarioC"></td>
-            <td><input type="submit" name="command" value="usuarioR"></td>
-            <td><input type="submit" name="command" value="usuarioU"></td>
-            <td><input type="submit" name="command" value="usuarioD"></td>
+            <td><input type="submit" name="command" value="create"></td>
+            <td><input type="submit" name="command" value="read"></td>
+            <td><input type="submit" name="command" value="update"></td>
+            <td><input type="submit" name="command" value="delete"></td>
         </tr>
     </table>
 </form>
 
 <hr>
-
 <table border="1" style="width:100%">
-    <c:forEach items="${listaAlbums}" var="album">
+    <c:forEach items="${SongList}" var="song">
         <tr>
-            <td>${album.getIdAlbum()}</td>
-            <td>${album.getTituloAlbum()}</td>
-            <td>${album.getIdAlbumLastfm()}</td>
+            <td>${song.getLastFmId()}</td>
+            <td>${song.getName()}</td>
+            <td>${song.getImage()}</td>
+            <td>${song.getDescription()}</td>
+            <td>${song.getUrl()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaArtists}" var="artist">
+    <c:forEach items="${AlbumList}" var="album">
         <tr>
-            <td>${artist.getIdArtista()}</td>
-            <td>${artist.getNomeArtista()}</td>
-            <td>${artist.getIdArtistaLastfm()}</td>
+            <td>${album.getLastFmId()}</td>
+            <td>${album.getName()}</td>
+            <td>${album.getImage()}</td>
+            <td>${album.getDescription()}</td>
+            <td>${album.getUrl()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaGenerosJogos}" var="gameGenre">
+    <c:forEach items="${ArtistList}" var="artist">
         <tr>
-            <td>${gameGenre.getIdGeneroJogo()}</td>
-            <td>${gameGenre.getNomeGenero()}</td>
+            <td>${artist.getLastFmId()}</td>
+            <td>${artist.getName()}</td>
+            <td>${artist.getImage()}</td>
+            <td>${artist.getDescription()}</td>
+            <td>${artist.getUrl()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaSongs}" var="song">
+    <c:forEach items="${GameGenreList}" var="gameGenre">
         <tr>
-            <td>${song.getIdMusica()}</td>
-            <td>${song.getTituloMusica()}</td>
-            <td>${song.getIdMusicaLastfm()}</td>
+            <td>${gameGenre.getId()}</td>
+            <td>${gameGenre.getName()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaRelacoes}" var="gameGenreToMusicRelease">
+    <c:forEach items="${GameGenreToMusicReleaseList}" var="gameGenreToMusicRelease">
         <tr>
-            <td>${gameGenreToMusicRelease.getIdRelacao()}</td>
-            <td>${gameGenreToMusicRelease.getIdGeneroJogo()}</td>
-            <td>${gameGenreToMusicRelease.getIdMusica()}</td>
-            <td>${gameGenreToMusicRelease.getIdAlbum()}</td>
-            <td>${gameGenreToMusicRelease.getIdArtista()}</td>
+            <td>${gameGenreToMusicRelease.getId()}</td>
+            <td>${gameGenreToMusicRelease.getGameGenre().getName()}</td>
+            <td>${gameGenreToMusicRelease.getMusicRelease().getName()}</td>
         </tr>
     </c:forEach>
 </table>
 <hr>
 <table border="1" style="width:100%">
-    <c:forEach items="${listaSteamFmUsers}" var="steamFmUser">
+    <c:forEach items="${SteamFmUserList}" var="steamFmUser">
         <tr>
-            <td>${steamFmUser.getIdUsuario()}</td>
+            <td>${steamFmUser.getId()}</td>
             <td>${steamFmUser.getLogin()}</td>
-            <td>${steamFmUser.getSenha()}</td>
-            <td>${steamFmUser.getUsuarioSteam()}</td>
+            <td>${steamFmUser.getPassword()}</td>
+            <td>${steamFmUser.getSteamUser()}</td>
         </tr>
     </c:forEach>
 </table>

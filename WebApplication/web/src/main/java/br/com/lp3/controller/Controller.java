@@ -30,7 +30,7 @@ public class Controller extends HttpServlet {
         loginManager = serviceLocator.getLoginManager();
         gameGenreManager = serviceLocator.getGameGenreManager();
         gameManager = serviceLocator.getGameManager();
-        gameGenreToMusicReleaseManager = serviceLocator.getMusicReleaseAndGameMapManager();
+        gameGenreToMusicReleaseManager = serviceLocator.getGameGenreToMusicReleaseManager();
         recommendationManager = serviceLocator.getRecommendationManager();
     }
 

@@ -29,7 +29,7 @@ public class ServiceLocator {
         return instance;
     }
 
-    public ArtistManager getArtistManagerLocal() {
+    public ArtistManager getArtistManager() {
         return jndiLookup(ArtistManager.class);
     }
 
@@ -53,7 +53,7 @@ public class ServiceLocator {
         return jndiLookup(RecommendationManager.class);
     }
 
-    public GameGenreToMusicReleaseManager getMusicReleaseAndGameMapManager() {
+    public GameGenreToMusicReleaseManager getGameGenreToMusicReleaseManager() {
         return jndiLookup(GameGenreToMusicReleaseManager.class);
     }
 
