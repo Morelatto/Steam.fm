@@ -26,6 +26,7 @@ public class TestController extends HttpServlet {
     private static final String READ_COMMAND_REQUEST_PARAMETER = "read";
     private static final String UPDATE_COMMAND_REQUEST_PARAMETER = "update";
     private static final String DELETE_COMMAND_REQUEST_PARAMETER = "delete";
+    private static final String SERVLET_DESCRIPTION = "Test controller for database operations";
 
     private HttpSession session;
 
@@ -44,7 +45,7 @@ public class TestController extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Test controller for database operations";
+        return SERVLET_DESCRIPTION;
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
