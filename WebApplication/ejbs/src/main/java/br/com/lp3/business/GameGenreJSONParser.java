@@ -22,7 +22,7 @@ class GameGenreJSONParser {
         try {
             Document steamPage = Jsoup.connect(UrlBuilder.steamGamePage(gameId)).get();
             Elements gameGenreElements = steamPage.select(".app_tag");
-            gameGenreElements.forEach(gg -> new GameGenre(null, gg.text()));
+            gameGenreElements.forEach(gg -> GameGenre.builder().name(gg.text()).build());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,15 +18,85 @@
     </properties>
 
     <modules>
-        <module>war</module>
         <module>ejbs</module>
+        <module>web</module>
+        <module>ear</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>br.com.lp3</groupId>
-            <artifactId>entities</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>br.com.lp3</groupId>
+                <artifactId>ejbs</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>ejb</type>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.lp3</groupId>
+                <artifactId>web</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>war</type>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.lp3</groupId>
+                <artifactId>entities</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <ejbVersion>3.1</ejbVersion>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <modules>
+                            <webModule>
+                                <groupId>br.com.lp3</groupId>
+                                <artifactId>web</artifactId>
+                                <contextRoot>/</contextRoot>
+                            </webModule>
+                        </modules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>unpack</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-ear-plugin</artifactId>
+                            <configuration>
+                                <unpackTypes>war,ejb</unpackTypes>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>

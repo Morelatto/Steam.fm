@@ -15,7 +15,8 @@ import javax.naming.NamingException;
 
 public class ServiceLocator {
 
-    private static final String PREFIX = "java:global/myapp/";
+    private static final String APPLICATION_NAME = "war-1.0-SNAPSHOT";
+    private static final String PREFIX = "java:global/";
     private static ServiceLocator instance;
 
     private ServiceLocator() {
@@ -67,7 +68,7 @@ public class ServiceLocator {
     private <T> T jndiLookup(Class<T> clazz) {
         try {
             InitialContext context = new InitialContext();
-            return clazz.cast(context.lookup(PREFIX + clazz.getSimpleName()));
+            return clazz.cast(context.lookup(PREFIX + APPLICATION_NAME + "/" + clazz.getSimpleName() + "Impl"));
         } catch (NamingException e) {
             // TODO log
             e.printStackTrace();
