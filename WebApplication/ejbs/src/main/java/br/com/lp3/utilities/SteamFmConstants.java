@@ -1,8 +1,8 @@
 package br.com.lp3.utilities;
 
-public class SteamFMConstants {
+public class SteamFmConstants {
 
-    private SteamFMConstants() {
+    private SteamFmConstants() {
     }
 
     static final String LAST_FM_API_URL = "http://ws.audioscrobbler.com/2.0/";

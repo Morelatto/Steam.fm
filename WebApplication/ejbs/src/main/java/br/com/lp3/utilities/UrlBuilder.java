@@ -1,9 +1,9 @@
 package br.com.lp3.utilities;
 
-import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_KEY;
-import static br.com.lp3.utilities.SteamFMConstants.LAST_FM_API_URL;
-import static br.com.lp3.utilities.SteamFMConstants.STEAM_API_KEY;
-import static br.com.lp3.utilities.SteamFMConstants.STEAM_API_URL;
+import static br.com.lp3.utilities.SteamFmConstants.LAST_FM_API_KEY;
+import static br.com.lp3.utilities.SteamFmConstants.LAST_FM_API_URL;
+import static br.com.lp3.utilities.SteamFmConstants.STEAM_API_KEY;
+import static br.com.lp3.utilities.SteamFmConstants.STEAM_API_URL;
 
 public class UrlBuilder {
 

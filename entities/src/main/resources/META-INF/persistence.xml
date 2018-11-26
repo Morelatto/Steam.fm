@@ -6,10 +6,10 @@
     <persistence-unit name="steam_fm" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
+        <class>br.com.lp3.entities.Song</class>
         <class>br.com.lp3.entities.Album</class>
         <class>br.com.lp3.entities.Artist</class>
         <class>br.com.lp3.entities.GameGenre</class>
-        <class>br.com.lp3.entities.Song</class>
         <class>br.com.lp3.entities.GameGenreToMusicRelease</class>
         <class>br.com.lp3.entities.SteamFmUser</class>
 

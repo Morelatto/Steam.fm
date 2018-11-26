@@ -13,8 +13,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 import javax.ejb.Stateless;
 
-import static br.com.lp3.utilities.SteamFMConstants.RMI_SERVER_HOST;
-import static br.com.lp3.utilities.SteamFMConstants.RMI_SERVER_PORT;
+import static br.com.lp3.utilities.SteamFmConstants.RMI_SERVER_HOST;
+import static br.com.lp3.utilities.SteamFmConstants.RMI_SERVER_PORT;
 
 @Stateless
 public class GameGenreManagerImpl extends UnicastRemoteObject implements GameGenreManager {
