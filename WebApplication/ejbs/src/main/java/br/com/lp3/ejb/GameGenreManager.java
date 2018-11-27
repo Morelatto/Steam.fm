@@ -1,14 +1,12 @@
-package br.com.lp3.rmi.manager;
+package br.com.lp3.ejb;
 
 import br.com.lp3.entities.GameGenre;
-import br.com.lp3.rmi.dao.RemoteDAOOperations;
-
-import java.rmi.Remote;
+import br.com.lp3.rmi.RemoteDAOOperations;
 
 import javax.ejb.Local;
 
 @Local
-public interface GameGenreManager extends Remote {
+public interface GameGenreManager {
 
     RemoteDAOOperations<GameGenre> getOperations();
 

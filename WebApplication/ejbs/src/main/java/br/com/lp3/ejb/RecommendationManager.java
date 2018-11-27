@@ -1,14 +1,13 @@
-package br.com.lp3.rmi.manager;
+package br.com.lp3.ejb;
 
 import br.com.lp3.entities.MusicRelease;
 
-import java.rmi.Remote;
 import java.util.List;
 
 import javax.ejb.Local;
 
 @Local
-public interface RecommendationManager extends Remote {
+public interface RecommendationManager {
 
     List<? extends MusicRelease> getRecommendation(MusicRelease musicRelease);
 

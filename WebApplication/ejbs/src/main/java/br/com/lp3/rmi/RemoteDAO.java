@@ -1,4 +1,4 @@
-package br.com.lp3.rmi.dao;
+package br.com.lp3.rmi;
 
 import java.rmi.Remote;
 import java.util.List;

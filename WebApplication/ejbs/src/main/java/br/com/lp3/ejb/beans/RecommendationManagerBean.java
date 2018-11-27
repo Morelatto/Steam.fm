@@ -1,24 +1,23 @@
-package br.com.lp3.rmi.manager.impl;
+package br.com.lp3.ejb.beans;
 
 import br.com.lp3.business.AlbumJSONParser;
 import br.com.lp3.business.ArtistJSONParser;
 import br.com.lp3.business.SongJSONParser;
+import br.com.lp3.ejb.RecommendationManager;
 import br.com.lp3.entities.Album;
 import br.com.lp3.entities.Artist;
 import br.com.lp3.entities.MusicRelease;
 import br.com.lp3.entities.Song;
-import br.com.lp3.rmi.manager.RecommendationManager;
 
-import javax.ejb.Stateless;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.List;
 
-@Stateless
-public class RecommendationManagerImpl extends UnicastRemoteObject implements RecommendationManager {
+import javax.ejb.Stateless;
 
-    public RecommendationManagerImpl() throws RemoteException {
+@Stateless
+public class RecommendationManagerBean implements RecommendationManager {
+
+    public RecommendationManagerBean() {
     }
 
     @Override

@@ -13,6 +13,7 @@ import static br.com.lp3.PersistenceUtils.PERSISTENCE_UNIT_NAME;
 
 public class AlbumDAO implements DAO<Album> {
 
+    // TODO close connection
     private EntityManager entityManager;
 
     AlbumDAO() {

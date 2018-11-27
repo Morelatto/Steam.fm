@@ -1,11 +1,11 @@
 package br.com.lp3.controller;
 
 import br.com.lp3.entities.dto.Game;
-import br.com.lp3.rmi.manager.GameGenreManager;
-import br.com.lp3.rmi.manager.GameManager;
-import br.com.lp3.rmi.manager.LoginManager;
-import br.com.lp3.rmi.manager.RecommendationManager;
-import br.com.lp3.rmi.manager.GameGenreToMusicReleaseManager;
+import br.com.lp3.ejb.GameGenreManager;
+import br.com.lp3.ejb.GameManager;
+import br.com.lp3.ejb.LoginManager;
+import br.com.lp3.ejb.RecommendationManager;
+import br.com.lp3.ejb.GameGenreToMusicReleaseManager;
 import br.com.lp3.utilities.ServiceLocator;
 import br.com.lp3.entities.*;
 

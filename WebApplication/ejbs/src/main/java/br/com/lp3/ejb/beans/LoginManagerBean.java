@@ -1,26 +1,22 @@
-package br.com.lp3.rmi.manager.impl;
+package br.com.lp3.ejb.beans;
 
 import br.com.lp3.business.LoginJSONParser;
+import br.com.lp3.ejb.LoginManager;
+import br.com.lp3.ejb.SteamFmUserManager;
 import br.com.lp3.entities.SteamFmUser;
-import br.com.lp3.rmi.manager.LoginManager;
-import br.com.lp3.rmi.manager.SteamFmUserManager;
+import br.com.lp3.utilities.ServiceLocator;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 @Stateless
-public class LoginManagerImpl extends UnicastRemoteObject implements LoginManager {
+public class LoginManagerBean implements LoginManager {
 
-    @EJB
-    private SteamFmUserManager steamFmUserManager;
-
-    public LoginManagerImpl() throws RemoteException {
+    public LoginManagerBean() {
     }
 
     @Override
     public SteamFmUser authorize(String login, String password) {
+        SteamFmUserManager steamFmUserManager = ServiceLocator.getInstance().getSteamFmUserManager();
         return steamFmUserManager
                 .getOperations()
                 .getAll()

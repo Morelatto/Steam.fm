@@ -1,21 +1,21 @@
 package br.com.lp3.utilities;
 
-import br.com.lp3.rmi.manager.AlbumManager;
-import br.com.lp3.rmi.manager.ArtistManager;
-import br.com.lp3.rmi.manager.GameGenreManager;
-import br.com.lp3.rmi.manager.GameManager;
-import br.com.lp3.rmi.manager.LoginManager;
-import br.com.lp3.rmi.manager.SongManager;
-import br.com.lp3.rmi.manager.RecommendationManager;
-import br.com.lp3.rmi.manager.GameGenreToMusicReleaseManager;
-import br.com.lp3.rmi.manager.SteamFmUserManager;
+import br.com.lp3.ejb.AlbumManager;
+import br.com.lp3.ejb.ArtistManager;
+import br.com.lp3.ejb.GameGenreManager;
+import br.com.lp3.ejb.GameManager;
+import br.com.lp3.ejb.LoginManager;
+import br.com.lp3.ejb.SongManager;
+import br.com.lp3.ejb.RecommendationManager;
+import br.com.lp3.ejb.GameGenreToMusicReleaseManager;
+import br.com.lp3.ejb.SteamFmUserManager;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 public class ServiceLocator {
 
-    private static final String APPLICATION_NAME = "war-1.0-SNAPSHOT";
+    private static final String APPLICATION_NAME = "web-1.0-SNAPSHOT";
     private static final String PREFIX = "java:global/";
     private static ServiceLocator instance;
 
@@ -57,7 +57,7 @@ public class ServiceLocator {
         return jndiLookup(GameGenreToMusicReleaseManager.class);
     }
 
-    public SteamFmUserManager getSteamFmUser() {
+    public SteamFmUserManager getSteamFmUserManager() {
         return jndiLookup(SteamFmUserManager.class);
     }
 
@@ -68,7 +68,7 @@ public class ServiceLocator {
     private <T> T jndiLookup(Class<T> clazz) {
         try {
             InitialContext context = new InitialContext();
-            return clazz.cast(context.lookup(PREFIX + APPLICATION_NAME + "/" + clazz.getSimpleName() + "Impl"));
+            return clazz.cast(context.lookup(PREFIX + APPLICATION_NAME + "/" + clazz.getSimpleName() + "Bean"));
         } catch (NamingException e) {
             // TODO log
             e.printStackTrace();

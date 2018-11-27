@@ -1,12 +1,11 @@
-package br.com.lp3.rmi.manager;
+package br.com.lp3.ejb;
 
 import br.com.lp3.entities.SteamFmUser;
 
 import javax.ejb.Local;
-import java.rmi.Remote;
 
 @Local
-public interface LoginManager extends Remote {
+public interface LoginManager {
 
     SteamFmUser authorize(String login, String senha);
 

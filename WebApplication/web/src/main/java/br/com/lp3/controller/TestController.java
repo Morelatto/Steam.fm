@@ -1,6 +1,6 @@
 package br.com.lp3.controller;
 
-import br.com.lp3.rmi.dao.RemoteDAOOperations;
+import br.com.lp3.rmi.RemoteDAOOperations;
 import br.com.lp3.utilities.ServiceLocator;
 import br.com.lp3.entities.*;
 
@@ -69,7 +69,7 @@ public class TestController extends HttpServlet {
                         buildGameGenreToMusicRelease(),
                         command);
             } else if (STEAM_FM_USER_TYPE_REQUEST_PARAMETER.equals(type)) {
-                doOperation(serviceLocator.getSteamFmUser().getOperations(), buildSteamFmUser(), command);
+                doOperation(serviceLocator.getSteamFmUserManager().getOperations(), buildSteamFmUser(), command);
             }
             response.sendRedirect(TEST_PAGE);
         }

@@ -1,4 +1,4 @@
-package br.com.lp3.rmi.manager;
+package br.com.lp3.ejb;
 
 import br.com.lp3.entities.dto.Game;
 

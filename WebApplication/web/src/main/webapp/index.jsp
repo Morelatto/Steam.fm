@@ -3,48 +3,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href='http://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/logo.css">
-    <link rel="stylesheet" href="css/index.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Steam.fm login</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<c:if test="${usuarioInvalido == 'sistema'}">
-    <script>alert('Usuário Inválido.');</script>
+
+<c:if test="${invalidSystemUser}">
+    <script>alert('Invalid system user \'${invalidSystemUser}\'');</script>
 </c:if>
-<c:if test="${usuarioInvalido == 'steam'}">
-    <script>alert('Usuário Não Encontrado.\nBusque Pelo STEAMID.');</script>
+<c:if test="${invalidSteamUser}">
+    <script>alert('Steam user \'${invalidSteamUser}\' not found');</script>
 </c:if>
-<div style="width:800px; height:350px; left:50%; top:50%; position:absolute; margin-left:-400px; margin-top:-290px;">
-    <div class="board"><p id="error">steam</p>
-        <p id="code">fm</p></div>
-    <div style="position:relative; float:left;">
-        <form action="Controller">
-            <h2><span class="entypo-login"></span> Sistema</h2>
-            <button class="submit"><span class="entypo-lock"></span></button>
-            <span class="entypo-user inputUserIcon iconevelho"></span>
-            <input type="text" class="user uservelho" placeholder="login" name="loginSistema" required/>
-            <span class="entypo-key inputPassIcon"></span>
-            <input type="password" class="pass" placeholder="senha" name="senhaSistema" required/>
-            <input type="text" name="command" value="login" style="visibility: hidden;">
-            <input type="text" name="commandAux" value="sistema" style="visibility: hidden;">
-        </form>
-    </div>
-    <div style="position:relative; float:right;">
-        <form action="Controller">
-            <h2><span class="entypo-login"></span> Steam</h2>
-            <button class="submit" style="height:56px;"><span class="entypo-lock"></span></button>
-            <span class="entypo-user inputUserIcon iconenovo"></span>
-            <input type="checkbox" class="check" name="steamID" value="true" title="STEAMID">
-            <input type="text" class="user usernovo" style="" placeholder="usuário" name="loginSteam" required/>
-            <input type="text" name="command" value="login" style="visibility: hidden;">
-            <input type="text" name="commandAux" value="steam" style="visibility: hidden;">
-        </form>
-    </div>
-</div>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="js/logo.js"></script>
-<script src="js/index.js"></script>
+
+<select id="loginOptions" title="Login options">
+    <option value="" selected="selected"></option>
+    <option value="system_form">System login</option>
+    <option value="app_form">App login</option>
+</select>
+
+<form action="Controller" name="system_form" id="system_form" style="display:none">
+    <input type="text" placeholder="username" name="username" required/>
+    <input type="password" placeholder="password" name="password" required/>
+    <input type="hidden" name="command" value="login"/>
+    <input type="hidden" name="loginType" value="system"/>
+    <input type="submit" value="Login">
+</form>
+
+<form action="Controller" name="app_form" id="app_form" style="display:none">
+    <input type="text" placeholder="steam username" name="steamUsername" required/>
+    <input type="hidden" name="command" value="login"/>
+    <input type="hidden" name="loginType" value="app"/>
+    <input type="submit" value="Enter">
+</form>
+
+<script>
+    $("#loginOptions").on("change", function () {
+        $("#" + $(this).val()).show().siblings().hide();
+    });
+</script>
 </body>
 </html>

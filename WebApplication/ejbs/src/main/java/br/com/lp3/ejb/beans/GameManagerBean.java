@@ -1,14 +1,14 @@
-package br.com.lp3.rmi.manager.impl;
+package br.com.lp3.ejb.beans;
 
 import br.com.lp3.business.GameJSONParser;
+import br.com.lp3.ejb.GameManager;
 import br.com.lp3.entities.dto.Game;
-import br.com.lp3.rmi.manager.GameManager;
 
 import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
-public class GameManagerImpl implements GameManager {
+public class GameManagerBean implements GameManager {
 
     @Override
     public List<Game> getGamesBySteamId(String steamId) {

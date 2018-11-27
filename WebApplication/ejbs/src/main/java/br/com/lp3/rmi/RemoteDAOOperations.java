@@ -1,10 +1,11 @@
-package br.com.lp3.rmi.dao;
+package br.com.lp3.rmi;
 
 import java.util.List;
 import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 
+// TODO maybe create singleton bean and inject it
 @AllArgsConstructor
 public class RemoteDAOOperations<T> {
 

@@ -1,7 +1,7 @@
 ## Steam.fm
 #### LP3 - 4G12 - 2015
 
-**Steam.fm** was a college project for the _Programming Languages 3_ class which we had to consume any API of our choice and build a web application around it using **Java EE** technologies such as **JPA**, **RMI**, **EJB**, **JSF** and **Servlets**.
+**Steam.fm** was a college project for the _Programming Languages 3_ class which we had to consume any API of our choice and build a web application around it using **Java EE** technologies such as **JPA**, **RMI**, **EJB**, **JNDI**, **JSF** and **Servlets**.
 
 Two APIs were chosen for the job: **Steam** and **Last.fm**. The idea was to suggest songs, albums and artists to the user based on their game library on Steam.
 
