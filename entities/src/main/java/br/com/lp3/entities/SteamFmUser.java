@@ -31,7 +31,13 @@ public class SteamFmUser implements Serializable {
 
     String password;
 
+    @Column(name = "is_admin")
+    Boolean isAdmin;
+
     @Column(name = "steam_user")
     String steamUser;
+
+    @Column(name = "steam_id")
+    String steamId;
 
 }

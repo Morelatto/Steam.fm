@@ -32,8 +32,9 @@ public class ArtistDAO implements DAO<Artist> {
     }
 
     @Override
-    public void save(Artist artist) {
+    public Artist save(Artist artist) {
         execute(entityManager -> entityManager.persist(artist));
+        return artist;
     }
 
     @Override

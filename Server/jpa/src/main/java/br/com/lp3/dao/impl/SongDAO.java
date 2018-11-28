@@ -30,10 +30,13 @@ public class SongDAO implements DAO<Song> {
         Query query = entityManager.createQuery("SELECT s FROM Song s");
         return query.getResultList();
     }
+
     @Override
-    public void save(Song song) {
+    public Song save(Song song) {
         execute(entityManager -> entityManager.persist(song));
+        return song;
     }
+
     @Override
     public void update(Song song) {
         execute(entityManager -> entityManager.merge(song));

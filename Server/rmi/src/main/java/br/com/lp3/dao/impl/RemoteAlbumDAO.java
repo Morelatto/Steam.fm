@@ -27,8 +27,8 @@ public class RemoteAlbumDAO extends UnicastRemoteObject implements RemoteDAO<Alb
     }
 
     @Override
-    public void save(Album album) {
-        albumDAO.save(album);
+    public Album save(Album album) {
+        return albumDAO.save(album);
     }
 
     @Override

@@ -32,8 +32,9 @@ public class GameGenreToMusicReleaseDAO implements DAO<GameGenreToMusicRelease> 
     }
 
     @Override
-    public void save(GameGenreToMusicRelease gameGenreToMusicRelease) {
+    public GameGenreToMusicRelease save(GameGenreToMusicRelease gameGenreToMusicRelease) {
         execute(entityManager -> entityManager.persist(gameGenreToMusicRelease));
+        return gameGenreToMusicRelease;
     }
 
     @Override

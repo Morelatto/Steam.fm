@@ -10,4 +10,6 @@ public interface SteamFmUserManager {
 
     RemoteDAOOperations<SteamFmUser> getOperations();
 
+    SteamFmUser getBySteamUsername(String steamUsername);
+
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 
+// TODO refactor
 // TODO maybe create singleton bean and inject it
 @AllArgsConstructor
 public class RemoteDAOOperations<T> {
@@ -32,12 +33,13 @@ public class RemoteDAOOperations<T> {
         return null;
     }
 
-    public void save(T t) {
+    public T save(T t) {
         try {
-            remoteDAO.save(t);
+            return remoteDAO.save(t);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void update(T t) {

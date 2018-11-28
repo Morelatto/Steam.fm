@@ -11,12 +11,14 @@ import javax.ejb.Stateless;
 @Stateless
 public class LoginManagerBean implements LoginManager {
 
+    private SteamFmUserManager steamFmUserManager;
+
     public LoginManagerBean() {
+        steamFmUserManager = ServiceLocator.getInstance().getSteamFmUserManager();
     }
 
     @Override
     public SteamFmUser authorize(String login, String password) {
-        SteamFmUserManager steamFmUserManager = ServiceLocator.getInstance().getSteamFmUserManager();
         return steamFmUserManager
                 .getOperations()
                 .getAll()
@@ -28,8 +30,16 @@ public class LoginManagerBean implements LoginManager {
     }
 
     @Override
-    public String getSteamIdFromUsername(String userSteam) {
-        return LoginJSONParser.getSteamIdFromUsername(userSteam);
+    public SteamFmUser register(String steamUsername) {
+        SteamFmUser steamFmUser = steamFmUserManager.getBySteamUsername(steamUsername);
+        if (steamFmUser == null) {
+            steamFmUser = steamFmUserManager.getOperations().save(SteamFmUser
+                    .builder()
+                    .steamUser(steamUsername)
+                    .steamId(LoginJSONParser.getSteamIdFromUsername(steamUsername))
+                    .build());
+        }
+        return steamFmUser;
     }
 
 }

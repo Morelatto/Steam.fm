@@ -39,10 +39,9 @@ public class Controller extends HttpServlet {
     private static final String LOGIN_TYPE_PARAMETER = "loginType";
     private static final String COMMAND_PARAMETER = "command";
 
-    private static final String STEAM_ID_ATTRIBUTE = "steamId";
-    private static final String INVALID_STEAM_USER_ATTRIBUTE = "invalidSteamUser";
-    private static final String INVALID_SYSTEM_USER_ATTRIBUTE = "invalidSystemUser";
-    private static final String USER_ATTRIBUTE = "user";
+    private static final String INVALID_USER_ATTRIBUTE = "invalidUser";
+    private static final String INVALID_USER_REASON_ATTRIBUTE = "invalidUserReason";
+    private static final String STEAM_FM_USER_ATTRIBUTE = "steamFmUser";
     private static final String GAME_LIST_ATTRIBUTE = "gameList";
 
     private HttpSession session;
@@ -64,11 +63,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        session = request.getSession();
         processRequest(request, response);
     }
 
@@ -78,68 +73,60 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        session = request.getSession();
-
         String command = request.getParameter(COMMAND_PARAMETER);
 
         if (LOGIN_COMMAND.equals(command)) {
             String loginType = request.getParameter(LOGIN_TYPE_PARAMETER);
-            boolean loginSuccessful;
+            boolean loginSuccessful = false;
 
             if (LOGIN_SYSTEM_TYPE.equals(loginType)) {
                 loginSuccessful = login(request.getParameter(USERNAME_PARAMETER),
                         request.getParameter(PASSWORD_PARAMETER));
             } else if (LOGIN_APP_TYPE.equals(loginType)) {
                 loginSuccessful = login(request.getParameter(STEAM_USERNAME_PARAMETER));
-            } else {
-                throw new IOException("Invalid login command");
             }
 
             if (loginSuccessful) {
                 response.sendRedirect(HOME_PAGE);
-            } else {
-                response.sendRedirect(INDEX_PAGE);
             }
         } else if (RECOMMENDATION_COMMAND.equals(command)) {
-            findRecommendations();
+            findRecommendations((SteamFmUser) session.getAttribute(STEAM_FM_USER_ATTRIBUTE));
             response.sendRedirect(RECOMMENDATION_PAGE);
         } else if (LOGOUT_COMMAND.equals(command)) {
             session.invalidate();
-            response.sendRedirect(INDEX_PAGE);
-        } else {
-            throw new IOException("Null command");
         }
+
+        response.sendRedirect(INDEX_PAGE);
     }
 
     private boolean login(String login, String password) {
         SteamFmUser steamFmUser = loginManager.authorize(login, password);
-        if (steamFmUser != null) {
-            session.setAttribute(USER_ATTRIBUTE, steamFmUser);
-            // TODO change way to find out if user is admin
-            if (steamFmUser.getSteamUser() == null) {
-                session.setAttribute("admin", true);
-            }
-            return true;
-        } else {
-            session.setAttribute(INVALID_SYSTEM_USER_ATTRIBUTE, true);
-            return false;
-        }
+        return validateSteamFmUser(steamFmUser);
     }
 
     private boolean login(String steamUsername) {
-        String steamId = loginManager.getSteamIdFromUsername(steamUsername);
-        if (steamId != null) {
-            session.setAttribute(STEAM_ID_ATTRIBUTE, steamId);
-            return true;
-        } else {
-            session.setAttribute(INVALID_STEAM_USER_ATTRIBUTE, true);
-            return false;
-        }
+        SteamFmUser steamFmUser = loginManager.register(steamUsername);
+        return validateSteamFmUser(steamFmUser);
     }
 
-    private void findRecommendations() {
+    private boolean validateSteamFmUser(SteamFmUser steamFmUser) {
+        if (steamFmUser == null) {
+            session.setAttribute(INVALID_USER_ATTRIBUTE, true);
+            session.setAttribute(INVALID_USER_REASON_ATTRIBUTE, "User not found on database");
+            return false;
+        } else if (steamFmUser.getSteamId() == null) {
+            session.setAttribute(INVALID_USER_ATTRIBUTE, true);
+            session.setAttribute(INVALID_USER_REASON_ATTRIBUTE, "Steam id not found for user");
+            return false;
+        }
+        // TODO async get steam games
+        session.setAttribute(STEAM_FM_USER_ATTRIBUTE, steamFmUser);
+        return true;
+    }
+
+    private void findRecommendations(SteamFmUser steamFmUser) {
         List<MusicRelease> recommendations = new ArrayList<>();
-        List<Game> gameList = gameManager.getGamesBySteamId((String) session.getAttribute(STEAM_ID_ATTRIBUTE));
+        List<Game> gameList = gameManager.getGamesBySteamId(steamFmUser.getSteamId());
         gameList.forEach(game -> {
             game.getGameGenreList()
                     .stream()

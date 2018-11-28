@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class TestController extends HttpServlet {
+public class AdminController extends HttpServlet {
 
+    private static final String SERVLET_DESCRIPTION = "Admin controller for database operations";
+    private static final String ADMIN_PAGE = "adminPage.jsp";
     private static final String TEST_STRING = "test";
-    private static final String TEST_PAGE = "indexTest.jsp";
+
     private static final String COMMAND_REQUEST_PARAMETER_NAME = "command";
     private static final String TYPE_REQUEST_PARAMETER_NAME = "type";
+
     private static final String SONG_TYPE_REQUEST_PARAMETER = "song";
     private static final String ALBUM_TYPE_REQUEST_PARAMETER = "album";
     private static final String ARTIST_TYPE_REQUEST_PARAMETER = "artist";
@@ -26,20 +29,15 @@ public class TestController extends HttpServlet {
     private static final String READ_COMMAND_REQUEST_PARAMETER = "read";
     private static final String UPDATE_COMMAND_REQUEST_PARAMETER = "update";
     private static final String DELETE_COMMAND_REQUEST_PARAMETER = "delete";
-    private static final String SERVLET_DESCRIPTION = "Test controller for database operations";
 
     private HttpSession session;
 
-    public TestController() {
+    public AdminController() {
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        session = request.getSession();
         processRequest(request, response);
     }
 
@@ -49,7 +47,6 @@ public class TestController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        session = request.getSession();
         ServiceLocator serviceLocator = ServiceLocator.getInstance();
 
         String command = request.getParameter(COMMAND_REQUEST_PARAMETER_NAME);
@@ -71,7 +68,7 @@ public class TestController extends HttpServlet {
             } else if (STEAM_FM_USER_TYPE_REQUEST_PARAMETER.equals(type)) {
                 doOperation(serviceLocator.getSteamFmUserManager().getOperations(), buildSteamFmUser(), command);
             }
-            response.sendRedirect(TEST_PAGE);
+            response.sendRedirect(ADMIN_PAGE);
         }
     }
 

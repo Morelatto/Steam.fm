@@ -27,8 +27,8 @@ public class RemoteSteamFmUserDAO extends UnicastRemoteObject implements RemoteD
     }
 
     @Override
-    public void save(SteamFmUser steamFmUser) {
-        steamFmUserDAO.save(steamFmUser);
+    public SteamFmUser save(SteamFmUser steamFmUser) {
+        return steamFmUserDAO.save(steamFmUser);
     }
 
     @Override

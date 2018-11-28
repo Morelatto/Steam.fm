@@ -27,8 +27,8 @@ public class RemoteArtistDAO extends UnicastRemoteObject implements RemoteDAO<Ar
     }
 
     @Override
-    public void save(Artist artist) {
-        artistDAO.save(artist);
+    public Artist save(Artist artist) {
+        return artistDAO.save(artist);
     }
 
     @Override

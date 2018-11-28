@@ -11,7 +11,7 @@ public interface RemoteDAO<T> extends Remote {
 
     List<T> getAll() throws RemoteException;
 
-    void save(T t) throws RemoteException;
+    T save(T t) throws RemoteException;
 
     void update(T t) throws RemoteException;
 

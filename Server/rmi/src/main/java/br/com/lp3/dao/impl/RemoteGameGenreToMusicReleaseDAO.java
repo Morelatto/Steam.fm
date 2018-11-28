@@ -27,8 +27,8 @@ public class RemoteGameGenreToMusicReleaseDAO extends UnicastRemoteObject implem
     }
 
     @Override
-    public void save(GameGenreToMusicRelease gameGenreToMusicRelease) {
-        gameGenreToMusicReleaseDAO.save(gameGenreToMusicRelease);
+    public GameGenreToMusicRelease save(GameGenreToMusicRelease gameGenreToMusicRelease) {
+        return gameGenreToMusicReleaseDAO.save(gameGenreToMusicRelease);
     }
 
     @Override

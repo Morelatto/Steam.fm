@@ -9,6 +9,6 @@ public interface LoginManager {
 
     SteamFmUser authorize(String login, String senha);
 
-    String getSteamIdFromUsername(String userSteam);
+    SteamFmUser register(String userSteam);
 
 }

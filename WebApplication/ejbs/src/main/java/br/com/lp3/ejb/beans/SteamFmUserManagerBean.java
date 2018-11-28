@@ -31,4 +31,14 @@ public class SteamFmUserManagerBean implements SteamFmUserManager {
         return operations;
     }
 
+    @Override
+    public SteamFmUser getBySteamUsername(String steamUsername) {
+        return operations
+                .getAll()
+                .stream()
+                .filter(steamFmUser -> steamFmUser.getSteamUser().equalsIgnoreCase(steamUsername))
+                .findFirst()
+                .orElse(null);
+    }
+
 }

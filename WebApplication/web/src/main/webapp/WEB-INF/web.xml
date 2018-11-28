@@ -10,8 +10,8 @@
         <servlet-class>br.com.lp3.controller.Controller</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TestController</servlet-name>
-        <servlet-class>br.com.lp3.controller.TestController</servlet-class>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>br.com.lp3.controller.AdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -23,8 +23,8 @@
         <url-pattern>/Controller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TestController</servlet-name>
-        <url-pattern>/TestController</url-pattern>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/AdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

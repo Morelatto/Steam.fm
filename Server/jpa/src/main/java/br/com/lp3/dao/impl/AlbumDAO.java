@@ -33,8 +33,9 @@ public class AlbumDAO implements DAO<Album> {
     }
 
     @Override
-    public void save(Album album) {
+    public Album save(Album album) {
         execute(entityManager -> entityManager.persist(album));
+        return album;
     }
 
     @Override

@@ -32,8 +32,9 @@ public class SteamFmUserDAO implements DAO<SteamFmUser> {
     }
 
     @Override
-    public void save(SteamFmUser steamFmUser) {
+    public SteamFmUser save(SteamFmUser steamFmUser) {
         execute(entityManager -> entityManager.persist(steamFmUser));
+        return steamFmUser;
     }
 
     @Override

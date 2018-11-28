@@ -27,8 +27,8 @@ public class RemoteGameGenreDAO extends UnicastRemoteObject implements RemoteDAO
     }
 
     @Override
-    public void save(GameGenre gameGenre) {
-        gameGenreDAO.save(gameGenre);
+    public GameGenre save(GameGenre gameGenre) {
+        return gameGenreDAO.save(gameGenre);
     }
 
     @Override

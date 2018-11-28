@@ -27,8 +27,8 @@ public class RemoteSongDAO extends UnicastRemoteObject implements RemoteDAO<Song
     }
 
     @Override
-    public void save(Song song) {
-        songDAO.save(song);
+    public Song save(Song song) {
+        return songDAO.save(song);
     }
 
     @Override

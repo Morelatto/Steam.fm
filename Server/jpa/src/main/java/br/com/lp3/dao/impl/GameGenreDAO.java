@@ -32,8 +32,9 @@ public class GameGenreDAO implements DAO<GameGenre> {
     }
 
     @Override
-    public void save(GameGenre gameGenre) {
+    public GameGenre save(GameGenre gameGenre) {
         execute(entityManager -> entityManager.persist(gameGenre));
+        return gameGenre;
     }
 
     @Override

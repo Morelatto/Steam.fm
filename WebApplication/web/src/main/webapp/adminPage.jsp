@@ -7,7 +7,7 @@
     <title>Database tests page</title>
 </head>
 <body>
-<form action="TestController">
+<form action="AdminController">
     <table>
         <tr>
             <td><input title="Song" type="radio" name="type" value="song"> Song</td>

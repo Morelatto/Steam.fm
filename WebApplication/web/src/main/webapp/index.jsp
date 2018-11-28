@@ -9,11 +9,8 @@
 </head>
 <body>
 
-<c:if test="${invalidSystemUser}">
-    <script>alert('Invalid system user \'${invalidSystemUser}\'');</script>
-</c:if>
-<c:if test="${invalidSteamUser}">
-    <script>alert('Steam user \'${invalidSteamUser}\' not found');</script>
+<c:if test="${invalidUser}">
+    <script>alert('${invalidUserReason}');</script>
 </c:if>
 
 <select id="loginOptions" title="Login options">
