@@ -4,9 +4,9 @@
         <h3>Welcome</h3>
         <form action="${pageContext.servletContext.contextPath}/Controller">
             <input type="text" name="command" value="login" hidden>
-            <input type="text" name="commandAux" value="sistema" hidden>
-            <input type="text" name="loginSistema" placeholder="Login">
-            <input type="password" name="senhaSistema" placeholder="Senha">
+            <input type="text" name="loginType" value="system" hidden>
+            <input type="text" name="username" placeholder="Login">
+            <input type="password" name="password" placeholder="Senha">
             <input class="button" type="submit" value="OK">
         </form>
     </div>

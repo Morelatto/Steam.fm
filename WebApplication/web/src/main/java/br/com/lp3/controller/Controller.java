@@ -27,12 +27,11 @@ public class Controller extends HttpServlet {
     private static final String INDEX_PAGE = "index.jsp";
     private static final String RECOMMENDATION_PAGE = "recomendacao.jsp";
 
-    private static final String LOGIN_COMMAND = "login";
     private static final String RECOMMENDATION_COMMAND = "recommendation";
     private static final String LOGOUT_COMMAND = "logout";
-
-    private static final String SYSTEM_LOGIN_TYPE = "system";
-    private static final String APP_LOGIN_TYPE = "app";
+    private static final String LOGIN_COMMAND = "login";
+    private static final String LOGIN_SYSTEM_TYPE = "system";
+    private static final String LOGIN_APP_TYPE = "app";
 
     private static final String USERNAME_PARAMETER = "username";
     private static final String STEAM_USERNAME_PARAMETER = "steamUsername";
@@ -87,10 +86,10 @@ public class Controller extends HttpServlet {
             String loginType = request.getParameter(LOGIN_TYPE_PARAMETER);
             boolean loginSuccessful;
 
-            if (SYSTEM_LOGIN_TYPE.equals(loginType)) {
+            if (LOGIN_SYSTEM_TYPE.equals(loginType)) {
                 loginSuccessful = login(request.getParameter(USERNAME_PARAMETER),
                         request.getParameter(PASSWORD_PARAMETER));
-            } else if (APP_LOGIN_TYPE.equals(loginType)) {
+            } else if (LOGIN_APP_TYPE.equals(loginType)) {
                 loginSuccessful = login(request.getParameter(STEAM_USERNAME_PARAMETER));
             } else {
                 throw new IOException("Invalid login command");

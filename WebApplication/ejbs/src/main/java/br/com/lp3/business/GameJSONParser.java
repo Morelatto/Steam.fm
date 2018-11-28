@@ -41,11 +41,14 @@ public class GameJSONParser {
         try {
             JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.steamOwnedGames(steamId));
             JSONObject response = mainObject.getJSONObject(STEAM_RESPONSE_KEY);
-            return response.getJSONArray(STEAM_GAMES_KEY);
+            if (response.has(STEAM_GAMES_KEY)) {
+                return response.getJSONArray(STEAM_GAMES_KEY);
+            }
         } catch (IOException e) {
             // TODO log
-            return new JSONArray();
+            e.printStackTrace();
         }
+        return new JSONArray();
     }
 
 }

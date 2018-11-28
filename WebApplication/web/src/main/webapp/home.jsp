@@ -24,7 +24,7 @@
     </script>
 </div>
 <div id="cta-buttons-wrapper">
-    <a href="javascript:delay('${pageContext.servletContext.contextPath}/load.jsp?command=recomendacao');">
+    <a href="javascript:delay('${pageContext.servletContext.contextPath}/load.jsp?command=recommendation');">
         <div class="button">Recomendação</div>
     </a>
 </div>

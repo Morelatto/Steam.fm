@@ -15,7 +15,7 @@
     </div>
     <nav class="navs">
         <ul role="navigation" class="hidden">
-            <li><a href="${pageContext.servletContext.contextPath}/load.jsp?command=recomendacao">RECOMENDAÇÃO</a></li>
+            <li><a href="${pageContext.servletContext.contextPath}/load.jsp?command=recommendation">RECOMENDAÇÃO</a></li>
             <%-- <c:if test="${admin}"><li><a href="http://store.steampowered.com/">MANUTENÇÃO</a></li></c:if> --%>
             <li><a href="http://store.steampowered.com/" target="_blank">STEAM</a></li>
             <li><a href="http://www.last.fm/" target="_blank">LAST.FM</a></li>

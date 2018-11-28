@@ -11,7 +11,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>web</artifactId>
-    <name>WebApplication web module</name>
+    <name>Steam.fm web module</name>
     <packaging>war</packaging>
 
     <dependencies>
@@ -19,7 +19,6 @@
             <groupId>br.com.lp3</groupId>
             <artifactId>ejbs</artifactId>
             <type>ejb</type>
-            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -33,11 +32,6 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.com.lp3</groupId>
-            <artifactId>entities</artifactId>
         </dependency>
     </dependencies>
 

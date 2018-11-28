@@ -1,7 +1,7 @@
 package br.com.lp3.ejb;
 
 import br.com.lp3.entities.Artist;
-import br.com.lp3.rmi.RemoteDAOOperations;
+import br.com.lp3.utilities.RemoteDAOOperations;
 
 import javax.ejb.Local;
 

@@ -1,9 +1,9 @@
 package br.com.lp3.ejb.beans;
 
+import br.com.lp3.dao.RemoteDAO;
 import br.com.lp3.ejb.SteamFmUserManager;
 import br.com.lp3.entities.SteamFmUser;
-import br.com.lp3.rmi.RemoteDAO;
-import br.com.lp3.rmi.RemoteDAOOperations;
+import br.com.lp3.utilities.RemoteDAOOperations;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

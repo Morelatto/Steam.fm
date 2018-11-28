@@ -1,6 +1,6 @@
 package br.com.lp3.controller;
 
-import br.com.lp3.rmi.RemoteDAOOperations;
+import br.com.lp3.utilities.RemoteDAOOperations;
 import br.com.lp3.utilities.ServiceLocator;
 import br.com.lp3.entities.*;
 

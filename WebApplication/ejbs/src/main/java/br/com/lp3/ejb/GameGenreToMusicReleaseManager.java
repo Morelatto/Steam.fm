@@ -2,7 +2,7 @@ package br.com.lp3.ejb;
 
 import br.com.lp3.entities.GameGenre;
 import br.com.lp3.entities.GameGenreToMusicRelease;
-import br.com.lp3.rmi.RemoteDAOOperations;
+import br.com.lp3.utilities.RemoteDAOOperations;
 
 import javax.ejb.Local;
 
