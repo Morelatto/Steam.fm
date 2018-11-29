@@ -16,10 +16,12 @@ public class UrlBuilder {
     private static final String STEAM_API_KEY_PARAM = "key=" + STEAM_API_KEY;
     private static final String STEAM_ID_PARAM = "steamid=";
     private static final String STEAM_VANITY_URL_PARAM = "vanityurl=";
-    private static final String LAST_FM_SIMILAR_ARTISTS = "method=artist.getSimilar";
-    private static final String LAST_FM_SIMILAR_ALBUMS = "method=album.getInfo";
-    private static final String LAST_FM_SIMILAR_SONGS = "method=track.getSimilar";
+    private static final String LAST_FM_SIMILAR_ARTISTS_PARAM = "method=artist.getsimilar";
+    private static final String LAST_FM_SIMILAR_SONGS_PARAM = "method=track.getsimilar";
+    private static final String LAST_FM_TOP_TAGS_PARAM = "method=album.gettoptags";
+    private static final String LAST_FM_TOP_ALBUMS_PARAM = "method=tag.gettopalbums";
     private static final String LAST_FM_MBID_PARAM = "mbid=";
+    private static final String LAST_FM_TAG_PARAM = "tag=";
     private static final String LAST_FM_API_KEY_PARAM = "api_key=" + LAST_FM_API_KEY;
     private static final String LAST_FM_JSON_FORMAT = "format=json";
 
@@ -41,17 +43,22 @@ public class UrlBuilder {
     }
 
     public static String lastFmSimilarArtists(String lastFmId) {
-        return LAST_FM_API_URL + "?" + LAST_FM_SIMILAR_ARTISTS + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
+        return LAST_FM_API_URL + "?" + LAST_FM_SIMILAR_ARTISTS_PARAM + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
                 + LAST_FM_API_KEY_PARAM + "&" + LAST_FM_JSON_FORMAT;
     }
 
-    public static String lastFmSimilarAlbums(String lastFmId) {
-        return LAST_FM_API_URL + "?" + LAST_FM_SIMILAR_ALBUMS + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
+    public static String lastFmTopTags(String lastFmId) {
+        return LAST_FM_API_URL + "?" + LAST_FM_TOP_TAGS_PARAM + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
+                + LAST_FM_API_KEY_PARAM + "&" + LAST_FM_JSON_FORMAT;
+    }
+
+    public static String lastFmTopAlbumsByTag(String tag) {
+        return LAST_FM_API_URL + "?" + LAST_FM_TOP_ALBUMS_PARAM + "&" + LAST_FM_TAG_PARAM + tag + "&"
                 + LAST_FM_API_KEY_PARAM + "&" + LAST_FM_JSON_FORMAT;
     }
 
     public static String lastFmSimilarSongs(String lastFmId) {
-        return LAST_FM_API_URL + "?" + LAST_FM_SIMILAR_SONGS + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
+        return LAST_FM_API_URL + "?" + LAST_FM_SIMILAR_SONGS_PARAM + "&" + LAST_FM_MBID_PARAM + lastFmId + "&"
                 + LAST_FM_API_KEY_PARAM + "&" + LAST_FM_JSON_FORMAT;
     }
 

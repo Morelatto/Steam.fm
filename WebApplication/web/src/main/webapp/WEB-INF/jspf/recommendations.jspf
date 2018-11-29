@@ -1,0 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+
+<div class="scrollmenu">
+    <c:forEach items="${game.getRecommendationList()}" var="musicRelease">
+        <a href="${musicRelease.getUrl()}">
+            <img src="${musicRelease.getImage()}">
+            <p>${musicRelease.getName()}</p>
+        </a>
+    </c:forEach>
+</div>

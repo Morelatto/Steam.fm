@@ -35,6 +35,7 @@ public class LoginManagerBean implements LoginManager {
         if (steamFmUser == null) {
             steamFmUser = steamFmUserManager.getOperations().save(SteamFmUser
                     .builder()
+                    .isAdmin(false)
                     .steamUser(steamUsername)
                     .steamId(LoginJSONParser.getSteamIdFromUsername(steamUsername))
                     .build());

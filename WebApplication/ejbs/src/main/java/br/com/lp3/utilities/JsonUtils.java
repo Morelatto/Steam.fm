@@ -18,10 +18,14 @@ public class JsonUtils {
     public static final String LAST_FM_NAME_KEY = "name";
     public static final String LAST_FM_IMAGE_KEY = "image";
     public static final String LAST_FM_URL_KEY = "url";
-    public static final String LAST_FM_SIMILAR_TRACKS_JSON_KEY = "similartracks";
-    public static final String LAST_FM_SIMILAR_ARTISTS_JSON_KEY = "similarartists";
+    public static final String LAST_FM_SIMILAR_TRACKS_KEY = "similartracks";
+    public static final String LAST_FM_SIMILAR_ARTISTS_KEY = "similarartists";
     public static final String LAST_FM_TRACK_KEY = "track";
     public static final String LAST_FM_ARTIST_KEY = "artist";
+    public static final String LAST_FM_TOP_TAGS_KEY = "toptags";
+    public static final String LAST_FM_TAG_KEY = "tag";
+    public static final String LAST_FM_ALBUMS_KEY = "albums";
+    public static final String LAST_FM_ALBUM_KEY = "album";
     private static final String LAST_FM_IMAGE_URL_KEY = "#text";
 
     public static final String STEAM_GAME_ID_KEY = "appid";

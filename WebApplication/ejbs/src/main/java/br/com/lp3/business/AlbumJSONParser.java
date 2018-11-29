@@ -4,68 +4,68 @@ import br.com.lp3.entities.Album;
 import br.com.lp3.utilities.JsonUtils;
 import br.com.lp3.utilities.UrlBuilder;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static br.com.lp3.utilities.JsonUtils.*;
+
+// TODO null assertion on json objects
 public class AlbumJSONParser {
+
+    private static final int MAX_TAGS = 2;
+    private static final int MAX_RECOMMENDATIONS_PER_TAG = 5;
+
+    private AlbumJSONParser() {
+    }
 
     public static List<Album> getRecommendation(Album album) {
         List<Album> recommendations = new ArrayList<>();
+
         try {
-            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmSimilarAlbums(album.getLastFmId()));
-            JSONObject albumObject = mainObject.getJSONObject("album");
-            JSONObject tagsObject = mainObject.getJSONObject("tags");
-            JSONArray tagArray = mainObject.getJSONArray("tag");
+            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmTopTags(album.getLastFmId()));
+            JSONObject topTagsObject = mainObject.getJSONObject(LAST_FM_TOP_TAGS_KEY);
+            JSONArray tagArray = topTagsObject.getJSONArray(LAST_FM_TAG_KEY);
+
+            for (int i = 0; i < tagArray.length() && i < MAX_TAGS; i++) {
+                JSONObject tagObject = tagArray.getJSONObject(i);
+                recommendations.addAll(getAlbumsByTag(tagObject.getString(LAST_FM_NAME_KEY)));
+            }
         } catch (IOException e) {
+            // TODO log
             e.printStackTrace();
         }
-//        JsonObject albumObj = mainObj.getJsonObject("album");
-//        JsonObject tags = albumObj.getJsonObject("tags");
-//        JsonArray tag = tags.getJsonArray("tag");
-//        JsonObject tagObj = tag.getJsonObject(ThreadLocalRandom.current().nextInt(0, tag.size()));
-//        recommendations.addAll(getRandomAlbunsByTag(tagObj.getString("name")));
+
         return recommendations;
     }
 
-//    private static List<Album> getRandomAlbunsByTag(String tag) {
-//        List<Album> listaAlbunsRecomendados = new ArrayList<>();
-//
-//        JsonObject mainObj = URLGetter.getContent(LAST_FM_API_URL + "?method=tag.getTopAlbums&tag=" + tag + "&api_key="
-//                + LAST_FM_API_KEY + "&format=json");
-//
-//        JsonObject albums = mainObj.getJsonObject("albums");
-//        JsonArray album = albums.getJsonArray("album");
-//        for (int i = 0; i < 5; i++) {
-//            JsonObject albumObj = album.getJsonObject(ThreadLocalRandom.current().nextInt(0, album.size()));
-//            if (!"".equals(albumObj.getString("mbid", ""))) {
-//                Album albumRec = new Album();
-//                albumRec.setLastFmId(albumObj.getString("mbid"));
-//                albumRec.setUrl(albumObj.getString("url"));
-//                albumRec.setName(albumObj.getString("name"));
-//                albumRec
-//                        .setImage(albumObj.containsKey("image") ? (albumObj.getJsonArray("image").size() == 6 ? albumObj
-//                                .getJsonArray("image")
-//                                .getJsonObject(4)
-//                                .getString("#text", "")
-//                                : albumObj.getJsonArray("image").getJsonObject(3).getString("#text", ""))
-//                                : "");
-//                albumRec.setDescription(albumObj.containsValue("wiki") ? albumObj
-//                        .getJsonObject("wiki")
-//                        .getString("summary", "") : "");
-//                listaAlbunsRecomendados.add(albumRec);
-//            } else {
-//                i--;
-//            }
-//        }
-//        return listaAlbunsRecomendados;
-//    }
+    private static List<Album> getAlbumsByTag(String tag) {
+        List<Album> albumList = new ArrayList<>();
+        try {
+            JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmTopAlbumsByTag(tag));
+            JSONObject albumsObject = mainObject.getJSONObject(LAST_FM_ALBUMS_KEY);
+            JSONArray albumsArray = albumsObject.getJSONArray(LAST_FM_ALBUM_KEY);
+            for (int i = 0; i < albumsArray.length() && i < MAX_RECOMMENDATIONS_PER_TAG; i++) {
+                JSONObject albumObject = albumsArray.getJSONObject(i);
+                String lastFmId = albumObject.getString(LAST_FM_MBID_KEY);
+                if (lastFmId != null) {
+                    albumList.add(Album
+                            .builder()
+                            .lastFmId(lastFmId)
+                            .name(albumObject.getString(LAST_FM_NAME_KEY))
+                            .image(JsonUtils.getLastFmImage(albumObject.getJSONArray(LAST_FM_IMAGE_KEY)))
+                            .url(albumObject.getString(LAST_FM_URL_KEY))
+                            .build());
+                }
+            }
+        } catch (IOException e) {
+            // TODO log
+            e.printStackTrace();
+        }
+        return albumList;
+    }
 
 }

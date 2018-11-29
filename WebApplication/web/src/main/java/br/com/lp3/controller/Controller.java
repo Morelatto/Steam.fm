@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
 
     private static final String HOME_PAGE = "home.jsp";
     private static final String INDEX_PAGE = "index.jsp";
-    private static final String RECOMMENDATION_PAGE = "recomendacao.jsp";
+    private static final String RECOMMENDATION_PAGE = "recommendation.jsp";
 
     private static final String RECOMMENDATION_COMMAND = "recommendation";
     private static final String LOGOUT_COMMAND = "logout";
@@ -88,10 +88,12 @@ public class Controller extends HttpServlet {
 
             if (loginSuccessful) {
                 response.sendRedirect(HOME_PAGE);
+                return;
             }
         } else if (RECOMMENDATION_COMMAND.equals(command)) {
             findRecommendations((SteamFmUser) session.getAttribute(STEAM_FM_USER_ATTRIBUTE));
             response.sendRedirect(RECOMMENDATION_PAGE);
+            return;
         } else if (LOGOUT_COMMAND.equals(command)) {
             session.invalidate();
         }
@@ -124,10 +126,11 @@ public class Controller extends HttpServlet {
         return true;
     }
 
+    // TODO limit games based on most played (order)
     private void findRecommendations(SteamFmUser steamFmUser) {
-        List<MusicRelease> recommendations = new ArrayList<>();
-        List<Game> gameList = gameManager.getGamesBySteamId(steamFmUser.getSteamId());
+        List<Game> gameList = gameManager.getGamesBySteamId(steamFmUser.getSteamId()).subList(0, 3);
         gameList.forEach(game -> {
+            List<MusicRelease> recommendations = new ArrayList<>();
             game.getGameGenreList()
                     .stream()
                     .map(gameGenre -> gameGenreManager.getByName(gameGenre.getName()))

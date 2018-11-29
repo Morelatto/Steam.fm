@@ -37,7 +37,7 @@ public class GameGenreToMusicReleaseManagerBean implements GameGenreToMusicRelea
         return operations
                 .getAll()
                 .stream()
-                .filter(gameGenreToMusicRelease -> gameGenreToMusicRelease.getGameGenre() == gameGenre)
+                .filter(gameGenreToMusicRelease -> gameGenreToMusicRelease.getGameGenre().equals(gameGenre))
                 .findFirst()
                 .orElse(null);
     }

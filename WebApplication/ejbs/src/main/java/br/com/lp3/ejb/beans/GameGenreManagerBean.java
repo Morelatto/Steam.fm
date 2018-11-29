@@ -36,7 +36,7 @@ public class GameGenreManagerBean implements GameGenreManager {
         return operations
                 .getAll()
                 .stream()
-                .filter(gameGenre -> name.equals(gameGenre.getName()))
+                .filter(gameGenre -> name.equalsIgnoreCase(gameGenre.getName()))
                 .findFirst()
                 .orElse(null);
     }

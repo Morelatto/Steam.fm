@@ -1,5 +1,6 @@
 package br.com.lp3.business;
 
+import br.com.lp3.entities.GameGenre;
 import br.com.lp3.entities.dto.Game;
 import br.com.lp3.utilities.JsonUtils;
 import br.com.lp3.utilities.UrlBuilder;
@@ -7,6 +8,8 @@ import br.com.lp3.utilities.UrlBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.extern.java.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,12 +30,15 @@ public class GameJSONParser {
         for (int i = 0; i < gamesJsonArray.length(); i++) {
             JSONObject game = gamesJsonArray.getJSONObject(i);
             long gameId = game.getLong(STEAM_GAME_ID_KEY);
-            gamesList.add(Game
-                    .builder()
-                    .id(gameId)
-                    .name(game.getString(STEAM_GAME_NAME_KEY))
-                    .gameGenreList(GameGenreJSONParser.getGameGenresByGameId(gameId))
-                    .build());
+            List<GameGenre> gameGenreList = GameGenreJSONParser.getGameGenresByGameId(gameId);
+            if (!gameGenreList.isEmpty()) {
+                gamesList.add(Game
+                        .builder()
+                        .id(gameId)
+                        .name(game.getString(STEAM_GAME_NAME_KEY))
+                        .gameGenreList(gameGenreList)
+                        .build());
+            }
         }
         return gamesList;
     }
