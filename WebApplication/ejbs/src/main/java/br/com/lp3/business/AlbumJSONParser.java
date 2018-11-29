@@ -6,6 +6,7 @@ import br.com.lp3.utilities.UrlBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -23,7 +24,7 @@ public class AlbumJSONParser {
     }
 
     public static List<Album> getRecommendation(Album album) {
-        List<Album> recommendations = new ArrayList<>();
+        List<Album> recommendations = Arrays.asList(album);
 
         try {
             JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmTopTags(album.getLastFmId()));

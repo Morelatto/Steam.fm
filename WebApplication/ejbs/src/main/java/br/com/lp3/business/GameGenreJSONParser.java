@@ -13,6 +13,8 @@ import org.jsoup.select.Elements;
 
 class GameGenreJSONParser {
 
+    private static final String GAME_TAGS_SELECTOR = ".app_tag";
+
     private GameGenreJSONParser() {
     }
 
@@ -21,7 +23,7 @@ class GameGenreJSONParser {
 
         try {
             Document steamPage = Jsoup.connect(UrlBuilder.steamGamePage(gameId)).get();
-            Elements gameGenreElements = steamPage.select(".app_tag");
+            Elements gameGenreElements = steamPage.select(GAME_TAGS_SELECTOR);
             gameGenreElements.forEach(gg -> GameGenre.builder().name(gg.text()).build());
         } catch (IOException e) {
             e.printStackTrace();

@@ -8,16 +8,14 @@ import br.com.lp3.utilities.UrlBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.extern.java.Log;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import static br.com.lp3.utilities.JsonUtils.STEAM_GAME_ID_KEY;
-import static br.com.lp3.utilities.JsonUtils.STEAM_GAME_NAME_KEY;
-import static br.com.lp3.utilities.JsonUtils.STEAM_RESPONSE_KEY;
-import static br.com.lp3.utilities.JsonUtils.STEAM_GAMES_KEY;
+import static br.com.lp3.utilities.JsonUtils.*;
 
 public class GameJSONParser {
 
@@ -48,13 +46,34 @@ public class GameJSONParser {
             JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.steamOwnedGames(steamId));
             JSONObject response = mainObject.getJSONObject(STEAM_RESPONSE_KEY);
             if (response.has(STEAM_GAMES_KEY)) {
-                return response.getJSONArray(STEAM_GAMES_KEY);
+                return sortGamesByPlaytime(response.getJSONArray(STEAM_GAMES_KEY));
             }
         } catch (IOException e) {
             // TODO log
             e.printStackTrace();
         }
         return new JSONArray();
+    }
+
+    private static JSONArray sortGamesByPlaytime(JSONArray gamesJsonArray) {
+        List<JSONObject> gamesJsonObjectList = IntStream
+                .range(0, gamesJsonArray.length())
+                .mapToObj(gamesJsonArray::getJSONObject)
+                .sorted((a, b) -> {
+                    int valA = 0;
+                    int valB = 0;
+                    try {
+                        valA = a.getInt(STEAM_PLAYTIME_KEY);
+                        valB = b.getInt(STEAM_PLAYTIME_KEY);
+                    } catch (JSONException ignored) {
+                    }
+                    return valB - valA;
+                })
+                .collect(Collectors.toList());
+
+        JSONArray sortedGamesJsonArray = new JSONArray();
+        gamesJsonObjectList.forEach(sortedGamesJsonArray::put);
+        return sortedGamesJsonArray;
     }
 
 }

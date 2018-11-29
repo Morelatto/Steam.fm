@@ -5,18 +5,13 @@ import br.com.lp3.utilities.JsonUtils;
 import br.com.lp3.utilities.UrlBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_MBID_KEY;
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_NAME_KEY;
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_IMAGE_KEY;
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_URL_KEY;
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_SIMILAR_ARTISTS_KEY;
-import static br.com.lp3.utilities.JsonUtils.LAST_FM_ARTIST_KEY;
+import static br.com.lp3.utilities.JsonUtils.*;
 
 // TODO null assertion on json objects
 public class ArtistJSONParser {
@@ -27,7 +22,7 @@ public class ArtistJSONParser {
     }
 
     public static List<Artist> getRecommendation(Artist artist) {
-        List<Artist> recommendations = new ArrayList<>();
+        List<Artist> recommendations = Arrays.asList(artist);
 
         try {
             JSONObject mainObject = JsonUtils.readJsonFromUrl(UrlBuilder.lastFmSimilarArtists(artist.getLastFmId()));

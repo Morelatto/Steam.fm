@@ -33,6 +33,7 @@ public class JsonUtils {
     public static final String STEAM_RESPONSE_KEY = "response";
     public static final String STEAM_GAMES_KEY = "games";
     public static final String STEAM_ID_KEY = "steamid";
+    public static final String STEAM_PLAYTIME_KEY = "playtime_forever";
 
     private JsonUtils() {
     }
