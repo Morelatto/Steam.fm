@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AdminController extends HttpServlet {
 
     private static final String SERVLET_DESCRIPTION = "Admin controller for database operations";
-    private static final String ADMIN_PAGE = "adminPage.jsp";
+    private static final String ADMIN_PAGE = "admin.jsp";
     private static final String TEST_STRING = "test";
 
     private static final String COMMAND_REQUEST_PARAMETER_NAME = "command";

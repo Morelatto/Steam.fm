@@ -13,10 +13,13 @@ import br.com.lp3.ejb.SteamFmUserManager;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+/**
+ * For this project one of the requirements were the manual EJB lookup using JNDI instead of using @EJB or @Inject
+ * annotations.
+ */
 public class ServiceLocator {
 
-    private static final String APPLICATION_NAME = "web-1.0-SNAPSHOT";
-    private static final String PREFIX = "java:global/";
+    private static final String PREFIX = "java:module/";
     private static ServiceLocator instance;
 
     private ServiceLocator() {
@@ -68,7 +71,7 @@ public class ServiceLocator {
     private <T> T jndiLookup(Class<T> clazz) {
         try {
             InitialContext context = new InitialContext();
-            return clazz.cast(context.lookup(PREFIX + APPLICATION_NAME + "/" + clazz.getSimpleName() + "Bean"));
+            return clazz.cast(context.lookup(PREFIX + clazz.getSimpleName() + "Bean"));
         } catch (NamingException e) {
             // TODO log
             e.printStackTrace();
