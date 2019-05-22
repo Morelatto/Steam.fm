@@ -1,12 +1,8 @@
 ## Steam.fm
 #### LP3 - 4G12 - 2015
 
-**Steam.fm** was a college project for the _Programming Languages 3_ class which we had to consume any API of our choice and build a web application around it using **Java EE** technologies such as **JPA**, **RMI**, **EJB**, **JNDI**, **JSF** and **Servlets**.
+Steam.fm is a music recommendation web application developed for the _Programming Languages 3_ class in college. The project was developed using **Java EE** technologies and two APIs of our choice. The idea was to suggest songs, albums and artists to the user based on their game library using **Steam** and **Last.fm** public APIs. The recommendation was created using a database relation between game genres and music releases and the project was deployed on a GlassFish server using Derby. 
 
-Two APIs were chosen for the job: **Steam** and **Last.fm**. The idea was to suggest songs, albums and artists to the user based on their game library on Steam.
+The use of Java RMI was required and applied on remote calls for database operations (CRUD), one application provided the RMI server and a second one exposed a web interface to the client. The database entities (JPA) were put in a different package so they could be reused. 
 
-The recommendation was made using a database relation between game genres and music releases. The project was deployed on a **GlassFish** server using **Derby**.
-
-**Java RMI** was one of the requirements for the project and used to perform remote calls for database operations, therefore one application provided the RMI server and another worked as a client, which also exposed a web interface to the user.
-
-The **JPA** entities were abstracted to a different project so they could be used as a common library in the server and client.
+Other technologies used: EJB, JNDI, JSF and Servlets.
